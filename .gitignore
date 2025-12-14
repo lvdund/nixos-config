@@ -1,0 +1,17 @@
+# Nix build artifacts
+result
+result-*
+
+# Nix flake lock file (optional - some prefer to commit this)
+# flake.lock
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+hardware-configuration.nix
