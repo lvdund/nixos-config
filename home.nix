@@ -20,13 +20,41 @@
 
   # Link your custom configs
   home.file = {
-    ".config/i3".source = ./config/i3;
-    ".config/i3status".source = ./config/i3status;
-    ".config/rofi".source = ./config/rofi;
-    ".config/dunst".source = ./config/dunst;
-    ".config/kitty".source = ./config/kitty;
-    ".config/nvim".source = ./config/nvim;
-    ".config/Thunar".source = ./config/Thunar;
+    ".config/i3" = {
+      source = ./config/i3;
+      recursive = true;
+      force = true;
+    };
+    ".config/i3status" = {
+      source = ./config/i3status;
+      recursive = true;
+      force = true;
+    };
+    ".config/rofi" = {
+      source = ./config/rofi;
+      recursive = true;
+      force = true;
+    };
+    ".config/dunst" = {
+      source = ./config/dunst;
+      recursive = true;
+      force = true;
+    };
+    ".config/kitty" = {
+      source = ./config/kitty;
+      recursive = true;
+      force = true;
+    };
+    ".config/nvim" = {
+      source = ./config/nvim;
+      recursive = true;
+      force = true;
+    };
+    ".config/Thunar" = {
+      source = ./config/Thunar;
+      recursive = true;
+      force = true;
+    };
   };
 
   # Fish shell
@@ -49,8 +77,14 @@
       };
     };
   };
+  programs.chromium = {
+    enable = true;
+    package = pkgs.brave;
+    commandLineArgs = [
+      "--disable-features=WebRtcAllowInputVolumeAdjustment"
+    ];
+  };
 
   # Let home-manager manage itself
   programs.home-manager.enable = true;
 }
-

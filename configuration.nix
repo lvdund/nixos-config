@@ -6,19 +6,17 @@
   ];
 
   # Bootloader
-  boot.loader.grub = {
-    enable = true;
-    device = "/dev/sda";
-    useOSProber = true;
-  };
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   # Networking
   networking = {
     hostName = "homepc";
     networkmanager.enable = true;
-    # WARNING: Firewall disabled - only do this on trusted networks!
     firewall.enable = false;
   };
+
+  nixpkgs.config.allowUnfree = true;
   
   # Services
   services = {
@@ -55,6 +53,7 @@
 
   # Programs
   programs = {
+  	fish.enable = true;
     i3lock.enable = true;
     thunar = {
       enable = true;
@@ -65,10 +64,8 @@
     };
   };
 
-  # Sound
   security.rtkit.enable = true;
 
-  # Time zone and locale
   time.timeZone = "Asia/Ho_Chi_Minh";
   i18n = {
     defaultLocale = "en_US.UTF-8";
@@ -83,6 +80,14 @@
       LC_TELEPHONE = "vi_VN";
       LC_TIME = "vi_VN";
     };
+	inputMethod = {
+	  type = "fcitx5";
+      enable = true;
+      fcitx5.addons = with pkgs; [
+      	fcitx5-gtk
+      	kdePackages.fcitx5-unikey
+      ];
+    };
   };
 
   # User account
@@ -90,6 +95,7 @@
     isNormalUser = true;
     description = "vd";
     extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+	shell = pkgs.fish;
   };
   
   # Passwordless sudo (security risk - consider removing)
@@ -107,8 +113,17 @@
     ripgrep
     xclip
     lsd
+	pulseaudio
+	kitty
+	pavucontrol
+	lxappearance
+	vlc
+	brightnessctl
+	fish
+	zip
+	unzip
+	rar
     
-    # i3 and desktop
     i3
     i3status
     i3lock
@@ -118,17 +133,18 @@
     feh
     maim
     
-    # Applications
-    firefox
-    kitty
-    pavucontrol
-    lxappearance
-    
-    # Shell
-    fish
-    
-    # Python (system-wide for basic use)
     python312
+	clang_20
+	clang-tools
+	cmake
+	gcc15
+	go
+    nodejs_20
+  ];
+
+  fonts.packages = with pkgs; [
+    nerd-fonts.fira-code
+    nerd-fonts.symbols-only
   ];
 
   # Enable flakes

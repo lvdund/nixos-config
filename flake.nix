@@ -101,6 +101,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.vd = import ./home.nix;
+              home-manager.backupFileExtension = "backup";
             }
           ];
         };
@@ -108,26 +109,8 @@
 
       # Go development shells with isolated GOPATH
       devShells.${system} = {
-        # Go environments
         go-1-24 = mkGoShell pkgs.go_1_24 "1.24";
-        # go-latest = mkGoShell pkgs.go "latest";
-        
-        # Custom Go 1.24.4
-        # go-1-24-4 = let
-        #   customGo = pkgs.go.overrideAttrs (old: {
-        #     version = "1.24.4";
-        #     src = pkgs.fetchurl {
-        #       url = "https://go.dev/dl/go1.24.4.src.tar.gz";
-        #       sha256 = "sha256-WoaoOjH5+oFJC4xUIKw4T9PZWj5x+6Zlx7P5XR3+8rQ=";
-        #     };
-        #   });
-        # in mkGoShell customGo "1.24.4";
-        
-        # Python environments
         python-3-13 = mkPythonShell pkgs.python313 "3.13";
-        
-        # Default is latest Go
-        default = mkGoShell pkgs.go "1.24";
       };
     };
 }

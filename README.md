@@ -114,6 +114,17 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
+### Nodejs Development Guide:
+
+#### Using `npm install -g` fails: solution
+
+```bash
+# Install to your home
+npm set prefix ~/.npm-global
+
+# or use npx
+```
+
 ## Project Structure
 
 ```

@@ -8,12 +8,14 @@ exec --no-startup-id xset s off && xset -dpms && xset s noblank
 exec --no-startup-id dunst
 # exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
-# Use pactl to adjust volume in PulseAudio.
+# Use pactl to adjust volume and brightness.
 set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 
 # Use Mouse+$mod
 floating_modifier $mod
@@ -24,8 +26,8 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # Rofi
-bindsym $mod+a exec ~/.config/rofi/launchers/launcher.sh 
-bindsym $mod+Shift+e exec ~/.config/rofi/powermenu/powermenu.sh
+bindsym $mod+a exec bash ~/.config/rofi/launchers/launcher.sh 
+bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/powermenu.sh
 
 # main apps
 bindsym $mod+t exec kitty --detach
