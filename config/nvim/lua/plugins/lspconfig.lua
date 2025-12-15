@@ -135,11 +135,7 @@ return {
         },
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        'stylua',
-      })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+      require('mason-tool-installer').setup { ensure_installed = { 'dockerls', 'jsonls', 'yamlls', 'bashls', 'ts_ls' } }
 
       require('mason-lspconfig').setup {
         ensure_installed = {},

@@ -1,11 +1,13 @@
 set $mod Mod4
 font pango:FiraCode Nerd Font Bold 12
 exec --no-startup-id dex --autostart --environment i3
-exec_always --no-startup-id feh --bg-scale ~/dotfiles/background/momo_ayase_gruvbox.png
+exec_always --no-startup-id feh --bg-scale ~/.config/i3/momo_ayase_gruvbox.png
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id xset s off && xset -dpms && xset s noblank
 exec --no-startup-id dunst
+exec --no-startup-id xclip
+exec --no-startup-id fcitx5
 # exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Use pactl to adjust volume and brightness.
@@ -31,7 +33,7 @@ bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/powermenu.sh
 
 # main apps
 bindsym $mod+t exec kitty --detach
-bindsym $mod+b exec firefox
+bindsym $mod+b exec brave
 bindsym $mod+e exec thunar
 bindsym $mod+Shift+s exec pavucontrol
 

@@ -1,5 +1,4 @@
 { config, pkgs, ... }:
-
 {
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -21,44 +20,17 @@
 
   # Link your custom configs
   home.file = {
-    ".config/i3" = {
-      source = ./config/i3;
-      recursive = true;
-      force = true;
-    };
-    ".config/i3status" = {
-      source = ./config/i3status;
-      recursive = true;
-      force = true;
-    };
-    ".config/rofi" = {
-      source = ./config/rofi;
-      recursive = true;
-      force = true;
-    };
-    ".config/dunst" = {
-      source = ./config/dunst;
-      recursive = true;
-      force = true;
-    };
-    ".config/kitty" = {
-      source = ./config/kitty;
-      recursive = true;
-      force = true;
-    };
-    ".config/nvim" = {
-      source = ./config/nvim;
-      recursive = true;
-      force = true;
-    };
-    ".config/Thunar" = {
-      source = ./config/Thunar;
-      recursive = true;
-      force = true;
-    };
+    ".config/i3".source = ./config/i3;
+    ".config/i3status".source = ./config/i3status;
+    ".config/rofi".source = ./config/rofi;
+    ".config/dunst".source = ./config/dunst;
+    ".config/kitty".source = ./config/kitty;
+    ".config/nvim".source = ./config/nvim;
+    ".config/Thunar".source = ./config/Thunar;
   };
 
   programs = {
+	home-manager.enable = true;
     fish.enable = true;
 	chromium = {
 	  enable = true;
@@ -67,8 +39,21 @@
 	    "--disable-features=WebRtcAllowInputVolumeAdjustment"
 	  ];
 	};
+	neovim = {
+      viAlias = true;
+      vimAlias = true;
+	  plugins = [
+		pkgs.vimPlugins.nvim-treesitter
+        pkgs.lua-language-server
+        pkgs.nil
+        pkgs.gopls
+        pkgs.gofumpt
+        pkgs.stylua
+        pkgs.basedpyright
+        pkgs.pyright
+		pkgs.docker-compose-language-service
+		pkgs.rust-analyzer
+	  ];
+	};
   };
-
-  # Let home-manager manage itself
-  programs.home-manager.enable = true;
 }

@@ -8,6 +8,11 @@
   # Bootloader
   # boot.loader.systemd-boot.enable = true;
   # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    useOSProber = true;
+  };
   
   # kernel
   boot.kernelPackages = pkgs.linuxPackages_6_1;
@@ -62,6 +67,7 @@
       enable = true;
       plugins = with pkgs.xfce; [
         thunar-archive-plugin
+		thunar-media-tags-plugin
         thunar-volman
       ];
     };
