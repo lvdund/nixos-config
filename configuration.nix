@@ -6,8 +6,11 @@
   ];
 
   # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
+  
+  # kernel
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
 
   # Networking
   networking = {
@@ -123,6 +126,7 @@
 	zip
 	unzip
 	rar
+	appimage-run
     
     i3
     i3status

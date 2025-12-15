@@ -10,6 +10,7 @@
 
   # Packages for user
   home.packages = with pkgs; [
+    peazip
   ];
 
   # i3 configuration
@@ -57,32 +58,15 @@
     };
   };
 
-  # Fish shell
-  programs.fish.enable = true;
-
-  # Firefox
-  programs.firefox = {
-    enable = true;
-    languagePacks = [ "en-US" "vn" ];
-    policies = {
-      BlockAboutConfig = true;
-      DefaultDownloadDirectory = "\${home}/Downloads";
-      ExtensionSettings = {
-        "uBlock0@raymondhill.net" = {
-          default_area = "menupanel";
-          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-          installation_mode = "force_installed";
-          private_browsing = true;
-        };
-      };
-    };
-  };
-  programs.chromium = {
-    enable = true;
-    package = pkgs.brave;
-    commandLineArgs = [
-      "--disable-features=WebRtcAllowInputVolumeAdjustment"
-    ];
+  programs = {
+    fish.enable = true;
+	chromium = {
+	  enable = true;
+	  package = pkgs.brave;
+	  commandLineArgs = [
+	    "--disable-features=WebRtcAllowInputVolumeAdjustment"
+	  ];
+	};
   };
 
   # Let home-manager manage itself
