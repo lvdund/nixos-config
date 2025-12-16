@@ -123,7 +123,17 @@ return {
         pyright = {},
         rust_analyzer = {},
         ts_ls = {},
-
+		nixd = {
+    	  cmd = { "nixd" },
+          settings = {
+            nixd = {
+              nixpkgs = { expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }" },
+              formatting = {
+                command = { "alejandra" }, -- or nixfmt or nixpkgs-fmt
+              },
+            },
+          },
+	    },
         lua_ls = {
           settings = {
             Lua = {
@@ -135,7 +145,18 @@ return {
         },
       }
 
-      require('mason-tool-installer').setup { ensure_installed = { 'dockerls', 'jsonls', 'yamlls', 'bashls', 'ts_ls' } }
+      local ensure_installed = vim.tbl_keys(servers or {})
+      ensure_installed = vim.tbl_filter(function(name)
+        return name ~= 'nixd'
+      end, ensure_installed)
+
+      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
+
+      -- Manually setup nixd since we removed it from Mason
+      if servers.nixd then
+        servers.nixd.capabilities = vim.tbl_deep_extend('force', {}, capabilities, servers.nixd.capabilities or {})
+        require('lspconfig').nixd.setup(servers.nixd)
+      end
 
       require('mason-lspconfig').setup {
         ensure_installed = {},

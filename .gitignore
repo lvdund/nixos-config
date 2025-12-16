@@ -14,4 +14,4 @@ result-*
 .DS_Store
 Thumbs.db
 
-hardware-configuration.nix
+check.md
