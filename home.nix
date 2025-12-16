@@ -1,5 +1,9 @@
-{ config, pkgs, lib, ... }:
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   home.username = "vd";
   home.homeDirectory = "/home/vd";
   home.stateVersion = "25.11";
@@ -18,6 +22,7 @@
 
   # Packages for user
   home.packages = with pkgs; [
+    vscode
     peazip
     pciutils
     nixd
@@ -28,8 +33,12 @@
     clang-tools
     cmake
     gcc15
-	lua-language-server
-	stylua
+    lua-language-server
+    stylua
+    alejandra
+    black
+    dockerfmt
+    yamlfmt
   ];
 
   # Activation script to ensure GOPATH directories exist

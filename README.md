@@ -1,209 +1,83 @@
-# NixOS Configuration Notes
+# NixOS Configuration
 
-## Initial Setup
+## 1. Git Configuration
 
-### Copy Hardware Configuration
-
-Copy the hardware configuration from your system to the project:
+Set up your global git identity:
 
 ```bash
-sudo cp /etc/nixos/hardware-configuration.nix .
+git config --global user.email "lvdund@gmail.com"
+git config --global user.name "lvdund"
 ```
 
-This file contains hardware-specific settings (disk partitions, filesystems, etc.) that are unique to your machine.
+## 2. Go Tools Setup
 
-## Applying Configuration
-
-### Build and Apply NixOS Configuration
-
-To build and apply your NixOS configuration:
+Install essential Go tools and utilities:
 
 ```bash
-# From the project directory
-cd /home/vd/temp/nixos-config
+go install golang.org/x/tools/gopls@latest
+go install github.com/go-delve/delve/cmd/dlv@latest
+go install mvdan.cc/gofumpt@latest
+go install mvdan.cc/sh/v3/cmd/shfmt@latest
+go install golang.org/x/tools/cmd/goimports@latest
+go install github.com/fatih/gomodifytags@latest
+go install github.com/jesseduffield/lazygit@latest
+go install github.com/jesseduffield/lazydocker@latest
+go install github.com/josharian/impl@latest
+```
 
-# Build and switch to the new configuration
+## 3. NixOS Maintenance
+
+### Build and Apply Changes
+
+To build the configuration and switch to it immediately:
+
+```bash
+# Apply configuration
 sudo nixos-rebuild switch --flake .#homepc
-
-# Or if you want to test first without applying:
-sudo nixos-rebuild build --flake .#homepc
-sudo nixos-rebuild test --flake .#homepc  # Test without making it permanent
 ```
 
-### Update Flake Lock File
+To build and test without modifying the bootloader (good for temporary checks):
 
-When you modify inputs or want to update packages:
+```bash
+# Test configuration
+sudo nixos-rebuild test --flake .#homepc
+```
+
+### Updates
+
+Update flake inputs (packages) to their latest versions:
 
 ```bash
 nix flake update
 ```
 
-## Development Environments
+### Cleanup and Garbage Collection
 
-### Go Development Environments
-
-#### Available Go Shells
-
-- `go-1-24` - Go 1.24 environment
-- `default` - Default Go environment (currently Go 1.24)
-
-#### Entering a Go Development Shell
+Clean up old generations, cache, and unused packages to free up space:
 
 ```bash
-# Enter Go 1.24 environment
-nix develop .#go-1-24
-
-# Or use the default
-nix develop
-
-# Or use nix-shell (if not using flakes)
-nix-shell -p go
-```
-
-#### Using Go in the Shell
-
-Once inside the shell:
-
-```bash
-# Check Go version
-go version
-
-# Check environment variables
-echo $GOPATH
-echo $GOROOT
-
-# Your GOPATH is isolated per version: ~/env/go_1.24
-# Create a new project
-mkdir -p $GOPATH/src/myproject
-cd $GOPATH/src/myproject
-
-# Initialize a Go module
-go mod init myproject
-
-# Build and run
-go build
-go run main.go
-```
-
-### Python Development Environments
-
-#### Available Python Shells
-
-- `python-3-13` - Python 3.13 environment
-
-#### Entering a Python Development Shell
-
-```bash
-# Enter Python 3.13 environment
-nix develop .#python-3-13
-```
-
-#### Using Python in the Shell
-
-Once inside the shell:
-
-```bash
-# Check Python version
-python --version
-
-# Install packages to isolated location (~/env/python_3.13)
-pip install --user <package-name>
-
-# Or create a virtual environment
-python -m venv .venv
-source .venv/bin/activate
-```
-
-### Nodejs Development Guide:
-
-#### Using `npm install -g` fails: solution
-
-```bash
-# Install to your home
-npm set prefix ~/.npm-global
-
-# or use npx
-```
-
-## Project Structure
-
-```
-nixos-config/
-├── flake.nix              # Main flake configuration
-├── configuration.nix      # NixOS system configuration
-├── home.nix               # Home Manager user configuration
-├── hardware-configuration.nix  # Hardware-specific config (copy from /etc/nixos)
-├── NOTES.md               # This file
-└── config/                # User configuration files
-    ├── i3/                # i3 window manager config
-    ├── nvim/              # Neovim config
-    ├── rofi/              # Rofi launcher config
-    └── ...
-```
-
-## Useful Commands
-
-### Check Current Configuration
-
-```bash
-# See what would be built
-nix flake show
-
-# Check for configuration errors
-nix flake check
-```
-
-### Rollback Configuration
-
-If something goes wrong:
-
-```bash
-# Rollback to previous generation
-sudo nixos-rebuild switch --rollback
-
-# Or list generations and switch to a specific one
-sudo nix-env --list-generations -p /nix/var/nix/profiles/system
-sudo nixos-rebuild switch --upgrade
-```
-
-### Garbage Collection
-
-Clean up unused packages:
-
-```bash
-# Remove unused packages
-nix-collect-garbage -d
-
-# Remove old generations (keep last 3)
+# Delete old generations (older than 7 days)
 sudo nix-collect-garbage --delete-older-than 7d
+
+# Optimize the store (deduplicate identical files)
+nix-store --optimize
+
+# Full cleanup (remove everything not currently in use - Use with caution)
+nix-collect-garbage -d
 ```
 
-## Troubleshooting
+### Troubleshooting
 
-### Flake Lock Issues
-
-If you get lock file errors:
+If you encounter lock file errors or need to regenerate it:
 
 ```bash
-# Regenerate lock file
+# Update specific input or regenerate lock
 nix flake lock --update-input nixpkgs
 ```
 
-### Build Failures
-
-If a build fails:
+If a build fails and you need to see why:
 
 ```bash
-# Get more detailed error information
+# Build with stack trace
 nixos-rebuild build --flake .#homepc --show-trace
-
-# Check for broken packages
-nix flake check --show-trace
 ```
-
-## Notes
-
-- The Go environments use isolated GOPATH directories in `~/env/go_<version>/`
-- Python environments use isolated pip install locations in `~/env/python_<version>/`
-- Desktop notifications are sent when entering development shells (if `notify-send` is available)
-- All user configurations are symlinked from `config/` to `~/.config/` via Home Manager

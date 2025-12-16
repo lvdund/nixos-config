@@ -19,6 +19,11 @@ return {
       formatters_by_ft = {
         lua = { 'stylua' },
         go = { 'gofmt', 'goimports' },
+        rust = { 'rustfmt', lsp_format = 'fallback' },
+        nix = { 'alejandra' },
+        python = { 'black' },
+        dockerfile = { 'dockerfmt' },
+        yaml = { 'yamlfmt' },
       },
       format_on_save = false,
       -- format_on_save = {
