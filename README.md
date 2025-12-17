@@ -65,9 +65,9 @@ git config --global user.email "lvdund@gmail.com"
 git config --global user.name "lvdund"
 ```
 
-## 3. Go Tools Setup
+## 3. Lang Setup
 
-Install essential Go tools and utilities:
+- Install essential Go tools and utilities:
 
 ```bash
 go install golang.org/x/tools/gopls@latest
@@ -79,6 +79,12 @@ go install github.com/fatih/gomodifytags@latest
 go install github.com/jesseduffield/lazygit@latest
 go install github.com/jesseduffield/lazydocker@latest
 go install github.com/josharian/impl@latest
+```
+- npm global installations:
+
+```bash
+mkdir -p ~/.npm-global
+npm config set prefix '~/.npm-global'
 ```
 
 ## 4. NixOS Maintenance

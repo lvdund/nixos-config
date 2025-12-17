@@ -55,7 +55,6 @@
 
   # Link your custom configs
   home.file = {
-    ".npmrc".text = "prefix=\${config.home.homeDirectory}/.npm-global";
     ".config/i3".source = ../../config/i3;
     ".config/i3status".source = ../../config/i3status;
     ".config/rofi".source = ../../config/rofi;
