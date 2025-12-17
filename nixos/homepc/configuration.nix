@@ -8,6 +8,8 @@
     ./hardware-configuration.nix
   ];
 
+  networking.hostName = "homepc";
+
   boot = {
     loader = {
       # for systemd
