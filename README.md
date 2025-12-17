@@ -11,7 +11,52 @@ This repository is structured to support multiple hosts with shared configuratio
     - **`mylaptop/`**: Configuration specific to the laptop.
 - **`users/vd/`**: User-specific configuration (Home Manager), including dotfiles (`config/`).
 
-## 2. Git Configuration
+## 2. Fresh Installation Guide
+
+After installing NixOS and rebooting into your new system, follow these steps to apply this configuration.
+
+### Step 1: Get the Configuration
+
+Install Git (if not already available) and clone this repository:
+
+```bash
+# Enter a temporary shell with git
+nix-shell -p git
+
+# Clone your repository (replace URL with your actual repo)
+git clone https://github.com/lvdund/nixos-config ~/nixos-config
+cd ~/nixos-config
+```
+
+### Step 2: Hardware Configuration
+
+**Crucial:** You must generate the hardware configuration specific to your machine to ensure bootloaders and filesystems are correct.
+
+**For Laptop:**
+```bash
+nixos-generate-config --show-hardware-config > nixos/mylaptop/hardware-configuration.nix
+```
+
+**For Home PC:**
+```bash
+nixos-generate-config --show-hardware-config > nixos/homepc/hardware-configuration.nix
+```
+
+### Step 3: Apply Configuration
+
+Apply the flake configuration for your specific host:
+
+**For Laptop:**
+```bash
+sudo nixos-rebuild switch --flake .#mylaptop
+```
+
+**For Home PC:**
+```bash
+sudo nixos-rebuild switch --flake .#homepc
+```
+
+## 3. Git Configuration
 
 Set up your global git identity:
 

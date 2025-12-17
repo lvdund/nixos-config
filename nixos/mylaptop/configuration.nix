@@ -8,24 +8,20 @@
     ./hardware-configuration.nix
   ];
 
-  boot = {
-    loader = {
-      # for systemd
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      # for grub
-      # grub = {
-      #   enable = true;
-      #   device = "/dev/sda";
-      #   useOSProber = true;
-      # };
-    };
-    kernelPackages = pkgs.linuxPackages_6_1;
-    kernelParams = ["nvidia-drm.modeset=1" "nvidia-drm.fbdev=1"];
-    kernel.sysctl = {
-      "net.ipv4.conf.eth0.forwarding" = 1; # enable port forwarding
-    };
-  };
+  networking.hostName = "mylaptop";
 
-  hardware.pulseaudio.enable = false;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
+
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+    pulseaudio.enable = false;
+  };
 }
+
