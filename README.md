@@ -1,6 +1,17 @@
 # NixOS Configuration
 
-## 1. Git Configuration
+## 1. Directory Structure
+
+This repository is structured to support multiple hosts with shared configuration:
+
+- **`flake.nix`**: Entry point defining system configurations (`homepc` and `mylaptop`).
+- **`nixos/`**: System-level configurations.
+    - **`common.nix`**: Shared settings, packages, and users applicable to all hosts.
+    - **`homepc/`**: Configuration specific to the desktop PC (Nvidia drivers, extra storage).
+    - **`mylaptop/`**: Configuration specific to the laptop.
+- **`users/vd/`**: User-specific configuration (Home Manager), including dotfiles (`config/`).
+
+## 2. Git Configuration
 
 Set up your global git identity:
 
@@ -9,7 +20,7 @@ git config --global user.email "lvdund@gmail.com"
 git config --global user.name "lvdund"
 ```
 
-## 2. Go Tools Setup
+## 3. Go Tools Setup
 
 Install essential Go tools and utilities:
 
@@ -25,22 +36,39 @@ go install github.com/jesseduffield/lazydocker@latest
 go install github.com/josharian/impl@latest
 ```
 
-## 3. NixOS Maintenance
+## 4. NixOS Maintenance
+
+### Initial Setup (Laptop)
+
+When setting up the laptop for the first time:
+
+1.  Generate the hardware configuration:
+    ```bash
+    nixos-generate-config --show-hardware-config > nixos/mylaptop/hardware-configuration.nix
+    ```
+2.  Apply the configuration:
+    ```bash
+    sudo nixos-rebuild switch --flake .#mylaptop
+    ```
 
 ### Build and Apply Changes
 
-To build the configuration and switch to it immediately:
-
+**For Home PC:**
 ```bash
-# Apply configuration
 sudo nixos-rebuild switch --flake .#homepc
+```
+
+**For Laptop:**
+```bash
+sudo nixos-rebuild switch --flake .#mylaptop
 ```
 
 To build and test without modifying the bootloader (good for temporary checks):
 
 ```bash
-# Test configuration
 sudo nixos-rebuild test --flake .#homepc
+# or
+sudo nixos-rebuild test --flake .#mylaptop
 ```
 
 ### Updates

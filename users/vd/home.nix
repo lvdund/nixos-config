@@ -56,13 +56,13 @@
   # Link your custom configs
   home.file = {
     ".npmrc".text = "prefix=\${config.home.homeDirectory}/.npm-global";
-    ".config/i3".source = ./config/i3;
-    ".config/i3status".source = ./config/i3status;
-    ".config/rofi".source = ./config/rofi;
-    ".config/dunst".source = ./config/dunst;
-    ".config/kitty".source = ./config/kitty;
-    ".config/nvim".source = ./config/nvim;
-    ".config/Thunar".source = ./config/Thunar;
+    ".config/i3".source = ../../config/i3;
+    ".config/i3status".source = ../../config/i3status;
+    ".config/rofi".source = ../../config/rofi;
+    ".config/dunst".source = ../../config/dunst;
+    ".config/kitty".source = ../../config/kitty;
+    ".config/nvim".source = ../../config/nvim;
+    ".config/Thunar".source = ../../config/Thunar;
   };
 
   programs = {
