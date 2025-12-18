@@ -41,8 +41,8 @@
     yamlfmt
   ];
 
-  # Activation script to ensure GOPATH directories exist
-  home.activation.createGoDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  # directories exist
+  home.activation.createDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p ${config.home.homeDirectory}/env
     mkdir -p ${config.home.homeDirectory}/env/gopath_1_24/{bin,pkg,src}
   '';
@@ -55,6 +55,8 @@
 
   # Link your custom configs
   home.file = {
+    ".tmux.conf".source = ../../config/tmux/tmux.conf;
+    ".tmux".source = ../../config/tmux;
     ".config/i3".source = ../../config/i3;
     ".config/i3status".source = ../../config/i3status;
     ".config/rofi".source = ../../config/rofi;
@@ -69,6 +71,8 @@
     fish = {
       enable = true;
       shellAliases = {
+        v = "nvim";
+        vi = "nvim";
         ls = "lsd";
         lsla = "lsd -la";
         grep = "grep --color=auto";
@@ -88,6 +92,7 @@
       package = pkgs.brave;
       extensions = [
         {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden password mana
+        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # Dark Reader
       ];
       # commandLineArgs = [
       #   "--disable-features=WebRtcAllowInputVolumeAdjustment"

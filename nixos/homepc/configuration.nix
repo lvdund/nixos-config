@@ -10,6 +10,8 @@
 
   networking.hostName = "homepc";
 
+  services.xserver.videoDrivers = ["nvidia"];
+
   boot = {
     loader = {
       # for systemd
