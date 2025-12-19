@@ -3,7 +3,6 @@
   pkgs,
   ...
 }: {
-
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
@@ -13,11 +12,11 @@
 
   services = {
     openssh.enable = true;
+    displayManager.defaultSession = "none+i3";
     xserver = {
       enable = true;
       displayManager = {
         lightdm.enable = true;
-        defaultSession = "none+i3";
       };
       windowManager.i3.enable = true;
       xkb.layout = "us";
@@ -33,6 +32,7 @@
       pulse.enable = true;
       jack.enable = false;
     };
+    pulseaudio.enable = false;
   };
 
   security = {
@@ -67,6 +67,15 @@
       enable = true;
       binfmt = true;
     };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
+    gamemode.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -102,6 +111,7 @@
     maim
     kitty
     fish
+    onlyoffice-desktopeditors
 
     # Audio/Video
     pavucontrol
@@ -176,6 +186,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.symbols-only
+    corefonts
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];

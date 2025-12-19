@@ -47,7 +47,6 @@
         nvidiaBusId = "PCI:1:0:0";
       };
     };
-    pulseaudio.enable = false;
   };
 
   systemd.services.setup-data-permissions = {
