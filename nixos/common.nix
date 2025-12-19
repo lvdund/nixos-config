@@ -76,6 +76,7 @@
       gamescopeSession.enable = true;
     };
     gamemode.enable = true;
+    dconf.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -93,6 +94,7 @@
     curl
     net-tools
     docker-compose
+    font-manager
 
     # Compression tools
     zip
