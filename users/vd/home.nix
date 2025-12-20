@@ -23,6 +23,7 @@
 
   # Packages for user
   home.packages = with pkgs; [
+    wpsoffice
     protonup-qt
     vscode
     peazip
@@ -53,6 +54,26 @@
   xsession.windowManager.i3 = {
     enable = true;
     config = null; # use your custom config
+  };
+
+  # theme
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+  gtk = {
+    enable = true;
+    iconTheme = {
+      name = "Papirus-Dark"; # Or "Papirus", "Papirus-Light"
+      package = pkgs.papirus-icon-theme;
+    };
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
   };
 
   # Link your custom configs

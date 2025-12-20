@@ -11,7 +11,7 @@
   nixpkgs.config.allowUnfree = true;
 
   services = {
-    openssh.enable = true;
+    # openssh.enable = true;
     displayManager.defaultSession = "none+i3";
     xserver = {
       enable = true;
@@ -33,6 +33,12 @@
       jack.enable = false;
     };
     pulseaudio.enable = false;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = "*";
   };
 
   security = {
@@ -63,6 +69,7 @@
         thunar-volman
       ];
     };
+    xfconf.enable = true;
     appimage = {
       enable = true;
       binfmt = true;
@@ -76,7 +83,6 @@
       gamescopeSession.enable = true;
     };
     gamemode.enable = true;
-    dconf.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -95,6 +101,7 @@
     net-tools
     docker-compose
     font-manager
+    vagrant
 
     # Compression tools
     zip
@@ -109,11 +116,11 @@
     dmenu
     rofi
     dunst
+    libnotify
     feh
     maim
     kitty
     fish
-    onlyoffice-desktopeditors
 
     # Audio/Video
     pavucontrol
@@ -125,6 +132,8 @@
     lxappearance
     appimage-run
   ];
+
+  programs.dconf.enable = true;
 
   time.timeZone = "Asia/Ho_Chi_Minh";
   i18n = {
