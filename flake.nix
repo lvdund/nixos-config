@@ -27,7 +27,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.vd = import ./users/vd/home.nix;
+              home-manager.users.vd = import ./users/vd/homepc.nix;
               home-manager.backupFileExtension = "backup";
             }
           ];
@@ -41,7 +41,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.vd = import ./users/vd/home.nix;
+              home-manager.users.vd = import ./users/vd/mylaptop.nix;
               home-manager.backupFileExtension = "backup";
             }
           ];

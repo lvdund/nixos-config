@@ -1,0 +1,58 @@
+general {
+	colors = false
+	markup = pango
+	interval = 5
+	color_good = "#81a1c1"
+	color_degraded = "#fafe7c"
+	color_bad = "#ff7770" 
+}
+
+order += "tztime local"
+order += "volume master"
+order += "wireless _first_"
+order += "ethernet _first_"
+order += "load"
+order += "memory"
+order += "battery all"
+
+volume master {
+	format = "<span background='#defcf9'>  %volume </span>"
+	format_muted = "<span background='#defcf9'>  %volume </span>  Muted  "
+	device = "default"
+	mixer = "Master"
+	mixer_idx = 0
+}
+
+wireless _first_ {
+	format_up = "<span background='#cadefc'>  %essid </span>"
+		format_down = "<span background='#cadefc'>  Down </span>"
+}
+
+ethernet _first_ {
+        format_up = "<span background='#c3bef0'> E:%ip </span>"
+        format_down = "<span background='#c3bef0'> E:down </span>"
+}
+
+load {
+        format = "<span background='#cca8e9'> CPU:%1min </span>"
+}
+
+memory {
+        format = "<span background='#5dacbd'> Mem:%used </span>"
+        format_degraded = "<span background='#5dacbd'> MEMORY < %available </span>"
+}
+
+battery all {
+        format = "<span background='#87c095'>  %status %percentage </span>"
+        format_down = "No battery"
+        status_chr = "⚡"
+        status_bat = ""
+        status_unk = "?"
+        status_full = "☻"
+        path = "/sys/class/power_supply/BAT%d/uevent"
+        low_threshold = 10
+}
+
+tztime local {
+        format = "<span background='#e0ebeb'>  %a:%d-%m-%Y </span><span background='#a7bcb9'>  %H:%M </span>"
+}

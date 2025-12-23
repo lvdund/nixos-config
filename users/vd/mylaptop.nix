@@ -81,8 +81,8 @@
   home.file = {
     ".tmux.conf".source = ../../config/tmux/tmux.conf;
     ".tmux".source = ../../config/tmux;
-    ".config/i3".source = ../../config/i3;
-    ".config/i3status".source = ../../config/i3status;
+    ".config/i3".source = ../../config/i3-mylaptop;
+    ".config/i3status".source = ../../config/i3status-mylatop;
     ".config/rofi".source = ../../config/rofi;
     ".config/dunst".source = ../../config/dunst;
     ".config/kitty".source = ../../config/kitty;

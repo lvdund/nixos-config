@@ -102,6 +102,7 @@
     net-tools
     docker-compose
     font-manager
+	iptables
     vagrant
 
     # Compression tools
