@@ -88,6 +88,7 @@
   environment.systemPackages = with pkgs; [
     # Core utilities
     git
+	gh
     neovim
     tmux
     fzf
