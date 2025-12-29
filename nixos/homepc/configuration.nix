@@ -63,4 +63,13 @@
       ];
     };
   };
+
+  environment.systemPackages = with pkgs; [
+  	linuxPackages_6_1.kernel.dev
+  ];
+
+  environment.variables = {
+    KDIR = "${pkgs.linuxPackages_6_1.kernel.dev}/lib/modules/${pkgs.linuxPackages_6_1.kernel.modDirVersion}/build";
+  };
+
 }

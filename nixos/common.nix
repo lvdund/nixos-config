@@ -37,7 +37,7 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
     config.common.default = "*";
   };
 
@@ -88,7 +88,7 @@
   environment.systemPackages = with pkgs; [
     # Core utilities
     git
-	gh
+    gh
     neovim
     tmux
     fzf
@@ -102,8 +102,13 @@
     net-tools
     docker-compose
     font-manager
-	iptables
+    iptables
     vagrant
+    linuxHeaders # Kernel headers for development
+    gnumake
+    gcc14
+    nix-prefetch-github
+	  kmod
 
     # Compression tools
     zip
@@ -123,6 +128,8 @@
     maim
     kitty
     fish
+    nautilus
+    process-viewer
 
     # Audio/Video
     pavucontrol

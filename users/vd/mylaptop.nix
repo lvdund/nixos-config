@@ -35,8 +35,6 @@
     uv
     clang-tools
     cmake
-    gnumake
-    gcc15
     lua-language-server
     stylua
     alejandra
