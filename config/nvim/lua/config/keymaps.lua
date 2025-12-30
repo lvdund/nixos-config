@@ -44,7 +44,6 @@ map('n', 'sv', ':vsplit<CR>', opts) -- left/right
 map('n', '<leader>qa', ':qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
 map('n', '<leader>qc', ':close<CR>', { desc = 'Close' }) -- close
 map('n', '<leader>qq', ':bp|bd#<CR>', { desc = 'Close but keep split window' }) -- close buffer
-map('n', 'bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' }) -- close buffer
 
 -- Diagnostic
 map('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open Errors' })

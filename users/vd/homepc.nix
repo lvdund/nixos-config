@@ -49,11 +49,11 @@
     mkdir -p ${config.home.homeDirectory}/env/gopath_1_24/{bin,pkg,src}
   '';
 
-  # i3 configuration
-  xsession.windowManager.i3 = {
-    enable = true;
-    config = null; # use your custom config
-  };
+  # i3 configuration managed by system and dotfiles
+  # xsession.windowManager.i3 = {
+  #   enable = true;
+  #   config = null; # use your custom config
+  # };
 
   # theme
   dconf.settings = {
@@ -77,15 +77,15 @@
 
   # Link your custom configs
   home.file = {
-    ".tmux.conf".source = ../../config/tmux/tmux.conf;
-    ".tmux".source = ../../config/tmux;
-    ".config/i3".source = ../../config/i3-homepc;
-    ".config/i3status".source = ../../config/i3status-homepc;
-    ".config/rofi".source = ../../config/rofi;
-    ".config/dunst".source = ../../config/dunst;
-    ".config/kitty".source = ../../config/kitty;
-    ".config/nvim".source = ../../config/nvim;
-    ".config/Thunar".source = ../../config/Thunar;
+    ".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tmux/tmux.conf";
+    ".tmux".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tmux";
+    ".config/i3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/i3-homepc";
+    ".config/i3status".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/i3status-homepc";
+    ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/rofi";
+    ".config/dunst".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/dunst";
+    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty";
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/nvim";
+    ".config/Thunar".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/Thunar";
   };
 
   programs = {
