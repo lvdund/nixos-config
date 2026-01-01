@@ -170,13 +170,14 @@ return {
       vim.keymap.set('n', '<leader>scn', function()
         require('todo-comments').jump_next()
       end, { desc = '[N]ext TODO' })
-      vim.keymap.set('n', '<leader>sb', function()
-        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-          winblend = 10,
-          previewer = false,
-        })
-      end, { desc = 'Fuzzily search in current buffer' })
-
+      -- vim.keymap.set('n', '<leader>sb', function()
+      --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+      --     winblend = 10,
+      --     previewer = false,
+      --   })
+      -- end, { desc = 'Fuzzily search in current buffer' })
+      vim.keymap.set('n', 'sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
           grep_open_files = true,

@@ -77,13 +77,8 @@ return {
 
         -- Actions
         map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[G]it [R]eset buffer' })
-        map('n', '<leader>gp', gitsigns.preview_hunk, { desc = '[G]it [P]review change' })
-        map('n', '<leader>gs', ":TermExec cmd='git status'<CR>", { desc = '[G]it [S]tatus' })
-        map('n', '<leader>gtb', ':Gitsigns toggle_current_line_blame<CR>', { desc = '[G]it [T]oggle [B]lame' })
-
-        -- Navigate
-        map('n', ']g', ':Gitsigns nav_hunk next<CR>', { desc = 'Git next hunk' })
-        map('n', '[g', ':Gitsigns nav_hunk prev<CR>', { desc = 'Git prev hunk' })
+        map('n', 'gp', gitsigns.preview_hunk, { desc = '[G]it [P]review change' })
+        map('n', 'gt', ':Gitsigns toggle_current_line_blame<CR>', { desc = '[G]it [T]oggle [B]lame' })
       end,
     },
   },

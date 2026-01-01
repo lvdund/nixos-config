@@ -1,4 +1,4 @@
-; thunar GtkAccelMap rc-file         -*- scheme -*-
+; Thunar GtkAccelMap rc-file         -*- scheme -*-
 ; this file is an automated accelerator map dump
 ;
 ; (gtk_accel_path "<Actions>/ThunarDetailsView/expandable-folders" "")
@@ -32,14 +32,14 @@
 ; (gtk_accel_path "<Actions>/ThunarStandardView/select-by-pattern" "<Primary>s")
 ; (gtk_accel_path "<Actions>/ThunarWindow/open-file-menu" "F10")
 ; (gtk_accel_path "<Actions>/ThunarWindow/contents" "F1")
-; (gtk_accel_path "<Actions>/ThunarWindow/show-highlight" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/sort-descending" "")
+; (gtk_accel_path "<Actions>/ThunarWindow/show-highlight" "")
+; (gtk_accel_path "<Actions>/ThunarStandardView/sort-by-dtime" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/sort-by-name" "")
-; (gtk_accel_path "<Actions>/ThunarBookmarks/338582b1c47ecd079e2dd3c85f17c695" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/select-all-files" "<Primary>a")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/execute" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/properties" "<Alt>Return")
-; (gtk_accel_path "<Actions>/ThunarStandardView/sort-by-dtime" "")
+; (gtk_accel_path "<Actions>/ThunarBookmarks/a5808d49f371ec538b1e4e305cc1d9c7" "")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/cut-2" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/switch-next-tab" "<Primary>Page_Down")
 ; (gtk_accel_path "<Actions>/ThunarBookmarks/983ca70084f6358c5147fa80215d53dd" "")
