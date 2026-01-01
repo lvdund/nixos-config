@@ -6,11 +6,10 @@
   imports = [
     ../common.nix
     ./hardware-configuration.nix
+    ../modules/nvidia.nix
   ];
 
   networking.hostName = "homepc";
-
-  services.xserver.videoDrivers = ["nvidia"];
 
   boot = {
     loader = {
@@ -25,27 +24,8 @@
       # };
     };
     kernelPackages = pkgs.linuxPackages_6_1;
-    kernelParams = ["nvidia-drm.modeset=1" "nvidia-drm.fbdev=1"];
     kernel.sysctl = {
       "net.ipv4.conf.eth0.forwarding" = 1; # enable port forwarding
-    };
-  };
-
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
-    };
-    nvidia = {
-      modesetting.enable = true;
-      powerManagement.enable = true;
-      powerManagement.finegrained = false;
-      open = true;
-      nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.stable;
-      prime = {
-        nvidiaBusId = "PCI:1:0:0";
-      };
     };
   };
 

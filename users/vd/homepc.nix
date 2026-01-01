@@ -4,6 +4,11 @@
   lib,
   ...
 }: {
+  imports = [
+    ./modules/obs.nix
+    ./modules/brave.nix
+    ./modules/fish.nix
+  ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
   home.stateVersion = "25.11";
@@ -90,50 +95,5 @@
 
   programs = {
     home-manager.enable = true;
-    fish = {
-      enable = true;
-      shellAliases = {
-        v = "nvim";
-        vi = "nvim";
-        ls = "lsd";
-        lsla = "lsd -la";
-        grep = "grep --color=auto";
-        gs = "git status";
-        ga = "git add";
-        gcm = "git commit -m";
-        cls = "printf '\\033[2J\\033[3J\\033[1;1H'";
-        ssh-kitty = "kitty +kitten ssh";
-        ssh-vagrant-kitty = "env TERM=xterm-256color vagrant ssh";
-      };
-      interactiveShellInit = ''
-        set fish_greeting # Disable greeting
-      '';
-    };
-    chromium = {
-      enable = true;
-      package = pkgs.brave;
-      extensions = [
-        {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden password mana
-        {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # Dark Reader
-      ];
-      # commandLineArgs = [
-      #   "--disable-features=WebRtcAllowInputVolumeAdjustment"
-      # ];
-    };
-    obs-studio = {
-      enable = true;
-      package = (
-        pkgs.obs-studio.override {
-          cudaSupport = true;
-        }
-      );
-      plugins = with pkgs.obs-studio-plugins; [
-        wlrobs
-        obs-backgroundremoval
-        obs-pipewire-audio-capture
-        obs-gstreamer
-        obs-vkcapture
-      ];
-    };
   };
 }

@@ -3,6 +3,13 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./modules/i3.nix
+    ./modules/docker.nix
+    ./modules/virtualbox.nix
+    ./modules/vagrant.nix
+    ./modules/fish.nix
+  ];
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
@@ -12,13 +19,11 @@
 
   services = {
     # openssh.enable = true;
-    displayManager.defaultSession = "none+i3";
     xserver = {
       enable = true;
       displayManager = {
         lightdm.enable = true;
       };
-      windowManager.i3.enable = true;
       xkb.layout = "us";
     };
     gvfs.enable = true;
@@ -47,7 +52,6 @@
   };
 
   programs = {
-    fish.enable = true;
     i3lock.enable = true;
     nix-ld.enable = true;
     nix-ld.libraries = with pkgs; [
@@ -100,15 +104,13 @@
     wget
     curl
     net-tools
-    docker-compose
     font-manager
     iptables
-    vagrant
     linuxHeaders # Kernel headers for development
     gnumake
     gcc14
     nix-prefetch-github
-	  kmod
+    kmod
 
     # Compression tools
     zip
@@ -117,17 +119,11 @@
     unrar
 
     # Desktop environment
-    i3
-    i3status
-    i3lock
-    dmenu
-    rofi
     dunst
     libnotify
     feh
     maim
     kitty
-    fish
     nautilus
     process-viewer
 
@@ -168,26 +164,6 @@
     };
   };
 
-  virtualisation = {
-    virtualbox = {
-      host = {
-        enable = true;
-      };
-    };
-    docker = {
-      enable = true;
-      daemon.settings = {
-        experimental = true;
-        default-address-pools = [
-          {
-            base = "172.30.0.0/16";
-            size = 24;
-          }
-        ];
-      };
-    };
-  };
-
   users.users.vd = {
     isNormalUser = true;
     description = "vd";
@@ -196,11 +172,7 @@
       "wheel"
       "video"
       "audio"
-      "docker"
-      "vboxusers"
-      "user-with-access-to-virtualbox"
     ];
-    shell = pkgs.fish;
   };
 
   fonts.packages = with pkgs; [
