@@ -42,15 +42,16 @@ memory {
         format_degraded = "<span background='#5dacbd'> MEMORY < %available </span>"
 }
 
-battery all {
-        format = "<span background='#87c095'>  %status %percentage </span>"
+battery 1 {
+        format = "<span background='#87c095'> %status %percentage </span>"
         format_down = "No battery"
         status_chr = "⚡"
         status_bat = ""
         status_unk = "?"
-        status_full = "☻"
-        path = "/sys/class/power_supply/BAT%d/uevent"
+        status_full = "Full"
+        path = "/sys/class/power_supply/BAT1/uevent"
         low_threshold = 10
+        last_full_capacity = true
 }
 
 tztime local {

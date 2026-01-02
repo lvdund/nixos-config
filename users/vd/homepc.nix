@@ -54,12 +54,6 @@
     mkdir -p ${config.home.homeDirectory}/env/gopath_1_24/{bin,pkg,src}
   '';
 
-  # i3 configuration managed by system and dotfiles
-  # xsession.windowManager.i3 = {
-  #   enable = true;
-  #   config = null; # use your custom config
-  # };
-
   # theme
   dconf.settings = {
     "org/gnome/desktop/interface" = {

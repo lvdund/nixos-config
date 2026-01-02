@@ -10,5 +10,6 @@
     i3lock
     dmenu
     rofi
+    acpi  # For battery information
   ];
 }
