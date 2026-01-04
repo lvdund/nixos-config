@@ -1,0 +1,27 @@
+[manager]
+show_hidden = true
+
+[preview]
+max_width = 1000
+max_height = 1000
+
+cursor_blink = false
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', block = true, orphan = true, desc = "Edit with neovim" }
+]
+feh = [
+  { run = 'feh "$1"', orphan = true, desc = "Open image with feh" }
+]
+vlc = [
+  { run = 'vlc "$@"', orphan = true, desc = "Open media with vlc" }
+]
+
+[open]
+rules = [
+  { mime = "image/*", use = "feh" },
+  { mime = "video/*", use = "vlc" },
+  { mime = "audio/*", use = "vlc" },
+  { mime = "*", use = "edit" },
+]

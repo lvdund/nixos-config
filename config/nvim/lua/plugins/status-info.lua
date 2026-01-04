@@ -13,6 +13,7 @@ return {
       { '<leader>ba', '<Cmd>bufdo bd<CR>', desc = 'Close all Buffer' },
       { '[B', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move Buffers Left' },
       { ']B', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move Buffers Right' },
+      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Close Other Buffer' },
     },
     opts = {
       highlights = {

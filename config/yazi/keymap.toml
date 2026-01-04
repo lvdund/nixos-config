@@ -1,0 +1,118 @@
+# Navigation with hjkl
+[[mgr.prepend_keymap]]
+on = ["h"]
+run = "leave"
+desc = "Leave the directory"
+
+[[mgr.prepend_keymap]]
+on = ["l"]
+run = "enter"
+desc = "Enter the child directory"
+
+[[mgr.prepend_keymap]]
+on = ["j"]
+run = "arrow 1"
+desc = "Move cursor down"
+
+[[mgr.prepend_keymap]]
+on = ["k"]
+run = "arrow -1"
+desc = "Move cursor up"
+
+# Arrow keys
+[[mgr.prepend_keymap]]
+on = ["<Up>"]
+run = "arrow -1"
+desc = "Move cursor up"
+
+[[mgr.prepend_keymap]]
+on = ["<Down>"]
+run = "arrow 1"
+desc = "Move cursor down"
+
+[[mgr.prepend_keymap]]
+on = ["<Left>"]
+run = "leave"
+desc = "Go to parent directory"
+
+[[mgr.prepend_keymap]]
+on = ["<Right>"]
+run = "enter"
+desc = "Enter the child directory"
+
+# Open with Enter
+[[mgr.prepend_keymap]]
+on = ["<Enter>"]
+run = "open"
+desc = "Open selected files"
+
+[[mgr.prepend_keymap]]
+on = ["o"]
+run = "open"
+desc = "Open with neovim"
+
+# Find
+[[mgr.prepend_keymap]]
+on = ["/"]
+run = "find --smart"
+desc = "Find next file"
+
+[[mgr.prepend_keymap]]
+on = ["?"]
+run = "find --previous --smart"
+desc = "Find previous file"
+
+[[mgr.prepend_keymap]]
+on = ["n"]
+run = "find_arrow"
+desc = "Goto the next found"
+
+[[mgr.prepend_keymap]]
+on = ["N"]
+run = "find_arrow --previous"
+desc = "Goto the previous found"
+
+# Copy/Paste
+[[mgr.prepend_keymap]]
+on = ["y"]
+run = "yank"
+desc = "Copy"
+
+[[mgr.prepend_keymap]]
+on = ["p"]
+run = "paste"
+desc = "Paste"
+
+# Delete
+[[mgr.prepend_keymap]]
+on = ["d"]
+run = "remove"
+desc = "Delete"
+
+# Create
+[[mgr.prepend_keymap]]
+on = ["A"]
+run = "create --dir"
+desc = "Create directory"
+
+[[mgr.prepend_keymap]]
+on = ["a"]
+run = "create"
+desc = "Create file"
+
+# Undo
+[[mgr.prepend_keymap]]
+on = ["u"]
+run = "undo"
+desc = "Undo"
+
+[[mgr.prepend_keymap]]
+on = ["<C-r>"]
+run = "redo"
+desc = "Redo"
+
+# Quit
+[[mgr.prepend_keymap]]
+on = ["q"]
+run = "quit"
+desc = "Quit"

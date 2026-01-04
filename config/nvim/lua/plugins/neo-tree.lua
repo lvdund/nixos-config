@@ -39,6 +39,14 @@ return {
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['o'] = 'open',
+          ['oc'] = "noop",
+          ['od'] = "noop",
+          ['og'] = "noop",
+          ['om'] = "noop",
+          ['on'] = "noop",
+          ['os'] = "noop",
+          ['ot'] = "noop",
         },
       },
       filtered_items = {
