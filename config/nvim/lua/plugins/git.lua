@@ -19,19 +19,19 @@ return {
         untracked = { text = '┆' },
       },
       signs_staged_enable = true,
-      signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
-      numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
-      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
-      word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      signcolumn = true,
+      numhl = false,
+      linehl = false,
+      word_diff = false,
       watch_gitdir = {
         follow_files = true,
       },
       auto_attach = true,
       attach_to_untracked = false,
-      current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+      current_line_blame = false,
       current_line_blame_opts = {
         virt_text = true,
-        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        virt_text_pos = 'eol',
         delay = 100,
         ignore_whitespace = false,
         virt_text_priority = 100,
@@ -40,17 +40,19 @@ return {
       current_line_blame_formatter = '<author>, <author_time:%R> - <summary>',
       sign_priority = 6,
       update_debounce = 100,
-      status_formatter = nil, -- Use default
-      max_file_length = 40000, -- Disable if file is longer than this (in lines)
+      status_formatter = nil,
+      max_file_length = 40000,
       preview_config = {
-        -- Options passed to nvim_open_win
         style = 'minimal',
         relative = 'cursor',
         row = 0,
         col = 1,
       },
-
       on_attach = function(bufnr)
+        if vim.bo[bufnr].filetype == 'neo-tree' then
+          return
+        end
+
         local gitsigns = require 'gitsigns'
 
         local function map(mode, l, r, opts)
@@ -59,23 +61,21 @@ return {
           vim.keymap.set(mode, l, r, opts)
         end
 
-        -- Navigation
         map('n', ']c', function()
           if vim.wo.diff then
             vim.cmd.normal { ']c', bang = true }
           else
             gitsigns.nav_hunk 'next'
           end
-        end)
+        end, { desc = 'next change' })
         map('n', '[c', function()
           if vim.wo.diff then
             vim.cmd.normal { '[c', bang = true }
           else
             gitsigns.nav_hunk 'prev'
           end
-        end)
+        end, { desc = 'prev change' })
 
-        -- Actions
         map('n', '<leader>gR', gitsigns.reset_buffer, { desc = '[G]it [R]eset buffer' })
         map('n', 'gp', gitsigns.preview_hunk, { desc = '[G]it [P]review change' })
         map('n', 'gt', ':Gitsigns toggle_current_line_blame<CR>', { desc = '[G]it [T]oggle [B]lame' })
@@ -89,48 +89,46 @@ return {
     config = function()
       require('vscode-diff').setup {
         highlights = {
-          line_insert = 'DiffAdd', -- Line-level insertions
-          line_delete = 'DiffDelete', -- Line-level deletions
-          char_insert = nil, -- Character-level insertions (nil = auto-derive)
-          char_delete = nil, -- Character-level deletions (nil = auto-derive)
-          char_brightness = nil, -- Auto-adjust based on your colorscheme
+          line_insert = 'DiffAdd',
+          line_delete = 'DiffDelete',
+          char_insert = nil,
+          char_delete = nil,
+          char_brightness = nil,
         },
         diff = {
-          disable_inlay_hints = true, -- Disable inlay hints in diff windows for cleaner view
-          max_computation_time_ms = 5000, -- Maximum time for diff computation (VSCode default)
+          disable_inlay_hints = true,
+          max_computation_time_ms = 5000,
         },
         explorer = {
-          position = 'left', -- "left" or "bottom"
-          width = 40, -- Width when position is "left" (columns)
-          height = 15, -- Height when position is "bottom" (lines)
-          indent_markers = true, -- Show indent markers in tree view (│, ├, └)
+          position = 'left',
+          width = 40,
+          height = 15,
+          indent_markers = true,
           icons = {
-            folder_closed = ' ', -- Nerd Font folder icon (customize as needed)
-            folder_open = ' ', -- Nerd Font folder-open icon
+            folder_closed = ' ',
+            folder_open = ' ',
           },
-          view_mode = 'list', -- "list" or "tree"
+          view_mode = 'list',
           file_filter = {
             ignore = { '*.lock', 'dist/*' },
           },
         },
-
-        -- Keymaps in diff view
         keymaps = {
           view = {
-            quit = 'q', -- Close diff tab
-            toggle_explorer = '<leader>bb', -- Toggle explorer visibility (explorer mode only)
-            next_hunk = ']c', -- Jump to next change
-            prev_hunk = '[c', -- Jump to previous change
-            next_file = ']f', -- Next file in explorer mode
-            prev_file = '[f', -- Previous file in explorer mode
-            diff_get = 'do', -- Get change from other buffer (like vimdiff)
-            diff_put = 'dp', -- Put change to other buffer (like vimdiff)
+            quit = 'q',
+            toggle_explorer = '<leader>bb',
+            next_hunk = ']c',
+            prev_hunk = '[c',
+            next_file = ']f',
+            prev_file = '[f',
+            diff_get = 'do',
+            diff_put = 'dp',
           },
           explorer = {
-            select = '<CR>', -- Open diff for selected file
-            hover = 'K', -- Show file diff preview
-            refresh = 'R', -- Refresh git status
-            toggle_view_mode = 'i', -- Toggle between 'list' and 'tree' views
+            select = '<CR>',
+            hover = 'K',
+            refresh = 'R',
+            toggle_view_mode = 'i',
           },
         },
       }

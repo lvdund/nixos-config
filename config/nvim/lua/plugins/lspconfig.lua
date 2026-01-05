@@ -119,21 +119,25 @@ return {
         jsonls = {},
         yamlls = {},
         bashls = {},
-        gopls = {},
+        gopls = {
+          usePlaceholders = true,
+          completeUnimported = true,
+          directoryFilters = { '-**/.git' },
+        },
         pyright = {},
         rust_analyzer = {},
         ts_ls = {},
-		nixd = {
-    	  cmd = { "nixd" },
+        nixd = {
+          cmd = { 'nixd' },
           settings = {
             nixd = {
-              nixpkgs = { expr = "import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }" },
+              nixpkgs = { expr = 'import (builtins.getFlake(toString ./.)).inputs.nixpkgs { }' },
               formatting = {
-                command = { "alejandra" }, -- or nixfmt or nixpkgs-fmt
+                command = { 'alejandra' }, -- or nixfmt or nixpkgs-fmt
               },
             },
           },
-	    },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -152,23 +156,31 @@ return {
 
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
-      -- Manually setup nixd since we removed it from Mason
-      if servers.nixd then
-        servers.nixd.capabilities = vim.tbl_deep_extend('force', {}, capabilities, servers.nixd.capabilities or {})
-        require('lspconfig').nixd.setup(servers.nixd)
-      end
+      if vim.fn.has 'nvim-0.11' == 1 then
+        for server_name, server_config in pairs(servers) do
+          local config = vim.tbl_deep_extend('force', server_config, { capabilities = capabilities })
+          vim.lsp.config[server_name] = config
+        end
+        vim.lsp.enable(vim.tbl_keys(servers))
+      else
+        -- Manually setup nixd since we removed it from Mason
+        if servers.nixd then
+          servers.nixd.capabilities = vim.tbl_deep_extend('force', {}, capabilities, servers.nixd.capabilities or {})
+          require('lspconfig').nixd.setup(servers.nixd)
+        end
 
-      require('mason-lspconfig').setup {
-        ensure_installed = {},
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
-      }
+        require('mason-lspconfig').setup {
+          ensure_installed = {},
+          automatic_installation = false,
+          handlers = {
+            function(server_name)
+              local server = servers[server_name] or {}
+              server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+              require('lspconfig')[server_name].setup(server)
+            end,
+          },
+        }
+      end
     end,
   },
 }

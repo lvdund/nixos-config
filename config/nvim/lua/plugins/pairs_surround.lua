@@ -1,21 +1,26 @@
--- autopairs
--- https://github.com/windwp/nvim-autopairs
-
 return {
   {
-    'windwp/nvim-autopairs',
-    event = 'InsertEnter',
-    opts = {},
+    'nvim-mini/mini.pairs',
+    version = '*',
+    config = function()
+      require('mini.pairs').setup()
+    end,
   },
   {
-    'NStefan002/visual-surround.nvim',
+    'nvim-mini/mini.surround',
+    version = '*',
     config = function()
-      require('visual-surround').setup {
-        use_default_keymaps = true,
-        delete_surr = 'ds', -- Delete surround mapping
-        surround_chars = { '{', '}', '[', ']', '(', ')', "'", '"', '`', '<', '>' },
-        enable_wrapped_deletion = false,
-        exit_visual_mode = true,
+      require('mini.surround').setup {
+        mappings = {
+          add = 'sa',
+          delete = 'sd',
+          find = 'sf',
+          find_left = 'sF',
+          highlight = 'sh',
+          replace = 'sr',
+          suffix_last = 'l',
+          suffix_next = 'n',
+        },
       }
     end,
   },

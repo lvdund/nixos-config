@@ -5,6 +5,7 @@ return {
     'nvim-lua/plenary.nvim',
     'nvim-tree/nvim-web-devicons',
     'MunifTanjim/nui.nvim',
+    'lewis6991/gitsigns.nvim',
   },
   lazy = false,
   keys = {
