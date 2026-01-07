@@ -7,6 +7,7 @@
     ../common.nix
     ./hardware-configuration.nix
     ../modules/nvidia.nix
+    ../modules/gtp5g.nix
   ];
 
   networking.hostName = "homepc";

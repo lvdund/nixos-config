@@ -5,10 +5,7 @@ return { -- Useful plugin to show you pending keybinds.
     preset = 'helix',
     delay = 0,
     icons = {
-      -- set icon mappings to true if you have a Nerd Font
       mappings = vim.g.have_nerd_font,
-      -- If you are using a Nerd Font: set icons.keys to an empty table which will use the
-      -- default which-key.nvim defined Nerd Font icons, otherwise define a string table
       keys = vim.g.have_nerd_font and {} or {
         Up = '<Up> ',
         Down = '<Down> ',
@@ -45,14 +42,18 @@ return { -- Useful plugin to show you pending keybinds.
     spec = {
       { 'gr', group = '🔧 Lsp' },
       { 's', group = ' [S]urround' },
-      { '<leader>b', group = '📄 [B]uffer' },
-      { '<leader>d', group = '🐞 [D]ebug' },
-      { '<leader>e', group = '❗ [E]rror' },
-      { '<leader>g', group = '🌱 [G]it Hunk', mode = { 'n', 'v' } },
-      { '<leader>q', group = '🚪 [Q]uit' },
-      { '<leader>s', group = '🔎 [S]earch' },
-      { '<leader>sn', group = '🔔 [N]otifications' },
-      { '<leader>sc', group = '📝 [S]earch Todo-[C]omment' },
+      { '<leader>b', group = '📄[B]uffer' },
+      { '<leader>d', group = '🐞[D]ebug' },
+      { '<leader>e', group = '❗[E]rror' },
+      { '<leader>g', group = '🌱[G]it Hunk', mode = { 'n', 'v' } },
+      { '<leader>q', group = '🚪[Q]uit' },
+      { '<leader>o', group = '🤖[O]penCode' },
+      { '<leader>os', group = '󰋃 [O]penCode [S]ession' },
+      { '<leader>op', group = ' [O]penCode [P]ermission' },
+      { '<leader>or', group = '󰕌 [O]penCode [R]evert' },
+      { '<leader>s', group = '🔎[S]earch' },
+      { '<leader>sn', group = '🔔[N]otifications' },
+      { '<leader>sc', group = '📝[S]earch Todo-[C]omment' },
     },
   },
 }
