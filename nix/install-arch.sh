@@ -23,7 +23,7 @@ fi
 echo -e "${BLUE}Step 1: Installing Nix Package Manager${NC}"
 if ! command -v nix &> /dev/null; then
     echo "Installing Nix..."
-    sh <(curl -L https://nixos.org/nix/install) --daemon
+    sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --daemon
     
     # Source nix
     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
