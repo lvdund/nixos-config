@@ -63,6 +63,8 @@ map('n', '<C-p>', ':cprevious<CR>', { desc = 'Previous search list' })
 map('n', 'sc', ':cclose<CR>', { desc = '[C]lose search list' })
 map('n', 'so', ':copen<CR>', { desc = '[O]pen search list' })
 
+map('n', '<leader>cc', ':CsvViewEnable display_mode=border header_lnum=1<CR>', { desc = 'Show CSV mode' })
+
 -- golang tags
 -- map('n', '<leader>tajj', '<Cmd>GoAddTags json<CR>', { desc = 'Add tag json' })
 -- map('n', '<leader>tajo', '<Cmd>GoAddTags json,omitempty<CR>', { desc = 'Add tag json with omitempty' })

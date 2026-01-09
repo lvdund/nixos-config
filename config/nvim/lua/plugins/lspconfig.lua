@@ -9,12 +9,6 @@ return {
     },
   },
   {
-    'nvim-telescope/telescope-project.nvim',
-    dependencies = {
-      'nvim-telescope/telescope.nvim',
-    },
-  },
-  {
     -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {

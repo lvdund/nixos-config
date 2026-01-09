@@ -26,6 +26,10 @@ vim.g.have_nerd_font = true
 require('lazy').setup({
   { import = 'plugins' },
 }, {
+  change_detection = {
+    enabled = false,
+    notify = false,
+  },
   ui = {
     icons = vim.g.have_nerd_font and {} or {
       cmd = '⌘',

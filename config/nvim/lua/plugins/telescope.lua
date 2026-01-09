@@ -157,7 +157,6 @@ return {
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
-      pcall(require('telescope').load_extension, 'projects')
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
@@ -168,17 +167,7 @@ return {
         require('telescope.builtin').diagnostics { bufnr = 0 }
       end, { desc = '[S]earch [D]iagnostics Buffer only' })
       vim.keymap.set('n', '<leader>ss', builtin.resume, { desc = '[S]earch Resume' })
-      vim.keymap.set('n', '<leader>sn', ':Noice history<CR>', { desc = 'List Notifications' })
-      vim.keymap.set('n', '<leader>sp', ':Telescope projects<CR>', { desc = '[S]earch Book[M]arks' })
-      vim.keymap.set('n', '<leader>scn', function()
-        require('todo-comments').jump_next()
-      end, { desc = '[N]ext TODO' })
-      -- vim.keymap.set('n', '<leader>sb', function()
-      --   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-      --     winblend = 10,
-      --     previewer = false,
-      --   })
-      -- end, { desc = 'Fuzzily search in current buffer' })
+      vim.keymap.set('n', '<leader>sn', ':Telescope notify<CR>', { desc = 'List Notifications' })
       vim.keymap.set('n', 'sb', builtin.buffers, { desc = '[S]earch [B]uffers' })
       vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
       vim.keymap.set('n', '<leader>s/', function()
@@ -187,14 +176,6 @@ return {
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[S]earch [/] in Open Files' })
-    end,
-  },
-  {
-    'ahmedkhalf/project.nvim',
-    config = function()
-      require('project_nvim').setup {
-        patterns = { '.git', '_darcs', '.hg', '.bzr', '.svn', 'Makefile', 'package.json', 'go.md' },
-      }
     end,
   },
 }

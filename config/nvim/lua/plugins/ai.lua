@@ -15,7 +15,7 @@ return {
           ['<leader>orb'] = { 'diff_revert_this_last_prompt' },
           ['<leader>opa'] = { 'permission_accept' },
           ['<leader>opA'] = { 'permission_accept_all' },
-		  ['<leader>opd'] = { 'permission_deny' },
+          ['<leader>opd'] = { 'permission_deny' },
           ['<leader>ol'] = { 'quick_chat', mode = { 'n', 'x' } },
         },
         inline = {
@@ -161,7 +161,7 @@ return {
         anti_conceal = { enabled = false },
         file_types = { 'markdown', 'opencode_output' },
       },
-      ft = { 'markdown', 'Avante', 'copilot-chat', 'opencode_output' },
+      ft = { 'markdown', 'opencode_output' },
     },
     'saghen/blink.cmp',
     'nvim-telescope/telescope.nvim',
