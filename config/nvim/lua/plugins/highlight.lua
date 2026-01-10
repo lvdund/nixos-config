@@ -37,7 +37,7 @@ return {
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     opts = {
       enable = true,
-      max_lines = 1,
+      max_lines = 3,
       mode = 'cursor',
     },
   },

@@ -32,3 +32,14 @@ vim.opt.tabstop = 4
 -- ignore: fuzz, grep
 vim.opt.wildignore:append '**/node_modules/*'
 vim.opt.wildignore:append '**/package-lock.json'
+
+-- Add this after your colorscheme setup
+vim.api.nvim_create_autocmd('ColorScheme', {
+  pattern = '*',
+  callback = function()
+    vim.cmd.highlight {
+      'WinSeparator',
+      'guifg=#957CC6',
+    }
+  end,
+})

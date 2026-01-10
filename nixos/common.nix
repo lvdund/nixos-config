@@ -51,6 +51,7 @@
     gcc14
     nix-prefetch-github
     kmod
+    trash-cli
 
     # Compression tools
     zip

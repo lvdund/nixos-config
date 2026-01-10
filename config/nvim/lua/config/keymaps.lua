@@ -24,8 +24,8 @@ map('n', '<C-a>', 'gg<S-v>G') -- select all
 -- Move a line up or down in normal mode
 map('n', '<A-down>', ':m .+1<CR>==', { desc = 'Move line down', noremap = true, silent = true })
 map('n', '<A-up>', ':m .-2<CR>==', { desc = 'Move line up', noremap = true, silent = true })
--- map('n', '<A-K>', ':m .+1<CR>==', { desc = 'Move line down', noremap = true, silent = true })
--- map('n', '<A-J>', ':m .-2<CR>==', { desc = 'Move line up', noremap = true, silent = true })
+map('n', '<A-J>', ':m .+1<CR>==', { desc = 'Move line down', noremap = true, silent = true })
+map('n', '<A-K>', ':m .-2<CR>==', { desc = 'Move line up', noremap = true, silent = true })
 
 -- Move a line or block up or down in visual mode
 map('v', '<A-down>', ":m '>+1<CR>gv=gv", { desc = 'Move selection down', noremap = true, silent = true })
