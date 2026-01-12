@@ -9,6 +9,7 @@
     ./modules/brave.nix
     ./modules/fish.nix
     ./modules/yazi.nix
+	./modules/neovim.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

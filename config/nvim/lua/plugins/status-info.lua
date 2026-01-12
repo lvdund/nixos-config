@@ -48,17 +48,11 @@ return {
         window = {
           mappings = {
             ['\\'] = 'close_window',
-            ['o'] = 'open',
+            ['l'] = 'open',
+            ['h'] = 'close_node',
             ['d'] = 'trash_file',
             ['r'] = 'restore_from_trash',
             ['R'] = 'open_trash',
-            ['oc'] = 'noop',
-            ['od'] = 'noop',
-            ['og'] = 'noop',
-            ['om'] = 'noop',
-            ['on'] = 'noop',
-            ['os'] = 'noop',
-            ['ot'] = 'noop',
           },
         },
         filtered_items = {

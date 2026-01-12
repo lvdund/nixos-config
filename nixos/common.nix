@@ -33,7 +33,6 @@
     # Core utilities
     git
     gh
-    neovim
     tmux
     fzf
     fd
