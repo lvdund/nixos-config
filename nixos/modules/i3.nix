@@ -6,12 +6,14 @@
   services.xserver = {
     enable = true;
     windowManager.i3.enable = true;
-    displayManager = {
-      defaultSession = "none+i3";
-      lightdm.enable = true;
-    };
     xkb.layout = "us";
   };
+
+  services.displayManager = {
+    defaultSession = "none+i3";
+  };
+
+  services.xserver.displayManager.lightdm.enable = true;
 
   services.gvfs.enable = true;
   services.tumbler.enable = true;
@@ -27,13 +29,21 @@
   };
   services.pulseaudio.enable = false;
 
+  services.picom.enable = true;
+
   environment.systemPackages = with pkgs; [
     i3
-    i3status
     i3lock
     dmenu
     xclip
     rofi
+    (polybar.override {
+      i3Support = true; # for i3 module
+      alsaSupport = true; # for alsa module
+      pulseSupport = true; # for pulseaudio module
+      mpdSupport = true; # for mpd module
+      nlSupport = true; # for network module
+    })
     acpi # For battery information
   ];
 

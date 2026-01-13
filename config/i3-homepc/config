@@ -8,10 +8,10 @@ exec --no-startup-id xset s off && xset -dpms && xset s noblank
 exec --no-startup-id dunst
 exec --no-startup-id xclip
 exec --no-startup-id fcitx5
-# exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always --no-startup-id bash ~/.config/polybar/launch.sh
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
 
 # Use pactl to adjust volume and brightness.
-set $refresh_i3status killall -SIGUSR1 i3status
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -2% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
@@ -120,25 +120,25 @@ bindsym $mod+Shift+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-bar {
-	status_command i3status
-	position bottom
-	workspace_min_width 24
-	padding 2px 8px 2px 8px
-	strip_workspace_numbers yes
-
-	colors {
-	background #141c21
-	statusline #141c21
-	separator #141c21
-
-	# colour of border, background, and text
-	focused_workspace #141c21 #d12f2c #bfbaac
-	active_workspace #141c21 #141c21 #bfbaac
-	inactive_workspace #141c21 #141c21 #bfbaac
-	urgent_workspace #141c21 #b08500 #bfbaac
-	}
-}
+# bar {
+# 	status_command i3status
+# 	position bottom
+# 	workspace_min_width 24
+# 	padding 2px 8px 2px 8px
+# 	strip_workspace_numbers yes
+# 
+# 	colors {
+# 	background #141c21
+# 	statusline #141c21
+# 	separator #141c21
+# 
+# 	# colour of border, background, and text
+# 	focused_workspace #141c21 #d12f2c #bfbaac
+# 	active_workspace #141c21 #141c21 #bfbaac
+# 	inactive_workspace #141c21 #141c21 #bfbaac
+# 	urgent_workspace #141c21 #b08500 #bfbaac
+# 	}
+# }
 
 # colour of border, background, text, indicator, and child_border
 client.focused #d12f2c #263640 #93a1a1 #696ebf #FAAFBE

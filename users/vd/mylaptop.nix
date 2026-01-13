@@ -44,6 +44,7 @@
     black
     dockerfmt
     yamlfmt
+	i3status
   ];
 
   # directories exist
