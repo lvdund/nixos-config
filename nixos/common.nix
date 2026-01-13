@@ -38,7 +38,6 @@
     fd
     bat
     ripgrep
-    xclip
     lsd
     wget
     curl

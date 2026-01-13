@@ -1,5 +1,5 @@
 {
-  description = "NixOS configuration with i3wm";
+  description = "NixOS configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -7,9 +7,13 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, noctalia, ... }@inputs:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { 
@@ -21,6 +25,7 @@
       nixosConfigurations = {
         homepc = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             ./nixos/homepc/configuration.nix
             home-manager.nixosModules.home-manager
@@ -35,6 +40,7 @@
         
         mylaptop = nixpkgs.lib.nixosSystem {
           inherit system;
+          specialArgs = { inherit inputs; };
           modules = [
             ./nixos/mylaptop/configuration.nix
             home-manager.nixosModules.home-manager

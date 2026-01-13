@@ -32,6 +32,7 @@
     i3status
     i3lock
     dmenu
+    xclip
     rofi
     acpi # For battery information
   ];
