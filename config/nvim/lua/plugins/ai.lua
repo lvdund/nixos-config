@@ -2,7 +2,7 @@ return {
   'sudo-tee/opencode.nvim',
   config = function()
     require('opencode').setup {
-      preferred_picker = 'telescope',
+      preferred_picker = 'fzf',
       preferred_completion = 'blink',
       default_global_keymaps = false,
       default_mode = 'build',
@@ -164,6 +164,6 @@ return {
       ft = { 'markdown', 'opencode_output' },
     },
     'saghen/blink.cmp',
-    'nvim-telescope/telescope.nvim',
+    'ibhagwan/fzf-lua',
   },
 }

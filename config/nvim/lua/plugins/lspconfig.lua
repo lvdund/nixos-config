@@ -28,14 +28,6 @@ return {
           end
 
           map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
-          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-          map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
-          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-          map('gro', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
-          map('gr0', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Open Workspace Symbols')
-          map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
           local function client_supports_method(client, method, bufnr)
             if vim.fn.has 'nvim-0.11' == 1 then

@@ -28,19 +28,6 @@ return {
     ---@type render.md.UserConfig
     opts = {},
   },
-  -- {
-  --   'maxandron/goplements.nvim',
-  --   ft = 'go',
-  --   opts = {
-  --     prefix = {
-  --       interface = 'implemented by: ',
-  --       struct = 'implements: ',
-  --     },
-  --     display_package = true,
-  --     namespace_name = 'goplements',
-  --     highlight = 'Goplements',
-  --   },
-  -- },
   {
     'zgs225/gomodifytags.nvim',
     cmd = { 'GoAddTags', 'GoRemoveTags', 'GoInstallModifyTagsBin' },

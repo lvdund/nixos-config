@@ -38,6 +38,8 @@
 	crow-translate
 
 	nixd
+	delta
+	basedpyright
     go
 	lazygit
 	lazydocker
@@ -48,6 +50,7 @@
 	gopls
 	shfmt
 	impl
+	golangci-lint
 
 	nodejs_20
     rustup
