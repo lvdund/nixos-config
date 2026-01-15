@@ -51,7 +51,7 @@ return {
             ['l'] = 'open',
             ['h'] = 'close_node',
             ['d'] = 'trash_file',
-            ['r'] = 'restore_from_trash',
+            ['u'] = 'restore_from_trash',
             ['R'] = 'open_trash',
           },
         },

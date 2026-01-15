@@ -35,10 +35,12 @@ return {
           require('telescope.actions').select_default(prompt_bufnr)
         end
       end
-      -- Example 1: search "func" only in file comments.lua
-      -- func  *ents.lua
-      -- Example 2: search "func" only in folder plugins
-      -- func  **/plugins/**
+
+      -- Improved live_multigrep function with proper glob handling
+      -- Usage examples:
+      -- Search "abc" in all .py files: abc  *.py
+      -- Search "abc" in .py files in app folder: abc  *.py  **/app/**
+      -- Search "abc" in app folder (any file): abc  **/app/**
       local live_multigrep = function(opts)
         opts = opts or {}
         opts.cwd = opts.cwd or vim.uv.cwd()
@@ -49,16 +51,22 @@ return {
               return nil
             end
 
+            -- Split on two spaces
             local pieces = vim.split(prompt, '  ')
             local args = { 'rg' }
-            if pieces[1] then
+
+            -- First piece is the search term
+            if pieces[1] and pieces[1] ~= '' then
               table.insert(args, '-e')
               table.insert(args, pieces[1])
             end
 
-            if pieces[2] then
-              table.insert(args, '-g')
-              table.insert(args, pieces[2])
+            -- Remaining pieces are glob patterns
+            for i = 2, #pieces do
+              if pieces[i] and pieces[i] ~= '' then
+                table.insert(args, '-g')
+                table.insert(args, pieces[i])
+              end
             end
 
             ---@diagnostic disable-next-line: deprecated
@@ -83,7 +91,7 @@ return {
         pickers
           .new(opts, {
             debounce = 100,
-            prompt_title = 'Multi Grep',
+            prompt_title = 'Multi Grep (search  glob1  glob2)',
             finder = finder,
             previewer = conf.grep_previewer(opts),
             sorter = require('telescope.sorters').empty(),
@@ -93,6 +101,21 @@ return {
 
       require('telescope').setup {
         defaults = {
+          file_ignore_patterns = {
+            'node_modules',
+            '.venv',
+            '.git',
+            'dist/',
+            'build/',
+            'target/',
+          },
+          layout_config = {
+            horizontal = {
+              width = 0.90,
+              preview_width = 0.65,
+              results_width = 0.25,
+            },
+          },
           mappings = {
             n = {
               ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
@@ -112,30 +135,11 @@ return {
             '--column',
             '--smart-case',
           },
-        },
-        mappings = {
-          n = {
-            ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
-          },
-          i = {
-            ['<CR>'] = select_one_or_multi,
-            ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
-          },
-        },
-        vimgrep_arguments = {
-          'rg',
-          '--hidden',
-          '--no-ignore',
-          '--no-ignore-vcs',
-          '--with-filename',
-          '--line-number',
-          '--column',
-          '--smart-case',
-        },
-        picker = {
-          find_files = {
-            hidden = true, -- Show dotfiles
-            follow = true, -- Follow symlinks
+          picker = {
+            find_files = {
+              hidden = true, -- Show dotfiles
+              follow = true, -- Follow symlinks
+            },
           },
         },
         pickers = { find_files = { hidden = true, no_ignore = true, no_ignore_parent = true, follow = true } },
@@ -153,6 +157,18 @@ return {
           },
         },
       }
+
+      -- show line number
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'TelescopePreviewerLoaded',
+        callback = function(args)
+          if args.data.filetype ~= 'help' then
+            vim.wo.number = true
+          elseif args.data.bufname:match '*.csv' then
+            vim.wo.wrap = false
+          end
+        end,
+      })
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')

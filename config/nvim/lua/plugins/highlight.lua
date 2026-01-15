@@ -1,5 +1,10 @@
 return {
   {
+    'folke/todo-comments.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    opts = {},
+  },
+  {
     'hat0uma/csvview.nvim',
     ---@module "csvview"
     ---@type CsvView.Options

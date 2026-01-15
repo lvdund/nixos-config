@@ -18,13 +18,13 @@
   # Environment variables
   home.sessionVariables = {
     MOZ_ENABLE_WAYLAND = "0";
-    GOPATH = "${config.home.homeDirectory}/env/gopath_1_24";
-    GOROOT = "${pkgs.go_1_24}/share/go";
+    GOPATH = "${config.home.homeDirectory}/env/gopath_main";
+    GOROOT = "${pkgs.go}/share/go";
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
   };
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
-    "${config.home.homeDirectory}/env/gopath_1_24/bin"
+    "${config.home.homeDirectory}/env/gopath_main/bin"
     "${config.home.homeDirectory}/.local/bin"
   ];
 
@@ -35,9 +35,21 @@
     vscode
     peazip
     pciutils
-    nixd
-    go_1_24
-    nodejs_20
+	crow-translate
+
+	nixd
+    go
+	lazygit
+	lazydocker
+    delve
+	gofumpt
+	gomodifytags
+	gotools
+	gopls
+	shfmt
+	impl
+
+	nodejs_20
     rustup
     uv
     clang-tools
@@ -57,7 +69,7 @@
   # directories exist
   home.activation.createDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
     mkdir -p ${config.home.homeDirectory}/env
-    mkdir -p ${config.home.homeDirectory}/env/gopath_1_24/{bin,pkg,src}
+    mkdir -p ${config.home.homeDirectory}/env/gopath_main/{bin,pkg,src}
   '';
 
   # theme
@@ -95,6 +107,7 @@
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty";
     ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/nvim";
     ".config/Thunar".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/Thunar";
+    ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zathura";
   };
 
   programs = {
