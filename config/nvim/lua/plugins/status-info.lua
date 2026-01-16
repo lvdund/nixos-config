@@ -266,14 +266,14 @@ return {
                 return 'record: ' .. reg
               end,
             },
-            -- {
-            --   'filename',
-            --   path = 1,
-            --   separator = vim.trim ' ⟩ ',
-            --   fmt = function(str)
-            --     return str:gsub(package.config:sub(1, 1), '/')
-            --   end,
-            -- },
+            {
+              'filename',
+              path = 1,
+              separator = vim.trim ' ⟩ ',
+              fmt = function(str)
+                return str:gsub(package.config:sub(1, 1), '/')
+              end,
+            },
           },
           -- lualine_x = { 'filename' },
           -- lualine_y = { 'datetime' },

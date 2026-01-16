@@ -63,10 +63,6 @@
     black
     dockerfmt
     yamlfmt
-    # (pkgs.polybar.override {
-    #   mpdSupport = true;
-    #   pulseSupport = true;
-    # })
   ];
 
   # directories exist
