@@ -6,6 +6,7 @@
 }: {
   imports = [
     ./modules/yazi.nix
+    ./modules/tmux.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -75,8 +76,6 @@
 
   # Link your custom configs
   home.file = {
-    ".tmux.conf".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tmux/tmux.conf";
-    ".tmux".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/tmux";
     ".config/i3".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/i3-mylaptop";
     ".config/i3status".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/i3status-mylaptop";
     ".config/yazi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/yazi";

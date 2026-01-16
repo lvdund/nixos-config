@@ -33,7 +33,6 @@
     # Core utilities
     git
     gh
-    tmux
     fzf
     fd
     bat
