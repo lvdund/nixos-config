@@ -16,6 +16,36 @@
     };
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
+      
+      # Custom prompt with user@hostname, pwd (full path with ... when > 3 dirs), and git branch
+      function fish_prompt
+        set -l last_status $status
+        
+        # User@hostname
+        set_color cyan
+        echo -n "$USER@"(hostname)" "
+        
+        # Get current directory (full path, truncate with ... when > 3 dirs)
+        set_color blue
+        echo -n (prompt_pwd --full-length-dirs 3)
+        
+        # Git branch (if in a git repo)
+        if git rev-parse --git-dir > /dev/null 2>&1
+          set -l git_branch (git branch 2>/dev/null | sed -n '/\* /s///p')
+          set_color yellow
+          echo -n " ($git_branch)"
+        end
+        
+        # Prompt symbol (color based on last command status)
+        if test $last_status -eq 0
+          set_color green
+        else
+          set_color red
+        end
+        
+        set_color normal
+        echo -n " > "
+      end
     '';
   };
 }

@@ -8,11 +8,19 @@
     plugins = with pkgs; [
       tmuxPlugins.vim-tmux-navigator
       tmuxPlugins.catppuccin
+	  tmuxPlugins.resurrect
+	  tmuxPlugins.continuum
     ];
     extraConfig = ''
       set -g @catppuccin_flavor "mocha"
       set -g @catppuccin_window_status_style "rounded"
-      
+
+	  set -g @continuum-restore 'on'
+	  set -g status-right 'Continuum status: #{continuum_status}'
+
+	  set -g @resurrect-capture-pane-contents 'on'
+      resurrect_dir="$HOME/.tmux/resurrect"
+
       set -g allow-passthrough on
       set -ag terminal-overrides ",$TERM:RGB"
       bind h select-pane -L
