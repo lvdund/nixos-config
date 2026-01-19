@@ -64,7 +64,8 @@
     kitty
     nautilus
     process-viewer
-	zathura
+    zathura
+    arandr
 
     # Audio/Video
     pavucontrol

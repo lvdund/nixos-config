@@ -25,7 +25,13 @@ return {
       'fredrikaverpil/neotest-golang',
     },
     keys = {
-      { '<leader>do', ':Neotest output<cr>', desc = 'Output Panel' },
+      {
+        '<leader>do',
+        function()
+          require('neotest').output_panel.toggle()
+        end,
+        desc = 'Output Panel',
+      },
       { '<leader>dp', "<cmd>lua require('neotest').run.stop()<cr>", desc = 'Stop test' },
       { '<leader>ds', "<cmd>lua require('neotest').summary.toggle()<cr>", desc = 'Toggle Summary' },
       { '<leader>dt', "<cmd>lua require('neotest').run.run()<cr>", desc = 'Run test' },
@@ -43,7 +49,7 @@ return {
           end), -- Apply configuration
         },
         diagnostic = {
-          enabled = false,
+          enabled = true,
         },
         floating = {
           border = 'rounded',
@@ -68,6 +74,10 @@ return {
         output = {
           enabled = true,
           open_on_run = true,
+        },
+        output_panel = {
+          enabled = true,
+          open = 'botright vsplit | vertical resize 80',
         },
         run = {
           enabled = true,
