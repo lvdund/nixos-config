@@ -5,6 +5,16 @@ return {
     version = false, -- last release is way too old
   },
   {
+    'hat0uma/csvview.nvim',
+    ---@module "csvview"
+    ---@type CsvView.Options
+    opts = {
+      parser = { comments = { '#', '//' } },
+    },
+    cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
+    config = function() end,
+  },
+  {
     'Saecki/crates.nvim',
     event = { 'BufRead Cargo.toml' },
     opts = {

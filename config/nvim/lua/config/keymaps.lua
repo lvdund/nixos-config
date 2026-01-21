@@ -63,6 +63,7 @@ map('n', '<C-p>', ':cprevious<CR>', { desc = 'Previous search list' })
 map('n', 'sc', ':cclose<CR>', { desc = '[C]lose search list' })
 map('n', 'so', ':copen<CR>', { desc = '[O]pen search list' })
 
+-- csv view
 map('n', '<leader>cc', ':CsvViewEnable display_mode=border header_lnum=1<CR>', { desc = 'Show CSV mode' })
 
 -- golang tags

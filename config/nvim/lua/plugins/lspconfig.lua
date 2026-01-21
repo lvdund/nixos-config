@@ -105,11 +105,7 @@ return {
         jsonls = {},
         yamlls = {},
         bashls = {},
-        gopls = {
-          usePlaceholders = true,
-          completeUnimported = true,
-          directoryFilters = { '-**/.git' },
-        },
+        gopls = require('lsp.gopls'),
         pyright = {},
         rust_analyzer = {},
         ts_ls = {},

@@ -1,20 +1,5 @@
 return {
   {
-    'folke/todo-comments.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    opts = {},
-  },
-  {
-    'hat0uma/csvview.nvim',
-    ---@module "csvview"
-    ---@type CsvView.Options
-    opts = {
-      parser = { comments = { '#', '//' } },
-    },
-    cmd = { 'CsvViewEnable', 'CsvViewDisable', 'CsvViewToggle' },
-    config = function() end,
-  },
-  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
@@ -45,20 +30,5 @@ return {
       max_lines = 3,
       mode = 'cursor',
     },
-  },
-  {
-    'brenoprata10/nvim-highlight-colors',
-    event = 'BufReadPre',
-    opts = {
-      render = 'background',
-      enable_hex = true,
-      enable_short_hex = true,
-      enable_rgb = true,
-      enable_hsl = true,
-      enable_hsl_without_function = true,
-      enable_ansi = true,
-      enable_var_usage = true,
-      enable_tailwind = true,
-    },
-  },
+  }
 }

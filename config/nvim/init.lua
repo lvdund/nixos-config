@@ -1,5 +1,10 @@
 require 'config.config'
 require 'config.keymaps'
+require 'vd.cursor'
+require 'vd.indent'
+require 'vd.rejump'
+require 'vd.scroll'
+require 'vd.todo'
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
