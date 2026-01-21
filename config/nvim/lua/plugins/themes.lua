@@ -116,6 +116,16 @@ return {
         },
       }
       vim.cmd.colorscheme 'catppuccin'
+	  -- split window with color
+      vim.api.nvim_create_autocmd('ColorScheme', {
+        pattern = '*',
+        callback = function()
+          vim.cmd.highlight {
+            'WinSeparator',
+            'guifg=#957CC6',
+          }
+        end,
+      })
     end,
   },
   {

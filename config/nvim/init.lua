@@ -5,6 +5,7 @@ require 'vd.indent'
 require 'vd.rejump'
 require 'vd.scroll'
 require 'vd.todo'
+require 'vd.terminal'
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
