@@ -11,6 +11,7 @@
     ./modules/yazi.nix
     ./modules/neovim.nix
     ./modules/tmux.nix
+	./modules/direnv.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

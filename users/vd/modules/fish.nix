@@ -35,6 +35,11 @@
           set_color yellow
           echo -n " ($git_branch)"
         end
+
+		if set -q DIRENV_DIR
+          set_color magenta
+          echo -n " ❄️"
+        end
         
         # Prompt symbol (color based on last command status)
         if test $last_status -eq 0
