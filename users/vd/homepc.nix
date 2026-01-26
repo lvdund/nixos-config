@@ -11,7 +11,7 @@
     ./modules/yazi.nix
     ./modules/neovim.nix
     ./modules/tmux.nix
-	./modules/direnv.nix
+    ./modules/direnv.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -35,26 +35,27 @@
     wpsoffice
     protonup-qt
     vscode
-    peazip
     pciutils
-	crow-translate
+    parted
+    gdu
+    gparted
 
-	nixd
-	delta
-	basedpyright
+    nixd
+    delta
+    basedpyright
     go
-	lazygit
-	lazydocker
+    lazygit
+    lazydocker
     delve
-	gofumpt
-	gomodifytags
-	gotools
-	gopls
-	shfmt
-	impl
-	golangci-lint
+    gofumpt
+    gomodifytags
+    gotools
+    gopls
+    shfmt
+    impl
+    golangci-lint
 
-	nodejs_20
+    nodejs_20
     rustup
     uv
     clang-tools

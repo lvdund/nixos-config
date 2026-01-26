@@ -42,7 +42,7 @@ map('n', 'ss', ':split<CR>', opts) -- up/down
 map('n', 'sv', ':vsplit<CR>', opts) -- left/right
 
 map('n', '<leader>qa', ':qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
-map('n', '<leader>qc', ':close<CR>', { desc = 'Close' }) -- close
+map('n', '<leader>qc', ':close<CR>', { desc = 'Close Window' }) -- close
 map('n', '<leader>bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' })
 map('n', '<S-Tab>', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })

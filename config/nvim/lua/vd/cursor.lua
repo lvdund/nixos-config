@@ -6,7 +6,7 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
   callback = function()
     local word = vim.fn.expand '<cword>'
     if word ~= '' then
-      vim.fn.matchadd('WordUnderline', [[\<]] .. word .. [[\>]], -1)
+      vim.fn.matchadd('WordUnderline', [[\<]] .. vim.fn.escape(word, [[\/*[]^$.~]]) .. [[\>]], -1)
     end
   end,
 })

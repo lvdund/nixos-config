@@ -45,6 +45,7 @@
       nlSupport = true; # for network module
     })
     acpi # For battery information
+	psmisc # proc filesystem
   ];
 
   programs = {

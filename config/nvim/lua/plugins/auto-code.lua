@@ -5,7 +5,7 @@ return {
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        'gf',
         function()
           require('conform').format { lsp_format = 'fallback' }
           vim.cmd 'write'
@@ -132,7 +132,7 @@ return {
       -- See :h blink-cmp-config-fuzzy for more information
       fuzzy = { implementation = 'lua' },
       -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = false },
+      signature = { enabled = true },
     },
   },
 }

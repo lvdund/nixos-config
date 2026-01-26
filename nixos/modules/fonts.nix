@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }: {
@@ -8,4 +7,7 @@
     nerd-fonts.symbols-only
     corefonts
   ];
+  fonts.fontconfig.defaultFonts = {
+    monospace = ["Firacode Nerd Font"];
+  };
 }

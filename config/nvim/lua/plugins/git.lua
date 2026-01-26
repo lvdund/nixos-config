@@ -76,8 +76,8 @@ return {
           end
         end, { desc = 'prev change' })
 
-        map('n', '<leader>grb', gitsigns.reset_buffer, { desc = '[G]it [R]eset [B]uffer' })
-        map('n', '<leader>grh', gitsigns.reset_hunk, { desc = '[G]it [R]eset [H]unk' })
+        map('n', 'grb', gitsigns.reset_buffer, { desc = '[G]it [R]eset [B]uffer' })
+        map('n', 'grh', gitsigns.reset_hunk, { desc = '[G]it [R]eset [H]unk' })
         map('n', 'gp', gitsigns.preview_hunk, { desc = '[G]it [P]review change' })
         map('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', { desc = '[G]it [T]oggle Line Blame' })
       end,
