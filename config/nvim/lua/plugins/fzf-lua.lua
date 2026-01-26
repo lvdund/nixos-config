@@ -55,6 +55,27 @@ return {
 
     -- LSP keymaps
     {
+      'gra',
+      function()
+        require('fzf-lua').lsp_code_actions { async = false }
+      end,
+      desc = '[G]oto Code [A]ction',
+    },
+    {
+      'grr',
+      function()
+        require('fzf-lua').lsp_references { ignore_current_line = true }
+      end,
+      desc = '[G]oto [R]eferences',
+    },
+    {
+      'gri',
+      function()
+        require('fzf-lua').lsp_implementations()
+      end,
+      desc = '[G]oto [I]mplementation',
+    },
+    {
       'gd',
       function()
         require('fzf-lua').lsp_definitions { jump1 = true }
@@ -74,6 +95,13 @@ return {
         require('fzf-lua').lsp_live_workspace_symbols()
       end,
       desc = 'Open Workspace Symbols',
+    },
+    {
+      'grt',
+      function()
+        require('fzf-lua').lsp_typedefs()
+      end,
+      desc = '[G]oto [T]ype Definition',
     },
   },
 

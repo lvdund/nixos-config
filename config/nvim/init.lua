@@ -28,7 +28,6 @@ end
 ---@type vim.Option
 local rtp = vim.opt.rtp
 rtp:prepend(lazypath)
-vim.g.have_nerd_font = true
 
 require('lazy').setup({
   { import = 'plugins' },
@@ -36,22 +35,5 @@ require('lazy').setup({
   change_detection = {
     enabled = false,
     notify = false,
-  },
-  ui = {
-    icons = vim.g.have_nerd_font and {} or {
-      cmd = '⌘',
-      config = '🛠',
-      event = '📅',
-      ft = '📂',
-      init = '⚙',
-      keys = '🗝',
-      plugin = '🔌',
-      runtime = '💻',
-      require = '🌙',
-      source = '📄',
-      start = '🚀',
-      task = '📌',
-      lazy = '💤 ',
-    },
   },
 })
