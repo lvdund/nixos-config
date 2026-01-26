@@ -189,6 +189,7 @@ return {
   {
     'akinsho/bufferline.nvim',
     event = 'VeryLazy',
+    enabled = false,
     keys = {
       { '<leader>ba', '<Cmd>bufdo bd<CR>', desc = 'Close all Buffer' },
       { '[B', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move Buffers Left' },
@@ -202,7 +203,6 @@ return {
           italic = true,
         },
       },
-
       options = {
         diagnostics = 'nvim_lsp',
         diagnostics_indicator = function(_, _, diag)
@@ -255,8 +255,14 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = { 'branch', 'diff', 'diagnostics' },
+          lualine_b = {},
           lualine_c = {
+            {
+              'filename',
+              path = 1,
+            },
+          },
+          lualine_x = {
             {
               function()
                 local reg = vim.fn.reg_recording()
@@ -267,27 +273,44 @@ return {
               end,
             },
             {
-              'filename',
-              path = 1,
-              separator = vim.trim ' ⟩ ',
-              fmt = function(str)
-                return str:gsub(package.config:sub(1, 1), '/')
-              end,
+              'lsp_status',
+              icon = '', -- f013
+              symbols = {
+                spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
+                done = '✓',
+                separator = ' ',
+              },
+              ignore_lsp = {},
+              show_name = true,
             },
           },
-          -- lualine_x = { 'filename' },
-          -- lualine_y = { 'datetime' },
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = { 'location' },
+          lualine_y = {
+            {
+              'diff',
+              symbols = { added = '+', modified = '~', removed = '-' },
+              source = nil,
+            },
+            'diagnostics',
+          },
+          lualine_z = { 'branch' },
         },
         inactive_sections = {
           lualine_a = {},
           lualine_b = {},
-          lualine_c = { 'filename' },
-          lualine_x = { 'location' },
-          lualine_y = {},
-          lualine_z = {},
+          lualine_c = { {
+            'filename',
+            path = 1,
+          } },
+          lualine_x = {},
+          lualine_y = {
+            {
+              'diff',
+              symbols = { added = '+', modified = '~', removed = '-' },
+              source = nil,
+            },
+            'diagnostics',
+          },
+          lualine_z = { 'branch' },
         },
         tabline = {},
         winbar = {},

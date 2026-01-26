@@ -78,7 +78,6 @@ return {
               CursorLineNr = { fg = colors.blue, style = { 'bold' } },
               DashboardFooter = { fg = colors.overlay0 },
               TreesitterContextBottom = { style = {} },
-              WinSeparator = { fg = colors.overlay0, style = { 'bold' } },
               ['@markup.italic'] = { fg = colors.blue, style = { 'italic' } },
               ['@markup.strong'] = { fg = colors.blue, style = { 'bold' } },
               Headline = { style = { 'bold' } },
@@ -103,6 +102,8 @@ return {
             TabLineSel = { bg = colors.pink },
             CmpBorder = { fg = colors.surface2 },
             Pmenu = { bg = colors.none },
+            WinSeparator = { fg = '#957CC6', style = { 'bold' } },
+            VertSplit = { fg = '#957CC6', style = { 'bold' } },
           }
         end,
         default_integrations = true,
@@ -116,16 +117,6 @@ return {
         },
       }
       vim.cmd.colorscheme 'catppuccin'
-	  -- split window with color
-      vim.api.nvim_create_autocmd('ColorScheme', {
-        pattern = '*',
-        callback = function()
-          vim.cmd.highlight {
-            'WinSeparator',
-            'guifg=#957CC6',
-          }
-        end,
-      })
     end,
   },
   {

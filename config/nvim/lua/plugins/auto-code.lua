@@ -32,6 +32,23 @@ return {
       -- },
     },
   },
+  {
+    'mason-org/mason-lspconfig.nvim',
+    opts = {
+      ensure_installed = {
+        'gopls',
+        'clangd',
+        'docker-compose-language-service',
+        'json-lsp',
+        'bash-language-server',
+        'pyright',
+        'rust-analyzer',
+      },
+    },
+    dependencies = {
+      { 'mason-org/mason.nvim', opts = {} },
+    },
+  },
   { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',

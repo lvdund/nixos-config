@@ -41,6 +41,7 @@ map('n', '_', [[<cmd>horizontal resize -2<cr>]])
 map('n', 'ss', ':split<CR>', opts) -- up/down
 map('n', 'sv', ':vsplit<CR>', opts) -- left/right
 
+map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
 map('n', '<leader>qa', ':qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
 map('n', '<leader>qc', ':close<CR>', { desc = 'Close Window' }) -- close
 map('n', '<leader>bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' })

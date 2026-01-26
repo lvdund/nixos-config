@@ -2,21 +2,22 @@ return {
   {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function()
-      require('nvim-treesitter.config').setup {
-        ensure_installed = {
-          'go', 'gomod', 'gowork', 'gosum',
-          'lua', 'vim', 'vimdoc',
-          'bash', 'fish',
-          'python', 'rust', 'c', 'cpp',
-          'javascript', 'typescript', 'tsx', 'json',
-          'yaml', 'toml', 'markdown', 'markdown_inline',
-          'dockerfile', 'regex',
-        },
-        auto_install = true,
-        highlight = { enable = true },
-        indent = { enable = true },
-      }
+    opts = {
+      ensure_installed = {
+        'go', 'gomod', 'gowork', 'gosum',
+        'lua', 'vim', 'vimdoc',
+        'bash', 'fish',
+        'python', 'rust', 'c', 'cpp',
+        'javascript', 'typescript', 'tsx', 'json',
+        'yaml', 'toml', 'markdown', 'markdown_inline',
+        'dockerfile', 'regex',
+      },
+      auto_install = true,
+      highlight = { enable = true },
+      indent = { enable = true },
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.config').setup(opts)
 
       vim.api.nvim_create_autocmd('FileType', {
         pattern = '*',
