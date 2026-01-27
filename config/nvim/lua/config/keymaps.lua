@@ -20,6 +20,7 @@ map('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 map('n', 'dw', 'vb_d') -- delete a word backup
 map('n', '<C-a>', 'gg<S-v>G') -- select all
+map('x', 'p', [["_dP]]) -- Paste without overwriting register
 
 -- Move a line up or down in normal mode
 map('n', '<A-down>', ':m .+1<CR>==', { desc = 'Move line down', noremap = true, silent = true })
@@ -37,16 +38,20 @@ map('n', '-', [[<cmd>vertical resize -5<cr>]])
 map('n', '+', [[<cmd>horizontal resize +2<cr>]])
 map('n', '_', [[<cmd>horizontal resize -2<cr>]])
 
--- split window
+-- split window & buffer
 map('n', 'ss', ':split<CR>', opts) -- up/down
 map('n', 'sv', ':vsplit<CR>', opts) -- left/right
 
 map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
 map('n', '<leader>qa', ':qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
 map('n', '<leader>qc', ':close<CR>', { desc = 'Close Window' }) -- close
-map('n', '<leader>bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' })
 map('n', '<S-Tab>', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
 map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+
+map('n', '<leader>bo', ':%bd|e#|bd#<CR>', { desc = 'Close all other buffers' })
+map('n', '<leader>bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' })
+map('n', '<leader>ba', ':%bd<CR>', { desc = 'Close all buffers' })
+map('n', '<leader>bA', ':bw!<CR>', { desc = 'Close all buffer (Force)' })
 
 -- Diagnostic
 map('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open Errors' })

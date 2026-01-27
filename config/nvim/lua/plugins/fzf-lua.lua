@@ -32,6 +32,11 @@ return {
       desc = '[S]earch [D]iagnostics Buffer only',
     },
     {
+      '<leader>sn',
+      ':Noice fzf<CR>',
+      desc = '[S]earch [N]otify',
+    },
+    {
       '<leader>ss',
       function()
         require('fzf-lua').resume()

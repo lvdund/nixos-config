@@ -186,48 +186,75 @@ return {
       require('neo-tree').setup(opts)
     end,
   },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   event = 'VeryLazy',
+  --   enabled = false,
+  --   keys = {
+  --     { '<leader>ba', '<Cmd>bufdo bd<CR>', desc = 'Close all Buffer' },
+  --     { '[B', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move Buffers Left' },
+  --     { ']B', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move Buffers Right' },
+  --     { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Close Other Buffer' },
+  --   },
+  --   opts = {
+  --     highlights = {
+  --       buffer_selected = {
+  --         bold = true,
+  --         italic = true,
+  --       },
+  --     },
+  --     options = {
+  --       diagnostics = 'nvim_lsp',
+  --       diagnostics_indicator = function(_, _, diag)
+  --         local ret = (diag.error and icons.Error .. diag.error .. ' ' or '') .. (diag.warning and icons.Warn .. diag.warning or '')
+  --         return vim.trim(ret)
+  --       end,
+  --       offsets = {
+  --         {
+  --           filetype = 'neo-tree',
+  --           text = 'Neo-tree',
+  --           highlight = 'Directory',
+  --           text_align = 'left',
+  --         },
+  --       },
+  --       hover = {
+  --         enabled = true,
+  --         delay = 200,
+  --         reveal = { 'close' },
+  --       },
+  --       indicator = {
+  --         icon = '▎', -- this should be omitted if indicator style is not 'icon'
+  --         style = 'underline',
+  --       },
+  --     },
+  --   },
+  -- },
   {
-    'akinsho/bufferline.nvim',
+    'folke/noice.nvim',
     event = 'VeryLazy',
-    enabled = false,
-    keys = {
-      { '<leader>ba', '<Cmd>bufdo bd<CR>', desc = 'Close all Buffer' },
-      { '[B', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move Buffers Left' },
-      { ']B', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move Buffers Right' },
-      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Close Other Buffer' },
+    opts = {},
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
     },
-    opts = {
-      highlights = {
-        buffer_selected = {
-          bold = true,
-          italic = true,
-        },
-      },
-      options = {
-        diagnostics = 'nvim_lsp',
-        diagnostics_indicator = function(_, _, diag)
-          local ret = (diag.error and icons.Error .. diag.error .. ' ' or '') .. (diag.warning and icons.Warn .. diag.warning or '')
-          return vim.trim(ret)
-        end,
-        offsets = {
-          {
-            filetype = 'neo-tree',
-            text = 'Neo-tree',
-            highlight = 'Directory',
-            text_align = 'left',
-          },
-        },
-        hover = {
+    config = function()
+      require('noice').setup {
+        cmdline = {
           enabled = true,
-          delay = 200,
-          reveal = { 'close' },
+          view = 'cmdline_popup', -- This puts the :command bar in the middle
         },
-        indicator = {
-          icon = '▎', -- this should be omitted if indicator style is not 'icon'
-          style = 'underline',
+        messages = {
+          enabled = true,
+          view = 'mini', -- Shifts "Written" messages to a small corner popup
         },
-      },
-    },
+        popupmenu = {
+          enabled = true, -- Use a fancy floating menu for completions
+          backend = 'nui',
+        },
+      }
+      vim.opt.cmdheight = 0
+      vim.opt.laststatus = 3
+    end,
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -237,8 +264,8 @@ return {
         options = {
           icons_enabled = true,
           theme = 'dracula',
-          component_separators = { left = '', right = '' },
-          section_separators = { left = '', right = '' },
+          component_separators = { left = '┃', right = '┃' },
+          section_separators = { left = '', right = '' },
           disabled_filetypes = {
             statusline = { 'neo-tree' },
             winbar = {},
@@ -274,7 +301,7 @@ return {
             },
             {
               'lsp_status',
-              icon = '', -- f013
+              icon = '',
               symbols = {
                 spinner = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
                 done = '✓',
@@ -291,6 +318,10 @@ return {
               source = nil,
             },
             'diagnostics',
+            {
+              'filetype',
+              icon_only = true,
+            },
           },
           lualine_z = { 'branch' },
         },
@@ -309,6 +340,10 @@ return {
               source = nil,
             },
             'diagnostics',
+            {
+              'filetype',
+              icon_only = true,
+            },
           },
           lualine_z = { 'branch' },
         },

@@ -22,7 +22,6 @@ vim.o.winborder = 'rounded'
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'auto'
 vim.opt.wrap = true
-vim.opt.tabstop = 4
 
 -- ignore: fuzz, grep
 vim.opt.wildignore:append '**/node_modules/*'
