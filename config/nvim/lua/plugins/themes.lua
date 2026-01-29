@@ -11,7 +11,7 @@ return {
           dark = 'mocha',
         },
         transparent_background = false, -- disables setting the background color.
-        show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+        show_end_of_buffer = true, -- shows the '~' characters after the end of buffers
         term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
         dim_inactive = {
           enabled = true, -- dims the background color of inactive window
@@ -60,7 +60,7 @@ return {
             overlay0 = '#464957',
             surface2 = '#3A3D4A',
             surface1 = '#2F313D',
-            surface0 = '#1D1E29',
+            surface0 = '#0b0b12',
             -- base = '#0b0b12',
             -- mantle = '#11111a',
             -- crust = '#191926',
@@ -101,9 +101,11 @@ return {
             -- Comment = { fg = colors.flamingo },
             TabLineSel = { bg = colors.pink },
             CmpBorder = { fg = colors.surface2 },
-            Pmenu = { bg = colors.none },
-            WinSeparator = { fg = '#957CC6', style = { 'bold' } },
-            VertSplit = { fg = '#957CC6', style = { 'bold' } },
+            FloatBorder = { fg = colors.teal },
+            NormalFloat = { bg = colors.surface0 },
+            Pmenu = { bg = colors.surface0 },
+            WinSeparator = { fg = colors.pink, style = { 'bold' } },
+            VertSplit = { fg = colors.pink, style = { 'bold' } },
           }
         end,
         default_integrations = true,
