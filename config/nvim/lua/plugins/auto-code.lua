@@ -33,20 +33,15 @@ return {
     },
   },
   {
-    'mason-org/mason-lspconfig.nvim',
+    'mason-org/mason.nvim',
     opts = {
-      ensure_installed = {
-        'gopls',
-        'clangd',
-        'docker-compose-language-service',
-        'json-lsp',
-        'bash-language-server',
-        'pyright',
-        'rust-analyzer',
+      ui = {
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
       },
-    },
-    dependencies = {
-      { 'mason-org/mason.nvim', opts = {} },
     },
   },
   { -- Autocompletion

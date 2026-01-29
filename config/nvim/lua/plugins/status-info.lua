@@ -282,13 +282,13 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = {},
-          lualine_c = {
+          lualine_b = {
             {
               'filename',
               path = 1,
             },
           },
+          lualine_c = {},
           lualine_x = {
             {
               function()

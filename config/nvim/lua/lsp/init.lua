@@ -62,10 +62,19 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-vim.lsp.config['lua_ls'] = require('lsp.lua_ls')
-vim.lsp.config['gopls'] = require('lsp.gopls')
-vim.lsp.config['nixd'] = require('lsp.nixd')
+local lsp_servers = {
+  'lua_ls',
+  'gopls',
+  'nixd',
+  'rust_analyzer',
+  'bashls',
+  'clangd',
+  'docker_language_server',
+  -- 'jsonls',
+  'pyright',
+}
 
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('gopls')
-vim.lsp.enable('nixd')
+for _, lsp in ipairs(lsp_servers) do
+  vim.lsp.config[lsp] = require('lsp.' .. lsp)
+  vim.lsp.enable(lsp)
+end
