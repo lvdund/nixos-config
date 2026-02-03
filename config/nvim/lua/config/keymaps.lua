@@ -43,15 +43,15 @@ map('n', 'ss', ':split<CR>', opts) -- up/down
 map('n', 'sv', ':vsplit<CR>', opts) -- left/right
 
 map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
-map('n', '<leader>qa', ':qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
-map('n', '<leader>qc', ':close<CR>', { desc = 'Close Window' }) -- close
+map('n', '<leader>qa', ':wa|qa<CR>', { desc = '[Q]uit [A]ll' }) -- close
+map('n', '<leader>qc', ':wa|close<CR>', { desc = 'Close Window' }) -- close
 -- map('n', '<S-Tab>', '<cmd>bprev<cr>', { desc = 'Prev Buffer' })
 -- map('n', '<Tab>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
 
-map('n', '<leader>bo', ':%bd|e#|bd#<CR>', { desc = 'Close all other buffers' })
-map('n', '<leader>bc', ':bp|bd#<CR>', { desc = 'Close but keep split window' })
-map('n', '<leader>ba', ':%bd<CR>', { desc = 'Close all buffers' })
-map('n', '<leader>bA', ':bw!<CR>', { desc = 'Close all buffer (Force)' })
+map('n', '<leader>bo', ':wa|%bd|e#|bd#<CR>', { desc = 'Close all other buffers' })
+map('n', '<leader>bc', ':wa|bp|bd#<CR>', { desc = 'Close but keep split window' })
+map('n', '<leader>ba', ':wa|%bd<CR>', { desc = 'Close all buffers' })
+map('n', '<leader>bA', ':wa|bw!<CR>', { desc = 'Close all buffer (Force)' })
 
 -- Diagnostic
 map('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open Errors' })

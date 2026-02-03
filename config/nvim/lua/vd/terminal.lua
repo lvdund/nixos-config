@@ -28,7 +28,7 @@ local function create_floating_window(opts)
     col = col,
     row = row,
     style = 'minimal',
-    border = 'double', -- Matches your toggleterm config
+    border = 'rounded', -- Matches your toggleterm config
   }
 
   local win = vim.api.nvim_open_win(buf, true, win_config)

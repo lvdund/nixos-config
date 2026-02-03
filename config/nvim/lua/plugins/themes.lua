@@ -100,8 +100,8 @@ return {
           return {
             -- Comment = { fg = colors.flamingo },
             TabLineSel = { bg = colors.pink },
-            CmpBorder = { fg = colors.surface2 },
-            FloatBorder = { fg = colors.teal },
+            CmpBorder = { fg = colors.surface1 },
+            FloatBorder = { fg = colors.teal, bg = colors.surface0 },
             NormalFloat = { bg = colors.surface0 },
             Pmenu = { bg = colors.surface0 },
             WinSeparator = { fg = colors.pink, style = { 'bold' } },
