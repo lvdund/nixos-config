@@ -48,7 +48,7 @@ local function toggle_terminal()
 end
 
 -- Keymaps: Toggle in Normal and Terminal modes
-vim.keymap.set({ 'n', 't' }, '<C-t>', toggle_terminal, { desc = 'Toggle Floating Terminal' })
+vim.keymap.set({ 'n', 't' }, '<M-t>', toggle_terminal, { desc = 'Toggle Floating Terminal' })
 
 -- Better terminal navigation (Esc to exit terminal mode)
 vim.keymap.set('t', '<Esc>', [[<C-\><C-n>]], { desc = 'Exit terminal mode' })

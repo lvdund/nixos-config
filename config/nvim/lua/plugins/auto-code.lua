@@ -130,6 +130,11 @@ return {
           border = 'rounded',
           draw = { gap = 2 },
           winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
+          auto_show = true,
+        },
+        ghost_text = {
+          enabled = true,
+          show_with_menu = false,
         },
       },
 
@@ -142,9 +147,22 @@ return {
 
       snippets = { preset = 'luasnip' },
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      fuzzy = {
+        implementation = 'lua',
+        sorts = {
+          'exact',
+          -- defaults
+          'score',
+          'sort_text',
+        },
+      },
       -- Shows a signature help window while you type arguments for a function
-      signature = { enabled = true },
+      signature = {
+        enabled = true,
+        window = {
+          direction_priority = { 's', 'n' },
+        },
+      },
     },
   },
 }

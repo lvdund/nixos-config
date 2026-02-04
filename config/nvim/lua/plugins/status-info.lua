@@ -1,9 +1,9 @@
-local icons = {
-  Error = ' ',
-  Warn = ' ',
-  Hint = ' ',
-  Info = ' ',
-}
+-- local icons = {
+--   Error = ' ',
+--   Warn = ' ',
+--   Hint = ' ',
+--   Info = ' ',
+-- }
 
 return {
   {
@@ -114,7 +114,7 @@ return {
 
             -- Use trash-restore with echo to auto-select the file
             -- We need to find the index of the file in trash-restore list
-            local result = vim.fn.system 'trash-restore 2>/dev/null <<< "0"'
+            -- local result = vim.fn.system 'trash-restore 2>/dev/null <<< "0"'
 
             -- Alternative: use gio trash to restore
             local info_file = os.getenv 'HOME' .. '/.local/share/Trash/info/' .. filename .. '.trashinfo'
@@ -298,6 +298,25 @@ return {
     },
     config = function()
       require('noice').setup {
+        lsp = {
+          signature = {
+            enabled = false,
+          },
+          hover = {
+            enabled = true,
+            view = 'hover',
+            opts = { border = 'rounded' },
+          },
+          documentation = {
+            view = 'hover',
+            opts = {
+              border = {
+                style = 'rounded',
+                padding = { 0, 1 },
+              },
+            },
+          },
+        },
         cmdline = {
           enabled = true,
           view = 'cmdline_popup', -- This puts the :command bar in the middle

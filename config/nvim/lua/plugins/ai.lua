@@ -76,7 +76,7 @@ return {
         completion = {
           file_sources = {
             enabled = true,
-            preferred_cli_tool = 'server', -- 'fd','fdfind','rg','git','server' if nil, it will use the best available tool, 'server' uses opencode cli to get file list (works cross platform) and supports folders
+            preferred_cli_tool = 'rg', -- 'fd','fdfind','rg','git','server' if nil, it will use the best available tool, 'server' uses opencode cli to get file list (works cross platform) and supports folders
             ignore_patterns = {
               '^%.git/',
               '^%.svn/',

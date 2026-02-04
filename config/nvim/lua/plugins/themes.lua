@@ -61,9 +61,6 @@ return {
             surface2 = '#3A3D4A',
             surface1 = '#2F313D',
             surface0 = '#1D1E29',
-            -- base = '#0b0b12',
-            -- mantle = '#11111a',
-            -- crust = '#191926',
             base = '#000000',
             mantle = '#0A0A0A',
             crust = '#101010',
@@ -101,11 +98,27 @@ return {
             -- Comment = { fg = colors.flamingo },
             TabLineSel = { bg = colors.pink },
             CmpBorder = { fg = colors.surface1 },
-            FloatBorder = { fg = colors.teal, bg = colors.surface0 },
-            NormalFloat = { bg = colors.surface0 },
+            FloatBorder = { fg = colors.teal, bg = colors.base },
+            NormalFloat = { bg = colors.base },
             Pmenu = { bg = colors.surface0 },
             WinSeparator = { fg = colors.pink, style = { 'bold' } },
             VertSplit = { fg = colors.pink, style = { 'bold' } },
+
+            -- Try different possible highlight groups for blink.cmp
+            CmpItemAbbrDeprecated = { fg = colors.overlay2, style = { 'strikethrough' } },
+            CmpItemAbbrMatch = { fg = colors.blue, style = { 'bold' } },
+            CmpItemAbbrMatchFuzzy = { fg = colors.blue, style = { 'bold' } },
+            CmpItemKind = { fg = colors.mauve },
+            CmpItemMenu = { fg = colors.subtext1 },
+
+            -- For active parameter in signature help
+            CmpItemKindSnippet = { fg = colors.mauve },
+            CmpDocBorder = { fg = colors.surface1, bg = colors.base },
+
+            -- Common signature highlight groups
+            LspSignatureActiveParameter = { bg = colors.surface1, style = { 'bold', 'italic' } },
+            SignatureActiveParameter = { bg = colors.surface1, style = { 'bold', 'italic' } },
+            CmpSignatureActiveParameter = { bg = colors.surface1, style = { 'bold', 'italic' } },
           }
         end,
         default_integrations = true,
