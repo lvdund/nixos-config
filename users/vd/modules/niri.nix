@@ -5,6 +5,7 @@ let
 in
 {
   programs.niri.enable = true;
+  programs.niri.package = pkgs.niri-unstable;
 
   home.packages = with pkgs; [
     xwayland-satellite-unstable

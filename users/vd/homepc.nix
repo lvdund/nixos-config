@@ -6,7 +6,7 @@
   ...
 }: {
   imports = [
-    inputs.niri-flake.homeModules.niri
+    # inputs.niri-flake.homeModules.niri
     ./modules/obs.nix
     ./modules/brave.nix
     ./modules/fish.nix
