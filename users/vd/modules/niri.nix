@@ -1,7 +1,6 @@
 { pkgs, config, lib, ... }:
 
 let
-  wallpaper = "${pkgs.nixos-icons}/share/icons/hicolor/256x256/apps/nix-snowflake.png"; 
   waybarConfigDir = "${config.home.homeDirectory}/.config/waybar";
 in
 {
@@ -9,7 +8,6 @@ in
 
   home.packages = with pkgs; [
     xwayland-satellite-unstable
-    swww
     foot
     rofi-wayland
     swaylock
@@ -112,8 +110,6 @@ in
     }
 
     spawn-at-startup "${pkgs.xwayland-satellite-unstable}/bin/xwayland-satellite"
-    spawn-at-startup "swww-daemon"
-    # spawn-sh-at-startup "${pkgs.swww}/bin/swww img ${wallpaper} --transition-duration 0.5"
 
     binds {
         Mod+T { spawn "foot"; }
@@ -192,11 +188,6 @@ in
     window-rule {
         match app-id="^firefox$" title="^Picture-in-Picture$"
         open-floating true
-    }
-
-    layer-rule {
-        match namespace="^wallpaper$"
-        place-within-backdrop true
     }
 
     gestures { hot-corners { off; }; }
