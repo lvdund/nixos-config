@@ -4,14 +4,14 @@ return {
   dependencies = { 'nvim-tree/nvim-web-devicons' },
   keys = {
     {
-      '<leader>sf',
+      'sf',
       function()
         require('fzf-lua').files()
       end,
       desc = '[S]earch [F]iles',
     },
     {
-      '<leader>sg',
+      'sg',
       function()
         require('fzf-lua').live_grep()
       end,
@@ -32,12 +32,12 @@ return {
       desc = '[S]earch [D]iagnostics Buffer only',
     },
     {
-      '<leader>sn',
+      'sn',
       ':Noice fzf<CR>',
       desc = '[S]earch [N]otify',
     },
     {
-      '<leader>ss',
+      'ss',
       function()
         require('fzf-lua').resume()
       end,
@@ -51,7 +51,7 @@ return {
       desc = '[S]earch [B]uffers',
     },
     {
-      '<leader>gs',
+      'gs',
       function()
         require('fzf-lua').git_status()
       end,

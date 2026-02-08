@@ -4,7 +4,8 @@
   ...
 }: {
   imports = [
-    ./modules/i3.nix
+    # ./modules/i3.nix
+    ./modules/niri.nix
     ./modules/docker.nix
     ./modules/virtualbox.nix
     ./modules/fish.nix

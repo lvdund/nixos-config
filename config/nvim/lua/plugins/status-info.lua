@@ -17,8 +17,8 @@ return {
     },
     lazy = false,
     keys = {
-      { '\\', '<Cmd>Neotree position=float reveal_force_cwd<CR>', desc = 'Neotree toggle', silent = true },
-      { '<C-e>', '<Cmd>Neotree position=left reveal_force_cwd<CR>', desc = 'Neotree', silent = true },
+      { '\\', '<Cmd>Neotree toggle position=left reveal_force_cwd<CR>', desc = 'Neotree toggle', silent = true },
+      { '<C-e>', '<Cmd>Neotree toggle position=float reveal_force_cwd<CR>', desc = 'Neotree', silent = true },
     },
     opts = {
       default_component_configs = {
@@ -46,8 +46,9 @@ return {
       },
       filesystem = {
         window = {
+          width = 30,
           mappings = {
-            ['\\'] = 'close_window',
+            -- ['\\'] = 'close_window',
             ['l'] = 'open',
             ['h'] = 'close_node',
             ['d'] = 'trash_file',
@@ -338,6 +339,13 @@ return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
+      local function get_keymap()
+        if vim.opt.iminsert:get() > 0 and vim.b.keymap_name then
+          return ' ' .. vim.b.keymap_name
+        end
+        return ' en'
+      end
+
       require('lualine').setup {
         options = {
           icons_enabled = true,
@@ -360,13 +368,13 @@ return {
         },
         sections = {
           lualine_a = { 'mode' },
-          lualine_b = {
+          lualine_b = { { get_keymap } },
+          lualine_c = {
             {
               'filename',
               path = 1,
             },
           },
-          lualine_c = {},
           lualine_x = {
             {
               function()

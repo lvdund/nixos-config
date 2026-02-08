@@ -1,11 +1,15 @@
-require 'config.config'
-require 'config.keymaps'
-require 'vd.cursor'
-require 'vd.indent'
-require 'vd.rejump'
-require 'vd.scroll'
-require 'vd.todo'
-require 'vd.terminal'
+-- Auto-load all Lua modules from a directory
+local function load_modules(dir, prefix)
+  local path = vim.fn.stdpath 'config' .. '/lua/' .. dir .. '/'
+  for _, file in ipairs(vim.fn.readdir(path)) do
+    if file:match '%.lua$' then
+      require(prefix .. '.' .. file:gsub('%.lua$', ''))
+    end
+  end
+end
+
+load_modules('config', 'config')
+load_modules('vd', 'vd')
 require 'lsp'
 
 vim.api.nvim_create_autocmd('TextYankPost', {

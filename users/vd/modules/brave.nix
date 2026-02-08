@@ -1,10 +1,16 @@
-{ config, pkgs, ... }: {
-  programs.chromium = {
+{ ... }: {
+  programs.brave = {
     enable = true;
-    package = pkgs.brave;
     extensions = [
-      {id = "nngceckbapebfimnlniiiahkandclblb";} # bitwarden password manager
       {id = "eimadpbcbfnmbkopoojfekhnkhdbieeh";} # Dark Reader
+      {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
+      {id = "jlmpjdjjbgclbocgajdjefcidcncaied";} # daily.dev
+      {id = "akkdefghgcakdgkmakeajmijjhlcofmk";} # Hide YouTube Fullscreen Controls
+      {id = "ddkjiahejlhfcafbddmgiahcphecmpfh";} # uBlock Origin Lite 
+    ];
+    commandLineArgs = [
+      "--disable-features=PasswordManagerOnboarding"
+      "--disable-features=AutofillEnableAccountWalletStorage"
     ];
   };
 }
