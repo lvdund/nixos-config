@@ -37,6 +37,7 @@
             home-manager.useUserPackages = true;
             home-manager.users.vd = import ./users/vd/homepc.nix;
             home-manager.backupFileExtension = "backup";
+            home-manager.extraSpecialArgs = { inherit inputs; };
           }
         ];
       };

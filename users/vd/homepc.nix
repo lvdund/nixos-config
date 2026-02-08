@@ -2,9 +2,11 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }: {
   imports = [
+    inputs.niri-flake.homeModules.niri
     ./modules/obs.nix
     ./modules/brave.nix
     ./modules/fish.nix
@@ -89,7 +91,6 @@
     ".config/yazi".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/yazi";
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty";
     ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/nvim";
-    #".config/Thunar".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/Thunar";
     ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zathura";
   };
 
