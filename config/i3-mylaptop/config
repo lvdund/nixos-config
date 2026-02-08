@@ -50,7 +50,7 @@ bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/powermenu.sh
 # main apps
 bindsym $mod+t exec kitty --detach
 bindsym $mod+b exec brave
-bindsym $mod+e exec thunar
+#bindsym $mod+e exec thunar
 bindsym $mod+Shift+s exec pavucontrol
 
 # kill focused window

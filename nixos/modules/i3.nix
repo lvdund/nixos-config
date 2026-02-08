@@ -70,8 +70,8 @@
     #     thunar-volman
     #   ];
     # };
-    dconf.enable = true;
-    xfconf.enable = true;
+    # dconf.enable = true;
+    # xfconf.enable = true;
     appimage = {
       enable = true;
       binfmt = true;

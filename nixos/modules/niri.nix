@@ -1,44 +1,62 @@
+{ pkgs, inputs, lib, ... }:
+
 {
-  config,
-  pkgs,
-  ...
-}: {
-  programs.niri.enable = true;
-  services.xserver.enable = false; # We don't need X
-  programs.wayland.enable = true;
-  xdg.portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gnome];
-    config.common.default = "*";
-  };
-  environment.systemPackages = with pkgs; [
-    fuzzel
-    waybar
-    mako
-    grim # Screenshots
-    slurp # Select screen area
-    wl-clipboard # Clipboard
-    swaybg # Wallpaper
+  imports = [
+    inputs.niri-flake.nixosModules.niri
   ];
 
-  # Enable sound (PipeWire)
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-    pulse.enable = true;
-    jack.enable = false;
-  };
-  services.pulseaudio.enable = false;
+  nixpkgs.overlays = [
+    inputs.niri-flake.overlays.niri
+  ];
 
-  # Fcitx5 environment variables
-  environment.sessionVariables = {
-    GTK_IM_MODULE = "fcitx";
-    QT_IM_MODULE = "fcitx";
-    XMODIFIERS = "@im=fcitx";
-    SDL_IM_MODULE = "fcitx";
-    # GLFW_IM_MODULE = "ibus";
+  programs.niri = {
+    enable = true;
+    package = pkgs.niri-unstable;
   };
+
+  # Disable built-in polkit agent if using another one
+  security.polkit.enable = true;
+  systemd.user.services.niri-flake-polkit.enable = false;
+
+  # Display Manager (greetd + regreet)
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.cage}/bin/cage -s -- ${pkgs.regreet}/bin/regreet";
+      };
+    };
+  };
+  programs.regreet.enable = true;
+
+  # XDG Portals
+  xdg.portal = {
+    enable = true;
+    config = {
+      common = {
+        default = [ "gtk" "wlr" ];
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
+        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+      };
+    };
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-wlr
+    ];
+  };
+
+  # Swaylock PAM
+  security.pam.services.swaylock = { };
+
+  # System packages needed for Niri
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    gnome-keyring
+  ];
+
+  environment.pathsToLink = [
+    "/share/xdg-desktop-portal"
+    "/share/applications"
+  ];
 }
