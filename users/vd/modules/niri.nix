@@ -1,9 +1,13 @@
-{ pkgs, config, lib, ... }:
+{ pkgs, config, lib, inputs, ... }:
 
 let
   waybarConfigDir = "${config.home.homeDirectory}/.config/waybar";
 in
 {
+  imports = [
+    inputs.niri-flake.homeModules.niri
+  ];
+
   programs.niri.enable = true;
   programs.niri.package = pkgs.niri-unstable;
 
