@@ -47,7 +47,17 @@ local function close_all_other_buffers()
   if check_unsaved_buffers 'Close all other buffers' then
     return
   end
-  vim.cmd '%bd|e#|bd#'
+
+  local current_buf = vim.api.nvim_get_current_buf()
+  local buffers = vim.fn.getbufinfo { buflisted = 1 }
+
+  for _, buf in ipairs(buffers) do
+    if buf.bufnr ~= current_buf then
+      local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf.bufnr })
+      pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = buftype == 'terminal' })
+    end
+  end
+  vim.notify('Closed all other buffers', vim.log.levels.INFO)
 end
 
 local function close_buffer_keep_split()
@@ -55,13 +65,20 @@ local function close_buffer_keep_split()
     return
   end
   vim.cmd 'bp|bd#'
+  vim.notify('Closed buffer', vim.log.levels.INFO)
 end
 
 local function close_all_buffers()
   if check_unsaved_buffers 'Close all buffers' then
     return
   end
-  vim.cmd '%bd'
+
+  local buffers = vim.fn.getbufinfo { buflisted = 1 }
+  for _, buf in ipairs(buffers) do
+    local buftype = vim.api.nvim_get_option_value('buftype', { buf = buf.bufnr })
+    pcall(vim.api.nvim_buf_delete, buf.bufnr, { force = buftype == 'terminal' })
+  end
+  vim.notify('Closed all buffers', vim.log.levels.INFO)
 end
 
 local function quit_all()
@@ -71,6 +88,11 @@ local function quit_all()
   vim.cmd 'qa'
 end
 
+local function force_close_buffers()
+  vim.cmd 'wa|bw!'
+  vim.notify('Force closed buffer', vim.log.levels.INFO)
+end
+
 map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
 map('n', '<leader>qa', quit_all, { desc = '[Q]uit [A]ll' })
 map('n', '<leader>qc', ':wa|close<CR>', { desc = 'Close Window' }) -- close
@@ -78,4 +100,4 @@ map('n', '<leader><leader>', save_all, { desc = 'Save all' })
 map('n', '<leader>bo', close_all_other_buffers, { desc = 'Close all other buffers' })
 map('n', '<leader>bc', close_buffer_keep_split, { desc = 'Close but keep split window' })
 map('n', '<leader>ba', close_all_buffers, { desc = 'Close all buffers' })
-map('n', '<leader>bA', ':wa|bw!<CR>', { desc = 'Close all buffer (Force)' })
+map('n', '<leader>bA', force_close_buffers, { desc = 'Close all buffer (Force)' })

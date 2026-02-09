@@ -70,7 +70,7 @@ local lsp_servers = {
   'bashls',
   'clangd',
   'docker_language_server',
-  -- 'jsonls',
+  'jsonls',
   'pyright',
 }
 

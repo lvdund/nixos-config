@@ -24,6 +24,8 @@ return {
         python = { 'black' },
         dockerfile = { 'dockerfmt' },
         yaml = { 'yamlfmt' },
+        json = { lsp_format = 'fallback' },
+        jsonc = { lsp_format = 'fallback' },
       },
       format_on_save = false,
       -- format_on_save = {

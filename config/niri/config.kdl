@@ -1,0 +1,182 @@
+input {
+    keyboard {
+        xkb {
+            layout "us"
+            model ""
+            rules ""
+            variant ""
+            options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+        }
+        repeat-delay 600
+        repeat-rate 25
+        track-layout "global"
+        numlock
+    }
+    touchpad {
+        tap
+        drag true
+        natural-scroll
+        scroll-method "two-finger"
+        click-method "clickfinger"
+    }
+    mod-key "Super"
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+prefer-no-csd
+
+layout {
+    gaps 8
+    struts {
+        left 0
+        right 0
+        top 0
+        bottom 0
+    }
+    focus-ring {
+        width 2
+        active-color "#7fc8ff"
+        inactive-color "#505050"
+    }
+    border { off; }
+    tab-indicator {
+        gap 5.0
+        width 4.0
+        length total-proportion=0.5
+        position "left"
+        gaps-between-tabs 0.0
+        corner-radius 0.0
+    }
+    insert-hint { color "#7fc8ff"; }
+    default-column-width { proportion 0.5; }
+    preset-column-widths {
+        proportion 0.333333
+        proportion 0.5
+        proportion 0.666667
+    }
+    preset-window-heights {
+        proportion 0.333333
+        proportion 0.5
+        proportion 0.666667
+    }
+    center-focused-column "never"
+}
+
+cursor {
+    xcursor-theme "Adwaita"
+    xcursor-size 24
+}
+
+hotkey-overlay { skip-at-startup; }
+
+environment {
+    "CLUTTER_BACKEND" "wayland"
+    "GDK_BACKEND" "wayland"
+    "NIXOS_OZONE_WL" "1"
+    "QT_AUTO_SCREEN_SCALE_FACTOR" "1"
+    "QT_QPA_PLATFORM" "wayland"
+    "QT_QPA_PLATFORMTHEME" "qtct"
+    "QT_STYLE_OVERRIDE" "kvantum"
+    "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
+    "SDL_VIDEODRIVER" "wayland"
+    "_JAVA_AWT_WM_NONREPARENTING" "1"
+}
+
+spawn-at-startup "xwayland-satellite"
+spawn-at-startup "waybar"
+spawn-at-startup "swww" "img" "~/.config/wallpapers/momo_ayase_gruvbox.png"
+
+binds {
+    Mod+T { spawn "kitty"; }
+    Mod+A { spawn-sh "bash ~/.config/rofi/launchers/launcher.sh"; }
+    Mod+Shift+Q { close-window; }
+    Mod+Shift+E { spawn-sh "bash ~/.config/rofi/powermenu/powermenu.sh"; }
+    Mod+F { maximize-column; }
+    Mod+Shift+F { fullscreen-window; }
+    Mod+Shift+S { spawn "pavucontrol"; }
+    Mod+B { spawn "brave"; }
+    Mod+E { spawn "nautilus"; }
+    Mod+W { spawn-sh "pkill waybar || waybar"; }
+
+    // Workspace switching
+    Mod+1 { focus-workspace 1; }
+    Mod+2 { focus-workspace 2; }
+    Mod+3 { focus-workspace 3; }
+    Mod+4 { focus-workspace 4; }
+    Mod+5 { focus-workspace 5; }
+    Mod+6 { focus-workspace 6; }
+    Mod+7 { focus-workspace 7; }
+    Mod+8 { focus-workspace 8; }
+    Mod+9 { focus-workspace 9; }
+    
+    Mod+Shift+1 { move-column-to-workspace 1; }
+    Mod+Shift+2 { move-column-to-workspace 2; }
+    Mod+Shift+3 { move-column-to-workspace 3; }
+    Mod+Shift+4 { move-column-to-workspace 4; }
+    Mod+Shift+5 { move-column-to-workspace 5; }
+    Mod+Shift+6 { move-column-to-workspace 6; }
+    Mod+Shift+7 { move-column-to-workspace 7; }
+    Mod+Shift+8 { move-column-to-workspace 8; }
+    Mod+Shift+9 { move-column-to-workspace 9; }
+
+    // Vim-like focus
+    Mod+H { focus-column-left; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
+    Mod+L { focus-column-right; }
+
+    Mod+left { focus-column-left; }
+    Mod+up { focus-window-down; }
+    Mod+down { focus-window-up; }
+    Mod+right { focus-column-right; }
+
+    Mod+Shift+H { move-column-left; }
+    Mod+Shift+J { move-window-down; }
+    Mod+Shift+K { move-window-up; }
+    Mod+Shift+L { move-column-right; }
+
+    Mod+Shift+left { move-column-left; }
+    Mod+Shift+down { move-window-down; }
+    Mod+Shift+up { move-window-up; }
+    Mod+Shift+right { move-column-right; }
+
+    // Volume/brightness (allow when locked)
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
+    
+    // Lock screen
+    // Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }
+    
+    // Screenshots
+    // Print { screenshot; }
+    // Alt+Print { screenshot-window; }
+    // Ctrl+Print { screenshot-screen; }
+
+    // Quit
+    // Mod+Shift+E { quit; }
+}
+
+// Window rules
+window-rule {
+    draw-border-with-background false
+    geometry-corner-radius 8.0 8.0 8.0 8.0
+    clip-to-geometry true
+}
+window-rule {
+    match is-active=true
+    opacity 1.0
+}
+window-rule {
+    match is-active=false
+    opacity 0.95
+}
+window-rule {
+    match app-id="^brave$" title="^Picture-in-Picture$"
+    open-floating true
+}
+
+gestures { hot-corners { off; }; }

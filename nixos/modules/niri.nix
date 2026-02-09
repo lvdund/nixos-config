@@ -1,6 +1,9 @@
-{ pkgs, inputs, lib, ... }:
-
 {
+  pkgs,
+  inputs,
+  lib,
+  ...
+}: {
   imports = [
     inputs.niri-flake.nixosModules.niri
   ];
@@ -9,14 +12,55 @@
     inputs.niri-flake.overlays.niri
   ];
 
-  programs.niri = {
-    enable = true;
-    package = pkgs.niri-unstable;
+  programs = {
+    niri = {
+      enable = true;
+      package = pkgs.niri-unstable;
+    };
+    nix-ld.enable = true;
+    nix-ld.libraries = with pkgs; [
+      stdenv.cc.cc.lib
+      zlib
+      fuse3
+      icu
+      zlib
+      nss
+      openssl
+      curl
+      expat
+    ];
+    appimage = {
+      enable = true;
+      binfmt = true;
+    };
+    gamescope = {
+      enable = true;
+      capSysNice = true;
+    };
+    steam = {
+      enable = true;
+      gamescopeSession.enable = true;
+    };
   };
 
-  # Disable built-in polkit agent if using another one
+  # Register niri as a session package
+  services.displayManager.sessionPackages = [pkgs.niri-unstable];
+
+  # Polkit agent provided by niri-flake (using KDE agent)
   security.polkit.enable = true;
-  systemd.user.services.niri-flake-polkit.enable = false;
+  systemd.user.services.niri-flake-polkit = {
+    description = "PolicyKit Authentication Agent provided by niri-flake";
+    wantedBy = ["niri.service"];
+    after = ["graphical-session.target"];
+    partOf = ["graphical-session.target"];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
+  };
 
   # Display Manager (greetd + regreet)
   services.greetd = {
@@ -32,27 +76,29 @@
   # XDG Portals
   xdg.portal = {
     enable = true;
-    config = {
+    config = lib.mkForce {
       common = {
-        default = [ "gtk" "wlr" ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "wlr" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
+        default = ["gtk" "wlr"];
+        "org.freedesktop.impl.portal.FileChooser" = ["gtk"];
+        "org.freedesktop.impl.portal.ScreenCast" = ["wlr"];
+        "org.freedesktop.impl.portal.Secret" = ["gnome-keyring"];
       };
     };
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
+      xdg-desktop-portal-gnome
     ];
+    configPackages = [pkgs.niri-unstable];
   };
 
   # Swaylock PAM
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
   # System packages needed for Niri
   environment.systemPackages = with pkgs; [
     wl-clipboard
     gnome-keyring
+    xdg-utils
   ];
 
   environment.pathsToLink = [

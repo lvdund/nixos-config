@@ -43,9 +43,6 @@ map('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open Errors' })
 -- map('n', '<leader>ep', vim.diagnostic.goto_prev, { desc = '[P]revious Error' })
 -- map('n', '<leader>eq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
--- Neo-tree
-map('n', '\\', '<Cmd>Neotree position=float reveal<CR>')
-
 -- Quickfix
 map('n', 's', '', opts)
 map('n', '<C-n>', ':cnext<CR>', { desc = 'Next search list' })

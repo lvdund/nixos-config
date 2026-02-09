@@ -17,8 +17,8 @@ return {
     },
     lazy = false,
     keys = {
-      { '\\', '<Cmd>Neotree toggle position=left reveal_force_cwd<CR>', desc = 'Neotree toggle', silent = true },
-      { '<C-e>', '<Cmd>Neotree toggle position=float reveal_force_cwd<CR>', desc = 'Neotree', silent = true },
+      { '<C-e>', '<Cmd>Neotree toggle position=left reveal_force_cwd<CR>', desc = 'Neotree toggle', silent = true },
+      { '\\', '<Cmd>Neotree toggle position=float reveal_force_cwd<CR>', desc = 'Neotree', silent = true },
     },
     opts = {
       default_component_configs = {

@@ -19,9 +19,9 @@
         devShells.default = pkgs.mkShell {
           buildInputs = [
             (python.withPackages (ps: with ps; [
-              pip
-              virtualenv
-              python-dotenv
+              python312Packages.python # Use the base python
+              python312Packages.pip
+              python312Packages.virtualenv
             ]))
             
             # Milvus HuggingFace

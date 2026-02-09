@@ -8,6 +8,6 @@
     corefonts
   ];
   fonts.fontconfig.defaultFonts = {
-    monospace = ["Firacode Nerd Font"];
+    monospace = ["FiraCode Nerd Font"];
   };
 }

@@ -1,0 +1,321 @@
+// -*- mode: jsonc -*-
+{
+    "layer": "top", // Waybar at top layer
+    "position": "bottom", // Waybar position (top|bottom|left|right)
+    //"height": 10, // Waybar height (to be removed for auto height)
+    //"width": 1590, // Waybar width
+    //"margin-top": 10,
+    //"margin-left":10,
+    //"margin-right":10,
+    //"margin-bottom": 10,
+    // Choose the order of the modules
+    "modules-left": [
+        //"custom/poweroff",
+        // "group/power",
+        "custom/playpause",
+        //"custom/appmenu",
+        "niri/workspaces",
+        // "cava",
+        // "niri/window",
+        "tray"
+    ],
+    "modules-center": [
+        // "niri/workspaces",
+        "niri/window"
+    ],
+    "modules-right": [
+        // "network",
+        //"idle_inhibitor",
+        "pulseaudio",
+        //"backlight",
+        //"battery",
+        //"custom/weather",
+        "wlr/taskbar",
+        // "group/apps",
+        //"network",
+        "group/stats",
+        "clock"
+    ],
+    // "niri/workspaces": {
+    //     "format": "{name}",
+    //     "format-icons": {
+    //         "active": "",
+    //         "default": ""
+    //     },
+    //     "persistent-workspaces": {
+    //         "*": 0, // 5 workspaces by default on every monitor
+    //         "HDMI-A-1": 3 // but only three on HDMI-A-1
+    //     }
+    // },
+    "niri/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
+        }
+    },
+    "clock": {
+        // "timezone": "America/New_York",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><big>{calendar}</big></tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 1,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ecc6d9'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        },
+        // "format-alt": "{:%Y-%m-%d}",
+        "format": " {:%H:%M:%S 󰸗 %Y-%m-%d}",
+        "interval": 1
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{percent}% {icon}",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip": false
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-full": "{capacity}% {icon}",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{time} {icon}",
+        "tooltip-format": "{power} W, {timeTo}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        "format-wifi": " ",
+        "format-ethernet": "{ipaddr}/{cidr}  ",
+        "tooltip-format": "{essid}: {ipaddr}",
+        "format-linked": "{ifname} (No IP)  ",
+        "format-disconnected": "Disconnected  ",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        // "format-alt": "{ifname}: {ipaddr}/{cidr}: {essid}"
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "{volume}% {icon}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": "MUT 󰝟",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                " ",
+                " "
+            ]
+        },
+        "on-click": "pactl set-sink-mute 0 toggle",
+        "tooltip": false
+    },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    //"custom/weather": {
+    //    "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Fredericton+Canada",
+    //    "return-type": "json",
+    //    "format": "{}",
+    //    "tooltip": true,
+    //    "interval": 3600
+    //},
+    "custom/poweroff": {
+        "format": "⏻",
+        "on-click": "exec ${HOME}/.config/waybar/scripts/powermenu",
+        "tooltip-format": "Power Menu",
+        "tooltip": true
+    },
+    "custom/power": {
+        "format": "⏻ ",
+        "tooltip": false,
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/power_menu.xml",
+        "menu-actions": {
+            "shutdown": "shutdown",
+            "reboot": "reboot",
+            "suspend": "systemctl suspend",
+            "hibernate": "systemctl hibernate"
+        }
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "custom/powerbutton": {
+        "format": "⏻",
+        "on-click": "poweroff",
+        "tooltip-format": "Power Off"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "on-click": "reboot",
+        "tooltip-format": "Reboot"
+    },
+    "custom/suspend": {
+        "format": "",
+        "on-click": "systemctl suspend",
+        "tooltip-format": "Suspend"
+    },
+    //"custom/lock": {
+    //    "format": "󰍁",
+    //    "on-click": "hyprlock",
+    //    "tooltip-format": "Lock"
+    //},
+    //"custom/idlekiller": {
+    //    "format": "",
+    //    "on-click": "pkill hypridle || hypridle",
+    //    "tooltip-format": "Inhibit Idle"
+    //},
+    "group/power": {
+        "modules": [
+            "custom/powerbutton",
+            "custom/reboot",
+            "custom/suspend",
+            //"custom/lock",
+            //"custom/idlekiller",
+            "user"
+        ],
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500
+        }
+    },
+    "group/stats": {
+        "modules": [
+            "battery",
+            "group/brightness",
+            "group/audio"
+        ],
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 750,
+            "transition-left-to-right": false
+        }
+    },
+    "custom/appmenu": {
+        "format": "󰀻",
+        //"on-click": "rofi -show drun -theme appmenu.rasi",
+        // "on-click": "rofi -show drun",
+        "tooltip": false
+    },
+    "wlr/taskbar": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "on-click-right": "close"
+    },
+    "group/apps": {
+        "modules": [
+            // "custom/appmenu",
+            "wlr/taskbar"
+        ],
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "transition-left-to-right": false
+        }
+    },
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    "backlight/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
+    "group/audio": {
+        "modules": [
+            "pulseaudio",
+            "pulseaudio/slider"
+        ],
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "transition-left-to-right": true
+        }
+    },
+    "group/brightness": {
+        "modules": [
+            "backlight",
+            "backlight/slider"
+        ],
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 500,
+            "transition-left-to-right": true
+        }
+    },
+    "user": {
+        "format": "{work_H}:{work_M}:{work_S} ↑",
+        "interval": 60
+    },
+    "niri/window": {
+        "tooltip": false,
+        "format": "{title}",
+        "rewrite": {
+            "(.*) - Brave": " $1"
+        }
+    },
+    "custom/playpause": {
+        "format": "󰐎",
+        "on-click": "playerctl play-pause",
+        "tooltip": false
+    }
+}
