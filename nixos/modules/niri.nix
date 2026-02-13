@@ -71,7 +71,43 @@
       };
     };
   };
-  programs.regreet.enable = true;
+  programs.regreet = {
+    enable = true;
+    settings = {
+      background = {
+        path = ../../config/wallpapers/momo_ayase_gruvbox.png;
+        fit = "Cover";
+      };
+      GTK = {
+        application_prefer_dark_theme = true;
+        theme_name = lib.mkForce "Adwaita-dark";
+      };
+    };
+    theme = {
+      package = pkgs.gnome-themes-extra;
+      name = "Adwaita-dark";
+    };
+    extraCss = ''
+      window {
+        background-color: #282828;
+      }
+      .login-box {
+        background-color: rgba(40, 40, 40, 0.9);
+        border: 2px solid #d79921;
+        border-radius: 10px;
+        padding: 20px;
+        color: #ebdbb2;
+      }
+      entry {
+        background-color: #3c3836;
+        color: #ebdbb2;
+        border: 1px solid #a89984;
+      }
+      label {
+        color: #ebdbb2;
+      }
+    '';
+  };
 
   # XDG Portals
   xdg.portal = {
@@ -99,6 +135,7 @@
     wl-clipboard
     gnome-keyring
     xdg-utils
+    gnome-themes-extra
   ];
 
   environment.pathsToLink = [

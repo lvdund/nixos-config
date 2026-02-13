@@ -61,7 +61,8 @@ button:hover {
 }
 
 #taskbar button {
-    border-radius: 0px;
+    margin: 5px 5px;
+    border-radius: 2px;
 }
 
 #taskbar button.active {

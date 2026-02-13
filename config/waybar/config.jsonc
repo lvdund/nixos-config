@@ -10,7 +10,7 @@
     //"margin-bottom": 10,
     // Choose the order of the modules
     "modules-left": [
-        //"custom/poweroff",
+        "custom/poweroff",
         // "group/power",
         "custom/playpause",
         //"custom/appmenu",
@@ -26,11 +26,11 @@
     "modules-right": [
         // "network",
         //"idle_inhibitor",
+        "wlr/taskbar",
         "pulseaudio",
         //"backlight",
         //"battery",
         //"custom/weather",
-        "wlr/taskbar",
         // "group/apps",
         //"network",
         "group/stats",
@@ -50,9 +50,15 @@
     "niri/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "active": "",
-            "default": ""
+            "active": ""
+            // "default": ""
         }
+    },
+    "tray": {
+        "icon-size": 20,
+        "spacing": 15,
+        "reverse-direction": true, // New apps appear on the left of existing ones
+        "show-passive-items": true // Show icons that aren't actively running but are in the tray
     },
     "clock": {
         // "timezone": "America/New_York",
@@ -174,7 +180,7 @@
     //},
     "custom/poweroff": {
         "format": "⏻",
-        "on-click": "exec ${HOME}/.config/waybar/scripts/powermenu",
+        "on-click": "exec bash ${HOME}/.config/rofi/powermenu/powermenu.sh",
         "tooltip-format": "Power Menu",
         "tooltip": true
     },
@@ -257,7 +263,8 @@
     "wlr/taskbar": {
         "format": "{icon}",
         "on-click": "activate",
-        "on-click-right": "close"
+        "on-scroll-up": "niri msg action focus-column-left",
+        "on-scroll-down": "niri msg action focus-column-right"
     },
     "group/apps": {
         "modules": [
@@ -310,7 +317,12 @@
         "tooltip": false,
         "format": "{title}",
         "rewrite": {
-            "(.*) - Brave": " $1"
+            "(.*) - Brave": " $1",
+            "(.*) - Visual Studio Code": " $1",
+            "v (.*)": " $1",
+            "Steam(.*)": "$1",
+            "nvim (.*)": " $1",
+            "~(.*)": " $1"
         }
     },
     "custom/playpause": {

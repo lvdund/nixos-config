@@ -16,6 +16,7 @@
     loader = {
       # for systemd
       systemd-boot.enable = true;
+      timeout = 90;
       efi.canTouchEfiVariables = true;
       # for grub
       # grub = {

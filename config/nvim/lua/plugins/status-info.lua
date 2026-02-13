@@ -49,11 +49,11 @@ return {
           width = 30,
           mappings = {
             -- ['\\'] = 'close_window',
-            ['l'] = 'open',
-            ['h'] = 'close_node',
-            ['d'] = 'trash_file',
-            ['u'] = 'restore_from_trash',
-            ['R'] = 'open_trash',
+            -- ['l'] = 'open',
+            -- ['h'] = 'close_node',
+            -- ['d'] = 'trash_file',
+            -- ['u'] = 'restore_from_trash',
+            -- ['R'] = 'open_trash',
           },
         },
         filtered_items = {

@@ -5,7 +5,7 @@ input {
             model ""
             rules ""
             variant ""
-            options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
+            // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
         repeat-delay 600
         repeat-rate 25
@@ -20,6 +20,11 @@ input {
         click-method "clickfinger"
     }
     mod-key "Super"
+}
+
+output "DP-1" {
+    mode "2560x1440@99.946"
+    scale 1.0
 }
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
@@ -81,11 +86,17 @@ environment {
     "QT_WAYLAND_DISABLE_WINDOWDECORATION" "1"
     "SDL_VIDEODRIVER" "wayland"
     "_JAVA_AWT_WM_NONREPARENTING" "1"
+    "GTK_IM_MODULE" "fcitx"
+    "QT_IM_MODULE" "fcitx"
+    "XMODIFIERS" "@im=fcitx"
+    "GTK_THEME" "Adwaita:dark"
 }
 
 spawn-at-startup "xwayland-satellite"
+// spawn-at-startup "fcitx5" "-d"
+spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "waybar"
-spawn-at-startup "swww" "img" "~/.config/wallpapers/momo_ayase_gruvbox.png"
+spawn-at-startup "swww" "img" "~/.config/wallpapers/cat.jpeg"
 
 binds {
     Mod+T { spawn "kitty"; }
@@ -142,11 +153,11 @@ binds {
     Mod+Shift+right { move-column-right; }
 
     // Volume/brightness (allow when locked)
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
     XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
+    // XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "2%-"; }
+    // XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "2%+"; }
     
     // Lock screen
     // Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }

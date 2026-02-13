@@ -62,7 +62,7 @@ run_cmd() {
 			systemctl suspend
 			;;
 		--logout)
-			i3-msg exit
+			niri msg action quit
 			;;
 		esac
 	else
@@ -84,7 +84,7 @@ case "$chosen" in
 	;;
 *Lock)
 	playerctl pause # Pause any MPRIS-compliant media player
-	i3lock -c 000000
+	swaylock
 	;;
 *Suspend)
 	run_cmd --suspend
