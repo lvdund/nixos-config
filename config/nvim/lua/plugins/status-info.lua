@@ -158,12 +158,25 @@ return {
     },
     -- Set up autocommand to change to project root
     config = function(_, opts)
-      -- Function to find git root
+      -- Cache git root to avoid repeated git calls
+      local cached_git_root = nil
+      local last_cwd = nil
+
+      -- Function to find git root with caching
       local function get_git_root()
-        local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+        local current_cwd = vim.fn.getcwd()
+        -- Return cached result if cwd hasn't changed
+        if cached_git_root and last_cwd == current_cwd then
+          return cached_git_root
+        end
+
+        last_cwd = current_cwd
+        local git_root = vim.fn.systemlist('git rev-parse --show-toplevel 2>/dev/null')[1]
         if vim.v.shell_error == 0 and git_root then
+          cached_git_root = git_root
           return git_root
         end
+        cached_git_root = nil
         return nil
       end
 

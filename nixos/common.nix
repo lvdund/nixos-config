@@ -7,7 +7,6 @@
     # ./modules/i3.nix
     ./modules/niri.nix
     ./modules/docker.nix
-    ./modules/virtualbox.nix
     ./modules/fish.nix
     ./modules/input.nix
     ./modules/fonts.nix
@@ -42,14 +41,11 @@
     wget
     curl
     net-tools
-    font-manager
     iptables
     linuxHeaders # Kernel headers for development
     gnumake
     gcc14
-    nix-prefetch-github
     kmod
-    trash-cli
 
     # Compression tools
     zip
@@ -58,7 +54,6 @@
     unrar
 
     # Desktop environment
-    dunst
     libnotify
     feh
     maim

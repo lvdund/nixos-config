@@ -29,11 +29,11 @@
         "wlr/taskbar",
         "pulseaudio",
         //"backlight",
-        //"battery",
+        "battery",
         //"custom/weather",
         // "group/apps",
         //"network",
-        "group/stats",
+        // "group/stats",
         "clock"
     ],
     // "niri/workspaces": {
@@ -105,7 +105,7 @@
     },
     "battery": {
         "states": {
-            // "good": 95,
+            "good": 95,
             "warning": 30,
             "critical": 15
         },

@@ -78,3 +78,5 @@ for _, lsp in ipairs(lsp_servers) do
   vim.lsp.config[lsp] = require('lsp.' .. lsp)
   vim.lsp.enable(lsp)
 end
+
+require('lsp.lens').setup()

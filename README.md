@@ -85,6 +85,8 @@ go install github.com/josharian/impl@latest
 ```bash
 mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
+npm install -g tree-sitter-cli
+
 ```
 
 ## 4. NixOS Maintenance
