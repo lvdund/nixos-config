@@ -17,7 +17,6 @@
     MOZ_ENABLE_WAYLAND = "0";
     GOPATH = "${config.home.homeDirectory}/env/gopath_1_24";
     GOROOT = "${pkgs.go_1_24}/share/go";
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
   };
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"

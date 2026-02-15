@@ -33,14 +33,6 @@
       enable = true;
       binfmt = true;
     };
-    gamescope = {
-      enable = true;
-      capSysNice = true;
-    };
-    steam = {
-      enable = true;
-      gamescopeSession.enable = true;
-    };
   };
 
   # Register niri as a session package

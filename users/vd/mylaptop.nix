@@ -14,6 +14,7 @@
     ./modules/tmux.nix
     ./modules/direnv.nix
     ./modules/niri-mylaptop.nix
+    ./modules/steam.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -21,10 +22,9 @@
 
   # Environment variables
   home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "0";
+    MOZ_ENABLE_WAYLAND = "1";
     GOPATH = "${config.home.homeDirectory}/env/gopath_main";
     GOROOT = "${pkgs.go}/share/go";
-    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\\\${HOME}/.steam/root/compatibilitytools.d";
   };
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
