@@ -5,16 +5,13 @@
 }: {
   imports = [
     # ./modules/i3.nix
+    ./modules/network.nix
     ./modules/niri.nix
     ./modules/docker.nix
     ./modules/fish.nix
     ./modules/input.nix
     ./modules/fonts.nix
   ];
-  networking = {
-    networkmanager.enable = true;
-    firewall.enable = false;
-  };
 
   nixpkgs.config.allowUnfree = true;
 
