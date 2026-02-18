@@ -41,6 +41,7 @@
     shfmt
     impl
     golangci-lint
+    jq
 
     nodejs
     rustup

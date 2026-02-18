@@ -28,7 +28,7 @@
         //"idle_inhibitor",
         "wlr/taskbar",
         "pulseaudio",
-        //"backlight",
+        "backlight",
         "battery",
         //"custom/weather",
         // "group/apps",

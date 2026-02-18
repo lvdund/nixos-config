@@ -15,6 +15,7 @@
     ./modules/niri-mylaptop.nix
     ./modules/steam.nix
     ./modules/code.nix
+    ./modules/office.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

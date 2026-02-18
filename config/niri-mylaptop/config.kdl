@@ -95,7 +95,7 @@ spawn-at-startup "xwayland-satellite"
 // spawn-at-startup "fcitx5" "-d"
 spawn-at-startup "gsettings" "set" "org.gnome.desktop.interface" "color-scheme" "prefer-dark"
 spawn-at-startup "waybar"
-spawn-at-startup "swww" "img" "~/.config/wallpapers/cat.jpeg"
+spawn-at-startup "swww" "img" "~/.config/wallpapers/anya.jpg"
 
 binds {
     Mod+T { spawn "kitty"; }
@@ -155,8 +155,8 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
     XF86AudioMute allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "2%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "2%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "set" "5%-"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "set" "5%+"; }
     
     // Lock screen
     // Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }

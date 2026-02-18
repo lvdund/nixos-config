@@ -67,7 +67,7 @@
     enable = true;
     settings = {
       background = {
-        path = ../../config/wallpapers/momo_ayase_gruvbox.png;
+        path = ../../config/wallpapers/anya.png;
         fit = "Cover";
       };
       GTK = {

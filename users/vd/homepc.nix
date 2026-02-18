@@ -14,6 +14,7 @@
     ./modules/direnv.nix
     ./modules/niri-homepc.nix
     ./modules/code.nix
+    ./modules/office.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
