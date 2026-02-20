@@ -96,6 +96,7 @@ end
 map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
 map('n', '<leader>qa', quit_all, { desc = '[Q]uit [A]ll' })
 map('n', '<leader>qq', ':wa|close<CR>', { desc = 'Close Window' }) -- close
+map('n', 'qq', ':wa|close<CR>', { desc = 'Close Window' }) -- close
 map('n', '<leader><leader>', save_all, { desc = 'Save all' })
 map('n', '<leader>bo', close_all_other_buffers, { desc = 'Close all other buffers' })
 map('n', '<leader>bc', close_buffer_keep_split, { desc = 'Close but keep split window' })

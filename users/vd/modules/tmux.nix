@@ -28,8 +28,12 @@
       bind k select-pane -U
       bind l select-pane -R
 
-      set -g base-index 1 # Start windows numbering at 1 instead of 0
-      setw -g pane-base-index 1 # start pane numbering at 1
+      # Switch window with Alt
+      bind-key -n M-Left previous-window
+      bind-key -n M-Right next-window
+
+      #set -g base-index 1 # Start windows numbering at 1 instead of 0
+      #setw -g pane-base-index 1 # start pane numbering at 1
 
       # set vi-mode
       set-window-option -g mode-keys vi
@@ -37,6 +41,7 @@
       bind-key -T copy-mode-vi v send-keys -X begin-selection
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+      bind-key -T copy-mode-vi 'Escape' send-keys -X clear-selection
 
       # vi->search mode
       bind / copy-mode \; send-keys /
