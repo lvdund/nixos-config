@@ -15,6 +15,7 @@
     ./modules/niri-homepc.nix
     ./modules/code.nix
     ./modules/office.nix
+    ./modules/steam.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -22,7 +23,6 @@
 
   # Packages for user
   home.packages = with pkgs; [
-    wpsoffice
     protonup-qt
     vscode
     pciutils
