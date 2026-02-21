@@ -1,6 +1,6 @@
 {
-  config,
-  pkgs,
+  # config,
+  # pkgs,
   ...
 }: {
   # Some programs need SUID wrappers, can be configured further or are
@@ -25,13 +25,18 @@
     firewall.enable = false;
   };
 
-  services.resolved = {
-    enable = true;
-    dnssec = "true";
-    domains = ["~."];
-    fallbackDns = ["1.1.1.1#cloudflare-dns.com" "1.0.0.1#cloudflare-dns.com"];
-    extraConfig = ''
-      DNSOverTLS=yes
-    '';
-  };
+  # Let NetworkManager handle DNS with default settings
+  # This is more reliable than strict DNSSEC + DoT which can fail
+  # on some networks/ISPs that don't fully support them.
+  #
+  # If you want DNS-over-TLS with fallback in the future, use:
+  # networking.networkmanager.dns = "systemd-resolved";
+  # services.resolved = {
+  #   enable = true;
+  #   dnssec = "allow-downgrade";
+  #   fallbackDns = ["1.1.1.1" "8.8.8.8"];
+  #   extraConfig = ''
+  #     DNSOverTLS=opportunistic
+  #   '';
+  # };
 }
