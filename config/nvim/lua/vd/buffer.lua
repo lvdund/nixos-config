@@ -1,10 +1,6 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
--- split window & buffer
-map('n', 'sh', ':split<CR>', opts) -- up/down
-map('n', 'sv', ':vsplit<CR>', opts) -- left/right
-
 local function get_unsaved_buffers()
   local buffers = vim.fn.getbufinfo { buflisted = 1 }
   local unsaved = {}
@@ -102,3 +98,11 @@ map('n', '<leader>bo', close_all_other_buffers, { desc = 'Close all other buffer
 map('n', '<leader>bc', close_buffer_keep_split, { desc = 'Close but keep split window' })
 map('n', '<leader>ba', close_all_buffers, { desc = 'Close all buffers' })
 map('n', '<leader>bA', force_close_buffers, { desc = 'Close all buffer (Force)' })
+
+map({ 'n', 'v' }, '<Tab>', function()
+  require('fzf-lua').buffers()
+end, { desc = '[S]earch [B]uffers' })
+
+-- split window & buffer
+map('n', 'sh', ':split<CR>', opts) -- up/down
+map('n', 'sv', ':vsplit<CR>', opts) -- left/right

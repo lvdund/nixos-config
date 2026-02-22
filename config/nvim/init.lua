@@ -1,3 +1,6 @@
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- Auto-load all Lua modules from a directory
 local function load_modules(dir, prefix)
   local path = vim.fn.stdpath 'config' .. '/lua/' .. dir .. '/'
