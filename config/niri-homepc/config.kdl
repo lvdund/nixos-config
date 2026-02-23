@@ -133,13 +133,13 @@ binds {
 
     // Vim-like focus
     Mod+H { focus-column-left; }
-    Mod+J { focus-window-down; }
-    Mod+K { focus-window-up; }
+    Mod+K { focus-window-or-workspace-up; }
+    Mod+J { focus-window-or-workspace-down; }
     Mod+L { focus-column-right; }
 
     Mod+left { focus-column-left; }
-    Mod+up { focus-window-down; }
-    Mod+down { focus-window-up; }
+    Mod+up { focus-window-or-workspace-up; }
+    Mod+down { focus-window-or-workspace-down; }
     Mod+right { focus-column-right; }
 
     Mod+Shift+H { move-column-left; }
@@ -152,6 +152,11 @@ binds {
     Mod+Shift+up { move-window-up; }
     Mod+Shift+right { move-column-right; }
 
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+
+    Mod+Shift+Space { toggle-window-floating; }
+
     // Volume/brightness (allow when locked)
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%-"; }
     XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "2%+"; }
@@ -163,9 +168,9 @@ binds {
     // Mod+Alt+L allow-when-locked=true { spawn "swaylock"; }
     
     // Screenshots
-    // Print { screenshot; }
-    // Alt+Print { screenshot-window; }
-    // Ctrl+Print { screenshot-screen; }
+    Ctrl+Mod+P { screenshot show-pointer=false; }
+    Mod+P { screenshot-window; }
+    Ctrl+Print { screenshot-screen; }
 
     // Quit
     // Mod+Shift+E { quit; }

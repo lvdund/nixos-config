@@ -10,9 +10,13 @@
       gs = "git status";
       ga = "git add";
       gcm = "git commit -m";
+      gp = "git push";
       cls = "printf '\\033[2J\\033[3J\\033[1;1H'";
       ssh-kitty = "kitty +kitten ssh";
       ssh-vagrant-kitty = "env TERM=xterm-256color vagrant ssh";
+
+      # Wayland-aware sudo for GUI apps
+      sudo-wayland = "sudo -E WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR";
     };
     interactiveShellInit = ''
       set fish_greeting # Disable greeting
