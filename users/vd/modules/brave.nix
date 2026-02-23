@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   programs.brave = {
     enable = true;
     extensions = [
@@ -6,7 +6,8 @@
       {id = "nngceckbapebfimnlniiiahkandclblb";} # Bitwarden
       {id = "jlmpjdjjbgclbocgajdjefcidcncaied";} # daily.dev
       {id = "akkdefghgcakdgkmakeajmijjhlcofmk";} # Hide YouTube Fullscreen Controls
-      {id = "ddkjiahejlhfcafbddmgiahcphecmpfh";} # uBlock Origin Lite 
+      {id = "ddkjiahejlhfcafbddmgiahcphecmpfh";} # uBlock Origin Lite
+      {id = "dbepggeogbaibhgnhhndojpepiihcmeb";} # Vimium
     ];
     commandLineArgs = [
       "--disable-features=PasswordManagerOnboarding"

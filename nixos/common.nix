@@ -58,6 +58,7 @@
     nautilus
     process-viewer
     zathura
+    evince
     arandr
 
     # Audio/Video
