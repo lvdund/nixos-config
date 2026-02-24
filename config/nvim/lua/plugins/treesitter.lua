@@ -15,8 +15,20 @@ return {
       auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
+      fold = { enable = true },
     },
     config = function(_, opts)
+      -- Try treesitter folding first, fallback to indent
+      vim.o.foldmethod = 'expr'
+      vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+      vim.o.foldtext = '' -- Use default foldtext
+      -- Better fold display
+      -- vim.opt.fillchars:append({ fold = ' ', foldopen = '', foldsep = ' ', foldclose = '' })
+      -- vim.o.foldcolumn = '1' -- Show fold column
+      vim.o.foldlevel = 99 -- Start with all folds open
+      vim.o.foldlevelstart = 99 -- Start with all folds open for new files
+      vim.o.foldenable = true -- Enable folding
+
       require('nvim-treesitter.config').setup(opts)
 
       vim.api.nvim_create_autocmd('FileType', {
@@ -46,5 +58,5 @@ return {
       max_lines = 3,
       mode = 'cursor',
     },
-  }
+  },
 }

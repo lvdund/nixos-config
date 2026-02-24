@@ -21,6 +21,8 @@ local function on_attach(bufnr)
   vim.keymap.set('n', 'p', api.fs.paste, opts 'Paste')
   vim.keymap.set('n', 'P', api.node.navigate.parent, opts 'Parent Directory')
   vim.keymap.set('n', 'g?', api.tree.toggle_help, opts 'Help')
+  vim.keymap.set('n', '<Esc>', api.tree.close, opts 'Help')
+  vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts 'Open')
 end
 
 return {

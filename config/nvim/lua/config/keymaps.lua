@@ -2,7 +2,7 @@
 local map = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-map('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- map('n', '<Esc>', '<cmd>nohlsearch<CR>')
 map('n', "'", ':', opts)
 map('i', 'jk', '<ESC>', opts)
 
