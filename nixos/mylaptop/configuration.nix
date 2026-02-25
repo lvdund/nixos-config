@@ -6,6 +6,7 @@
   imports = [
     ../common.nix
     ./hardware-configuration.nix
+    ../modules/niri.nix
   ];
 
   networking.hostName = "mylaptop";

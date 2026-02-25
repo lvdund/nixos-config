@@ -4,9 +4,7 @@
   ...
 }: {
   imports = [
-    # ./modules/i3.nix
     ./modules/network.nix
-    ./modules/niri.nix
     ./modules/docker.nix
     ./modules/fish.nix
     ./modules/input.nix

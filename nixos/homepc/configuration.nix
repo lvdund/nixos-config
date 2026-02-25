@@ -9,6 +9,7 @@
     ../modules/nvidia.nix
     ../modules/gtp5g.nix
     ../modules/virtualbox.nix
+    ../modules/i3.nix
   ];
 
   networking.hostName = "homepc";

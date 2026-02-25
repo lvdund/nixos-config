@@ -1,7 +1,7 @@
 set $mod Mod4
 font pango:FiraCode Nerd Font Bold 12
 exec --no-startup-id dex --autostart --environment i3
-exec_always --no-startup-id feh --bg-scale ~/.config/i3/momo_ayase_gruvbox.png
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/anya.jpg
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id xset s off && xset -dpms && xset s noblank
@@ -10,6 +10,8 @@ exec --no-startup-id xclip
 exec --no-startup-id fcitx5
 exec_always --no-startup-id bash ~/.config/polybar/launch.sh
 exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+
+focus_wrapping no
 
 # Use pactl to adjust volume and brightness.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
@@ -22,14 +24,20 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
 # Use Mouse+$mod
 floating_modifier $mod
 tiling_drag modifier titlebar
-bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
-bindsym $mod+Right focus right
+
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+
+bindsym $mod+h exec bash ~/.config/i3/focus_wrap.sh left prev
+bindsym $mod+l exec bash ~/.config/i3/focus_wrap.sh right next
+bindsym $mod+Left exec bash ~/.config/i3/focus_wrap.sh left prev
+bindsym $mod+Right exec bash ~/.config/i3/focus_wrap.sh right next
 
 # Rofi
 bindsym $mod+a exec bash ~/.config/rofi/launchers/launcher.sh 
-bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/powermenu.sh
+bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/i3-powermenu.sh
 
 # main apps
 bindsym $mod+t exec kitty --detach
@@ -100,6 +108,12 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 bindsym $mod+Shift+c restart
 
 # resize window (you can also use the mouse for that)
+bindsym $mod+minus resize shrink width 5 px or 5 ppt
+bindsym $mod+equal resize grow width 5 px or 5 ppt
+bindsym $mod+Shift+minus resize shrink height 5 px or 5 ppt
+bindsym $mod+Shift+equal resize grow height 5 px or 5 ppt
+
+#bindsym $mod+Shift+r mode "resize"
 mode "resize" {
         bindsym j resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
@@ -116,7 +130,6 @@ mode "resize" {
         bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Shift+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
