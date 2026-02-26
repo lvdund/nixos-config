@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = ["modesetting" "nvidia"];
 
   # services.ollama = {
   #   enable = true;
@@ -35,7 +35,7 @@
     cudaPackages.cudatoolkit
     cudaPackages.cudnn
     cudaPackages.cuda_cudart
-	ollama
+    ollama
   ];
   environment.sessionVariables = {
     CUDA_HOME = "${pkgs.cudaPackages.cudatoolkit}";
