@@ -29,14 +29,13 @@
   };
   services.pulseaudio.enable = false;
 
-  services.picom.enable = true;
-
   environment.systemPackages = with pkgs; [
     i3
     i3lock
     dmenu
     xclip
     rofi
+    # picom
     (polybar.override {
       i3Support = true; # for i3 module
       alsaSupport = true; # for alsa module
@@ -45,7 +44,7 @@
       nlSupport = true; # for network module
     })
     acpi # For battery information
-	psmisc # proc filesystem
+    psmisc # proc filesystem
   ];
 
   programs = {

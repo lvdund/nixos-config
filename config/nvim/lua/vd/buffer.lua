@@ -99,9 +99,11 @@ map('n', '<leader>bc', close_buffer_keep_split, { desc = 'Close but keep split w
 map('n', '<leader>ba', close_all_buffers, { desc = 'Close all buffers' })
 map('n', '<leader>bA', force_close_buffers, { desc = 'Close all buffer (Force)' })
 
-map({ 'n', 'v' }, '<Tab>', function()
-  require('fzf-lua').buffers()
-end, { desc = '[S]earch [B]uffers' })
+-- map({ 'n', 'v' }, '<Tab>', function()
+--   require('fzf-lua').buffers()
+-- end, { desc = '[S]earch [B]uffers' })
+map('n', '<Tab>', ':bnext<CR>')
+map('n', '<S-Tab>', ':bprev<CR>')
 
 -- split window & buffer
 map('n', 'sh', ':split<CR>', opts) -- up/down

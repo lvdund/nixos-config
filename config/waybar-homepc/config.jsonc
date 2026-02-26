@@ -14,14 +14,14 @@
         // "group/power",
         "custom/playpause",
         //"custom/appmenu",
-        "niri/workspaces",
+        "sway/workspaces",
         // "cava",
-        // "niri/window",
+        // "sway/window",
         "tray"
     ],
     "modules-center": [
-        // "niri/workspaces",
-        "niri/window"
+        // "sway/workspaces",
+        "sway/window"
     ],
     "modules-right": [
         // "network",
@@ -36,7 +36,7 @@
         "group/stats",
         "clock"
     ],
-    // "niri/workspaces": {
+    // "sway/workspaces": {
     //     "format": "{name}",
     //     "format-icons": {
     //         "active": "",
@@ -47,7 +47,7 @@
     //         "HDMI-A-1": 3 // but only three on HDMI-A-1
     //     }
     // },
-    "niri/workspaces": {
+    "sway/workspaces": {
         "format": "{icon}",
         "format-icons": {
             "active": ""
@@ -313,7 +313,7 @@
         "format": "{work_H}:{work_M}:{work_S} ↑",
         "interval": 60
     },
-    "niri/window": {
+    "sway/window": {
         "tooltip": false,
         "format": "{title}",
         "rewrite": {

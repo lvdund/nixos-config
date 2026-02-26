@@ -62,7 +62,11 @@ run_cmd() {
 			systemctl suspend
 			;;
 		--logout)
-			niri msg action quit
+			if [ "$XDG_CURRENT_DESKTOP" = "sway" ]; then
+				swaymsg exit
+			else
+				niri msg action quit
+			fi
 			;;
 		esac
 	else

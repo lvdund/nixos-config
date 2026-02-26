@@ -14,6 +14,7 @@
     ./modules/direnv.nix
     # ./modules/niri-homepc.nix
     ./modules/i3-homepc.nix
+    # ./modules/sway.nix
     ./modules/code.nix
     ./modules/office.nix
     ./modules/steam.nix

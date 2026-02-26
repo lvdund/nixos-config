@@ -1,0 +1,50 @@
+window {
+  background-color: #1a1a23;
+}
+
+calendar {
+  background-color: #1a1a23;
+  color: #cbcbcb;
+  padding: 5px;
+}
+
+calendar.header {
+  background-color: #1a1a23;
+  color: #009999;
+  font-weight: bold;
+}
+
+calendar.button {
+  color: #009999;
+}
+
+calendar.button:hover {
+  color: #00ffff;
+}
+
+calendar.highlight {
+  color: #009999;
+  font-weight: bold;
+}
+
+calendar:selected {
+  background-color: #009999;
+  color: #1a1b32;
+  font-weight: bold;
+}
+
+calendar:indeterminate {
+  color: #666666;
+}
+
+calendar.day {
+  color: #cbcbcb;
+}
+
+calendar.day-number {
+  color: #cbcbcb;
+}
+
+calendar.week-number {
+  color: #666666;
+}

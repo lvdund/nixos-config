@@ -1,5 +1,6 @@
 set $mod Mod4
-font pango:FiraCode Nerd Font Bold 12
+font pango:FiraCode Nerd Font Bold 13
+# exec --no-startup-id xrandr --output DP-0 --mode 2560x1440 --rate 99.95
 exec --no-startup-id dex --autostart --environment i3
 exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/anya.jpg
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
@@ -9,9 +10,7 @@ exec --no-startup-id dunst
 exec --no-startup-id xclip
 exec --no-startup-id fcitx5
 exec_always --no-startup-id bash ~/.config/polybar/launch.sh
-exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
-
-focus_wrapping no
+# exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
 # Use pactl to adjust volume and brightness.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
@@ -154,7 +153,7 @@ mode "resize" {
 # }
 
 # colour of border, background, text, indicator, and child_border
-client.focused #d12f2c #263640 #93a1a1 #696ebf #FAAFBE
+client.focused #d12f2c #263640 #93a1a1 #FAAFBE #FAAFBE
 client.focused_inactive #263640 #b08500 #93a1a1 #263640 #263640
 client.unfocused #263640 #b08500 #93a1a1 #263640 #263640
 client.urgent #263640 #b08500 #93a1a1 #263640 #263640
@@ -164,8 +163,10 @@ client.background #263640
 # window rules, you can find the window class using xprop
 for_window [class=gwenview|Eog|Sxiv|feh|spectacle|mpv|vlc|ark|File-roller|Xarchiver] floating enable
 for_window [class=gwenview|Eog|Sxiv|feh|spectacle|mpv|vlc|ark|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 2
-hide_edge_borders smart
+for_window [class=".*"] border pixel 3
 gaps inner 10
-smart_gaps on
+smart_gaps off
+hide_edge_borders none
 
+# popup calender
+for_window [class="Yad" title="yad-calendar"] floating enable

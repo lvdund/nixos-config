@@ -15,7 +15,6 @@
     wlogout
     libnotify
     mako
-    wl-clipboard
     cliphist
     grim
     slurp
