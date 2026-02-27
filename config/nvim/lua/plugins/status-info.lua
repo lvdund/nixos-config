@@ -1,10 +1,3 @@
-local icons = {
-  Error = '',
-  Warn = '󱈸',
-  Hint = '󰌶',
-  Info = '',
-}
-
 return {
   -- {
   --   'b0o/incline.nvim',
@@ -65,40 +58,6 @@ return {
   --   -- Optional: Lazy load Incline
   --   event = 'VeryLazy',
   -- },
-  {
-    'akinsho/bufferline.nvim',
-    event = 'VeryLazy',
-    keys = {
-      { '<leader>ba', '<Cmd>bufdo bd<CR>', desc = 'Close all Buffer' },
-      { '[B', '<Cmd>BufferLineMovePrev<CR>', desc = 'Move Buffers Left' },
-      { ']B', '<Cmd>BufferLineMoveNext<CR>', desc = 'Move Buffers Right' },
-      { '<leader>bo', '<Cmd>BufferLineCloseOthers<CR>', desc = 'Close Other Buffer' },
-    },
-    opts = {
-      highlights = {
-        buffer_selected = {
-          bold = true,
-          italic = true,
-        },
-      },
-      options = {
-        diagnostics = 'nvim_lsp',
-        diagnostics_indicator = function(_, _, diag)
-          local ret = (diag.error and icons.Error .. diag.error .. ' ' or '') .. (diag.warning and icons.Warn .. diag.warning or '')
-          return vim.trim(ret)
-        end,
-        hover = {
-          enabled = true,
-          delay = 200,
-          reveal = { 'close' },
-        },
-        indicator = {
-          icon = '▎', -- this should be omitted if indicator style is not 'icon'
-          style = 'underline',
-        },
-      },
-    },
-  },
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
