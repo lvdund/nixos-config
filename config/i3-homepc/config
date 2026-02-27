@@ -2,7 +2,7 @@ set $mod Mod4
 font pango:FiraCode Nerd Font Bold 13
 # exec --no-startup-id xrandr --output DP-0 --mode 2560x1440 --rate 99.95
 exec --no-startup-id dex --autostart --environment i3
-exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/anya.jpg
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/black.jpg
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec --no-startup-id xset s off && xset -dpms && xset s noblank
@@ -10,7 +10,7 @@ exec --no-startup-id dunst
 exec --no-startup-id xclip
 exec --no-startup-id fcitx5
 exec_always --no-startup-id bash ~/.config/polybar/launch.sh
-# exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
 # Use pactl to adjust volume and brightness.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
@@ -163,7 +163,7 @@ client.background #263640
 # window rules, you can find the window class using xprop
 for_window [class=gwenview|Eog|Sxiv|feh|spectacle|mpv|vlc|ark|File-roller|Xarchiver] floating enable
 for_window [class=gwenview|Eog|Sxiv|feh|spectacle|mpv|vlc|ark|File-roller|Xarchiver] focus
-for_window [class=".*"] border pixel 3
+for_window [class=".*"] border pixel 5
 gaps inner 10
 smart_gaps off
 hide_edge_borders none

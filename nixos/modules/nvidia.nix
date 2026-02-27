@@ -4,7 +4,7 @@
   lib,
   ...
 }: {
-  services.xserver.videoDrivers = ["modesetting" "nvidia"];
+  services.xserver.videoDrivers = ["nvidia"];
 
   # services.ollama = {
   #   enable = true;
