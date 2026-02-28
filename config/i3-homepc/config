@@ -40,7 +40,7 @@ bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/i3-powermenu.sh
 
 # main apps
 bindsym $mod+t exec kitty --detach
-bindsym $mod+b exec brave
+bindsym $mod+b exec --no-startup-id librewolf
 bindsym $mod+e exec nautilus
 bindsym $mod+Shift+s exec pavucontrol
 

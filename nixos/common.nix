@@ -24,6 +24,8 @@
     sudo.wheelNeedsPassword = false;
   };
 
+  # services.upower.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Core utilities
     git
@@ -41,6 +43,7 @@
     gnumake
     gcc14
     kmod
+    btop
 
     # Compression tools
     zip

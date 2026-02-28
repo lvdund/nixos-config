@@ -7,7 +7,7 @@
   imports = [
     # inputs.niri-flake.homeModules.niri
     ./modules/obs.nix
-    ./modules/brave.nix
+    ./modules/browser.nix
     ./modules/fish.nix
     ./modules/yazi.nix
     ./modules/tmux.nix
