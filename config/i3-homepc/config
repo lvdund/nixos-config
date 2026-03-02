@@ -10,7 +10,7 @@ exec --no-startup-id dunst
 exec --no-startup-id xclip
 exec --no-startup-id fcitx5
 exec_always --no-startup-id bash ~/.config/polybar/launch.sh
-exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
+# exec_always --no-startup-id picom -b --config ~/.config/picom/picom.conf
 
 # Use pactl to adjust volume and brightness.
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +2% && $refresh_i3status
@@ -40,7 +40,7 @@ bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/i3-powermenu.sh
 
 # main apps
 bindsym $mod+t exec kitty --detach
-bindsym $mod+b exec --no-startup-id librewolf
+bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+e exec nautilus
 bindsym $mod+Shift+s exec pavucontrol
 
