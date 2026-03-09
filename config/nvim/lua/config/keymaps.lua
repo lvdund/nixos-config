@@ -39,9 +39,10 @@ map('n', '_', [[<cmd>horizontal resize -2<cr>]])
 
 -- Diagnostic
 map('n', '<leader>ee', vim.diagnostic.open_float, { desc = 'Open Errors' })
+map('n', 'grd', vim.diagnostic.open_float, { desc = 'Open Errors' })
 -- map('n', '<leader>en', vim.diagnostic.goto_next, { desc = '[N]ext Error' })
 -- map('n', '<leader>ep', vim.diagnostic.goto_prev, { desc = '[P]revious Error' })
--- map('n', '<leader>eq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+map('n', '<leader>eq', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
 -- Quickfix
 map('n', 's', '', opts)
