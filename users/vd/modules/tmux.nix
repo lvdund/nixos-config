@@ -31,6 +31,8 @@
       # Switch window with Alt
       bind-key -n M-Left previous-window
       bind-key -n M-Right next-window
+      bind-key -n M-h previous-window
+      bind-key -n M-l next-window
 
       #set -g base-index 1 # Start windows numbering at 1 instead of 0
       #setw -g pane-base-index 1 # start pane numbering at 1

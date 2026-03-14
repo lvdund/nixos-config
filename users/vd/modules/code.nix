@@ -54,6 +54,8 @@
     black
     dockerfmt
     yamlfmt
+
+    obsidian
   ];
 
   # directories exist

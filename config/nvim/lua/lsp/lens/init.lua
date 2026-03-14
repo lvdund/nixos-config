@@ -13,16 +13,16 @@ local config = {
   separator = " | ",
   sections = {
     definition = function(count)
-      return "Definitions: " .. count
+      return "def: " .. count
     end,
     references = function(count)
-      return "References: " .. count
+      return "ref: " .. count
     end,
     implements = function(count)
-      return "Implements: " .. count
+      return "impl: " .. count
     end,
     git_authors = function(latest_author, count)
-      return " " .. latest_author .. (count - 1 == 0 and "" or (" + " .. count - 1))
+      return latest_author .. (count - 1 == 0 and "" or (" + " .. count - 1))
     end,
   },
   decorator = function(line)
@@ -215,7 +215,8 @@ local function display_lens(bufnr, results)
   for _, item in pairs(results or {}) do
     local display_str = build_display_string(item.counting)
     if display_str ~= "" then
-      local text = string.rep(" ", item.range_start.character) .. display_str
+      -- local text = string.rep(" ", item.range_start.character) .. display_str
+      local text = display_str
       local line = item.range_start.line
 
       if line >= 0 and line < vim.api.nvim_buf_line_count(bufnr) then
