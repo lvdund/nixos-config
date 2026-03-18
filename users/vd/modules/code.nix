@@ -6,14 +6,14 @@
 }: {
   # Environment variables
   home.sessionVariables = {
-    MOZ_ENABLE_WAYLAND = "1";
-    GOPATH = "${config.home.homeDirectory}/env/gopath_main";
-    GOROOT = "${pkgs.go}/share/go";
+    # MOZ_ENABLE_WAYLAND = "1";
+    GOPATH = "$HOME/env/gopath_main";
   };
   home.sessionPath = [
-    "${config.home.homeDirectory}/.npm-global/bin"
-    "${config.home.homeDirectory}/env/gopath_main/bin"
-    "${config.home.homeDirectory}/.local/bin"
+    "$HOME/.npm-global/bin"
+    "$HOME/env/gopath_main/bin"
+    "$HOME/.local/bin"
+    "$HOME/.cargo/bin"
   ];
 
   programs.neovim = {
