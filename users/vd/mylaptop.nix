@@ -7,15 +7,15 @@
   imports = [
     # inputs.niri-flake.homeModules.niri
     # ./modules/obs.nix
-    ./modules/brave.nix
-    ./modules/fish.nix
-    ./modules/yazi.nix
-    ./modules/tmux.nix
-    ./modules/direnv.nix
-    ./modules/niri-mylaptop.nix
-    ./modules/steam.nix
-    ./modules/code.nix
-    ./modules/office.nix
+    ../modules/brave.nix
+    ../modules/fish.nix
+    ../modules/yazi.nix
+    ../modules/tmux.nix
+    ../modules/direnv.nix
+    ../modules/niri-mylaptop.nix
+    ../modules/steam.nix
+    ../modules/code.nix
+    ../modules/office.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

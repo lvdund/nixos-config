@@ -12,6 +12,13 @@
 
   networking.hostName = "labcoha";
 
+  users.users.lab = {
+    isNormalUser = true;
+    description = "lab";
+    hashedPassword = "$6$mERlbx6dZ1Kq5mRa$PLb73oQtVLDrKi4trw6bZL5u5CX/3o//GT7c/G2GXBqhflGD/aG2wGaLle/S7d7zgef1MMaTPAc5miP0dxVFU/";
+    extraGroups = [ "networkmanager" "wheel" ];
+  };
+
   boot = {
     loader = {
       # for systemd

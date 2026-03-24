@@ -21,7 +21,17 @@
 
   security = {
     rtkit.enable = true;
-    sudo.wheelNeedsPassword = false;
+    sudo.extraRules = [
+      {
+        users = ["vd"];
+        commands = [
+          {
+            command = "ALL";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
   };
 
   # services.upower.enable = true;

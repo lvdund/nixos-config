@@ -65,6 +65,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.vd = import ./users/vd/labcoha.nix;
+            home-manager.users.lab = import ./users/lab/labcoha.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];
