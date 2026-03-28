@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -11,6 +12,44 @@
   ];
 
   networking.hostName = "labcoha";
+
+  users.users.vd = {
+    isNormalUser = true;
+    description = "vd";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
+  };
+
+  users.users.lab = {
+    isNormalUser = true;
+    description = "lab";
+    shell = pkgs.fish;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+      "docker"
+    ];
+  };
+
+  security.sudo.wheelNeedsPassword = lib.mkForce true;
+  security.sudo.extraRules = [
+    {
+      users = ["vd"];
+      runAs = "ALL";
+      commands = [
+        {
+          command = "ALL";
+          options = ["SETENV" "NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
   boot = {
     loader = {
@@ -54,4 +93,3 @@
     KDIR = "${pkgs.linuxPackages_6_1.kernel.dev}/lib/modules/${pkgs.linuxPackages_6_1.kernel.modDirVersion}/build";
   };
 }
-

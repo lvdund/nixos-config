@@ -11,6 +11,17 @@
 
   networking.hostName = "mylaptop";
 
+  users.users.vd = {
+    isNormalUser = true;
+    description = "vd";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
+  };
+
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 90;

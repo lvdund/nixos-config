@@ -7,10 +7,6 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -65,6 +61,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.vd = import ./users/vd/labcoha.nix;
+            home-manager.users.lab = import ./users/lab/labcoha.nix;
             home-manager.backupFileExtension = "backup";
           }
         ];

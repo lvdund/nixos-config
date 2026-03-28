@@ -73,17 +73,6 @@
     appimage-run
   ];
 
-  users.users.vd = {
-    isNormalUser = true;
-    description = "vd";
-    extraGroups = [
-      "networkmanager"
-      "wheel"
-      "video"
-      "audio"
-    ];
-  };
-
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
 }

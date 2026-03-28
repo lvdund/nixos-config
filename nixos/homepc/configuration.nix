@@ -14,6 +14,17 @@
 
   networking.hostName = "homepc";
 
+  users.users.vd = {
+    isNormalUser = true;
+    description = "vd";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
+  };
+
   boot = {
     loader = {
       # for systemd

@@ -5,7 +5,6 @@
   ...
 }: {
   imports = [
-    ../modules/obs.nix
     ../modules/browser.nix
     ../modules/fish.nix
     ../modules/yazi.nix
@@ -13,21 +12,15 @@
     ../modules/direnv.nix
     ../modules/i3.nix
     ../modules/code.nix
-    ../modules/office.nix
-    ../modules/steam.nix
   ];
-  home.username = "vd";
-  home.homeDirectory = "/home/vd";
+  home.username = "lab";
+  home.homeDirectory = "/home/lab";
   home.stateVersion = "25.11";
 
   # Packages for user
   home.packages = with pkgs; [
-    protonup-qt
-    vscode
     pciutils
-    parted
     gdu
-    gparted
     sshfs
     file-roller
     openssl

@@ -5,14 +5,13 @@
   ...
 }: {
   imports = [
-    # inputs.niri-flake.homeModules.niri
-    ./modules/browser.nix
-    ./modules/fish.nix
-    ./modules/yazi.nix
-    ./modules/tmux.nix
-    ./modules/direnv.nix
-    ./modules/i3-homepc.nix
-    ./modules/code.nix
+    ../modules/browser.nix
+    ../modules/fish.nix
+    ../modules/yazi.nix
+    ../modules/tmux.nix
+    ../modules/direnv.nix
+    ../modules/i3.nix
+    ../modules/code.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -29,8 +28,8 @@
 
   # Link your custom configs
   home.file = {
-    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/kitty";
-    ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos-config/config/zathura";
+    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/kitty";
+    ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/zathura";
   };
 
   programs = {
