@@ -73,6 +73,8 @@
     appimage-run
   ];
 
+  environment.sessionVariables.GTK_THEME = "Adwaita:dark";
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
 }

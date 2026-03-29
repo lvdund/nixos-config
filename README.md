@@ -24,8 +24,8 @@ Install Git (if not already available) and clone this repository:
 nix-shell -p git
 
 # Clone your repository (replace URL with your actual repo)
-git clone https://github.com/lvdund/nixos-config ~/nixos-config
-cd ~/nixos-config
+git clone https://github.com/lvdund/nixos-config /etc/nixos/nixos-config
+cd /etc/nixos/nixos-config 
 ```
 
 ### Step 2: Hardware Configuration
