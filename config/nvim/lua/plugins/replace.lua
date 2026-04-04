@@ -1,9 +1,8 @@
 return {
-  'MagicDuck/grug-far.nvim',
-  config = function()
-    require('grug-far').setup {
-      -- options, see Configuration section below
-      -- there are no required options atm
-    }
+  specs = {
+    { src = 'https://github.com/MagicDuck/grug-far.nvim' },
+  },
+  setup = function()
+    require('grug-far').setup({})
   end,
 }

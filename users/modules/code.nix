@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  unstable,
   ...
 }: {
   # Environment variables
@@ -16,20 +17,11 @@
     "$HOME/.cargo/bin"
   ];
 
-  programs.neovim = {
-    enable = true;
-    extraLuaPackages = ps: [ps.magick];
-    extraPackages = [
-      pkgs.ueberzugpp
-      pkgs.imagemagick
-    ];
-  };
-
   # Packages for user
   home.packages = with pkgs; [
     nixd
     delta
-    basedpyright
+    pyright
     go
     lazygit
     lazydocker
@@ -49,6 +41,8 @@
     clang-tools
     cmake
     lua-language-server
+    bash-language-server
+    docker-language-server
     stylua
     alejandra
     black
@@ -56,7 +50,7 @@
     yamlfmt
 
     obsidian
-  ];
+  ] ++ [unstable.neovim];
 
   # directories exist
   home.activation.createDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''

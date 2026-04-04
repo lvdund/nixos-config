@@ -1,35 +1,22 @@
 return {
-  'nvim-neotest/neotest',
-  dependencies = {
-    'nvim-neotest/nvim-nio',
-    'nvim-lua/plenary.nvim',
-    'antoinemadec/FixCursorHold.nvim',
-    'nvim-treesitter/nvim-treesitter',
-    'fredrikaverpil/neotest-golang',
+  specs = {
+    { src = 'https://github.com/nvim-neotest/neotest' },
+    { src = 'https://github.com/nvim-neotest/nvim-nio' },
+    { src = 'https://github.com/nvim-lua/plenary.nvim' },
+    { src = 'https://github.com/antoinemadec/FixCursorHold.nvim' },
+    { src = 'https://github.com/fredrikaverpil/neotest-golang' },
   },
-  keys = {
-    {
-      '<leader>do',
-      function()
-        require('neotest').output_panel.toggle()
-      end,
-      desc = 'Output Panel',
-    },
-    { '<leader>dp', "<cmd>lua require('neotest').run.stop()<cr>", desc = 'Stop test' },
-    { '<leader>ds', "<cmd>lua require('neotest').summary.toggle()<cr>", desc = 'Toggle Summary' },
-    { '<leader>dt', "<cmd>lua require('neotest').run.run()<cr>", desc = 'Run test' },
-  },
-  config = function()
-    require('neotest').setup {
+  setup = function()
+    require('neotest').setup({
       adapters = {
-        require 'neotest-golang'(function()
-          local neotest_golang_opts = {} -- Specify custom configuration
-          require('neotest').setup {
+        require('neotest-golang')(function()
+          local neotest_golang_opts = {}
+          require('neotest').setup({
             adapters = {
-              require 'neotest-golang'(neotest_golang_opts), -- Registration
+              require('neotest-golang')(neotest_golang_opts),
             },
-          }
-        end), -- Apply configuration
+          })
+        end),
       },
       diagnostic = {
         enabled = true,
@@ -79,6 +66,30 @@ return {
         expand_errors = true,
         follow = true,
       },
-    }
+    })
+  end,
+  load_on = function(load)
+    local function with_load(fn)
+      return function()
+        load()
+        fn()
+      end
+    end
+
+    vim.keymap.set('n', '<leader>do', with_load(function()
+      require('neotest').output_panel.toggle()
+    end), { desc = 'Output Panel' })
+
+    vim.keymap.set('n', '<leader>dp', with_load(function()
+      require('neotest').run.stop()
+    end), { desc = 'Stop test' })
+
+    vim.keymap.set('n', '<leader>ds', with_load(function()
+      require('neotest').summary.toggle()
+    end), { desc = 'Toggle Summary' })
+
+    vim.keymap.set('n', '<leader>dt', with_load(function()
+      require('neotest').run.run()
+    end), { desc = 'Run test' })
   end,
 }

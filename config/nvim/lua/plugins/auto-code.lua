@@ -1,20 +1,12 @@
 return {
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    event = { 'BufWritePre' },
-    cmd = { 'ConformInfo' },
-    keys = {
-      {
-        'gf',
-        function()
-          require('conform').format { lsp_format = 'fallback' }
-          vim.cmd 'write'
-        end,
-        mode = '',
-        desc = '[F]ormat buffer and save',
-      },
-    },
-    opts = {
+  specs = {
+    { src = 'https://github.com/stevearc/conform.nvim' },
+    { src = 'https://github.com/saghen/blink.cmp'},
+    { src = 'https://github.com/L3MON4D3/LuaSnip'},
+    { src = 'https://github.com/folke/lazydev.nvim' },
+  },
+  setup = function()
+    require('conform').setup {
       notify_on_error = true,
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -28,63 +20,23 @@ return {
         jsonc = { lsp_format = 'fallback' },
       },
       format_on_save = false,
-      -- format_on_save = {
-      --   timeout_ms = 500,
-      --   lsp_format = 'fallback',
-      -- },
-    },
-  },
-  {
-    'mason-org/mason.nvim',
-    opts = {
-      ui = {
-        icons = {
-          package_installed = '✓',
-          package_pending = '➜',
-          package_uninstalled = '✗',
-        },
-      },
-    },
-  },
-  { -- Autocompletion
-    'saghen/blink.cmp',
-    event = 'VimEnter',
-    version = '1.*',
-    dependencies = {
-      -- Snippet Engine
-      {
-        'L3MON4D3/LuaSnip',
-        event = 'InsertEnter',
-        version = '2.*',
-        build = (function()
-          if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-            return
-          end
-          return 'make install_jsregexp'
-        end)(),
-        dependencies = {},
-        opts = {},
-      },
-      'folke/lazydev.nvim',
-    },
-    --- @module 'blink.cmp'
-    --- @type blink.cmp.Config
-    opts = {
+    }
+    vim.keymap.set('', 'gf', function()
+      require('conform').format { lsp_format = 'fallback' }
+      vim.cmd 'write'
+    end, { desc = '[F]ormat buffer and save' })
+
+    require('blink.cmp').setup {
       keymap = {
         preset = 'none',
         ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
         ['<C-e>'] = { 'hide' },
         ['<CR>'] = { 'accept', 'fallback' },
-
         ['<S-Tab>'] = { 'select_prev', 'fallback' },
         ['<Tab>'] = { 'select_next', 'fallback' },
-
         ['<C-b>'] = { 'scroll_documentation_up', 'fallback' },
         ['<C-f>'] = { 'scroll_documentation_down', 'fallback' },
-
-        -- ['<C-k>'] = { 'show_signature', 'hide_signature', 'fallback' },
       },
-
       appearance = {
         nerd_font_variant = 'normal',
         kind_icons = {
@@ -119,15 +71,11 @@ return {
           Hint = '',
         },
       },
-
       completion = {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 200,
-          window = {
-            border = 'rounded',
-            winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None',
-          },
+          window = { border = 'rounded', winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpDocCursorLine,Search:None' },
         },
         menu = {
           border = 'rounded',
@@ -135,37 +83,16 @@ return {
           winhighlight = 'Normal:Normal,FloatBorder:FloatBorder,CursorLine:BlinkCmpMenuSelection,Search:None',
           auto_show = true,
         },
-        ghost_text = {
-          enabled = true,
-          show_with_menu = false,
-        },
+        ghost_text = { enabled = true, show_with_menu = false },
       },
-
       sources = {
         default = { 'lsp', 'path', 'snippets', 'lazydev' },
-        providers = {
-          lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
-        },
+        providers = { lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 } },
       },
-
       snippets = { preset = 'luasnip' },
-      -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = {
-        implementation = 'lua',
-        sorts = {
-          'exact',
-          -- defaults
-          'score',
-          'sort_text',
-        },
-      },
-      -- Shows a signature help window while you type arguments for a function
-      signature = {
-        enabled = true,
-        window = {
-          direction_priority = { 's', 'n' },
-        },
-      },
-    },
-  },
+      fuzzy = { implementation = 'lua', sorts = { 'exact', 'score', 'sort_text' } },
+      signature = { enabled = true, window = { direction_priority = { 's', 'n' } } },
+    }
+    require('lazydev').setup()
+  end,
 }
