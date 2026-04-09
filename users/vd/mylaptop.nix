@@ -5,15 +5,13 @@
   ...
 }: {
   imports = [
-    ../modules/brave.nix
+    ../modules/browser.nix
     ../modules/fish.nix
     ../modules/yazi.nix
     ../modules/tmux.nix
     ../modules/direnv.nix
-    ../modules/niri-mylaptop.nix
-    ../modules/steam.nix
+    ../modules/i3.nix
     ../modules/code.nix
-    ../modules/office.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -22,9 +20,8 @@
   # Packages for user
   home.packages = with pkgs; [
     pciutils
-    parted
     gdu
-    gparted
+    sshfs
     file-roller
     openssl
   ];
@@ -39,3 +36,4 @@
     home-manager.enable = true;
   };
 }
+
