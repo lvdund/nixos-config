@@ -2,13 +2,13 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "gtp5g";
-  version = "0.8.10";
+  version = "0.9.16";
 
   src = pkgs.fetchFromGitHub {
     owner = "free5gc";
     repo = "gtp5g";
     rev = "v${version}";
-    sha256 = "sha256-D77InaRszXslFkw6Z08cwhdw8mV75bof56LUo5khnhI=";
+    sha256 = "sha256-sCq4Tx0m1hGFl1OLKNGn4N+Ja1sE/UXfwYmgFnHsCa0=";
   };
 
   nativeBuildInputs = with pkgs; [
