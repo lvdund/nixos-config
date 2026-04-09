@@ -70,21 +70,6 @@
     };
   };
 
-  systemd.services.setup-data-permissions = {
-    description = "Set full permissions on /mnt/mydata";
-    after = ["mnt-mydata.mount"];
-    wantedBy = ["multi-user.target"];
-    serviceConfig = {
-      Type = "oneshot";
-      RemainAfterExit = true;
-      ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p /mnt/mydata";
-      ExecStart = [
-        "${pkgs.coreutils}/bin/chown -R vd:users /mnt/mydata"
-        "${pkgs.coreutils}/bin/chmod -R 755 /mnt/mydata"
-      ];
-    };
-  };
-
   environment.systemPackages = with pkgs; [
     linuxPackages_6_1.kernel.dev
   ];

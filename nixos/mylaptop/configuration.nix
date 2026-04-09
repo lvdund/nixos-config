@@ -1,12 +1,14 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
     ../common.nix
     ./hardware-configuration.nix
-    ../modules/niri.nix
+    ../modules/gtp5g.nix
+    ../modules/i3.nix
   ];
 
   networking.hostName = "mylaptop";
@@ -22,20 +24,44 @@
     ];
   };
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.timeout = 90;
-  boot.kernel.sysctl = {
-    "net.ipv4.conf.eth0.forwarding" = 1; # enable port forwarding
-  };
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  security.sudo.wheelNeedsPassword = lib.mkForce true;
+  security.sudo.extraRules = [
+    {
+      users = ["vd"];
+      runAs = "ALL";
+      commands = [
+        {
+          command = "ALL";
+          options = ["SETENV" "NOPASSWD"];
+        }
+      ];
+    }
+  ];
 
-  hardware = {
-    graphics = {
-      enable = true;
-      enable32Bit = true;
+  boot = {
+    loader = {
+      # for systemd
+      systemd-boot.enable = true;
+      timeout = 90;
+      efi.canTouchEfiVariables = true;
+      # for grub
+      # grub = {
+      #   enable = true;
+      #   device = "/dev/sda";
+      #   useOSProber = true;
+      # };
+    };
+    kernelPackages = pkgs.linuxPackages_6_1;
+    kernel.sysctl = {
+      "net.ipv4.conf.eth0.forwarding" = 1; # enable port forwarding
     };
   };
 
-  services.power-profiles-daemon.enable = true;
+  environment.systemPackages = with pkgs; [
+    linuxPackages_6_1.kernel.dev
+  ];
+
+  environment.variables = {
+    KDIR = "${pkgs.linuxPackages_6_1.kernel.dev}/lib/modules/${pkgs.linuxPackages_6_1.kernel.modDirVersion}/build";
+  };
 }
