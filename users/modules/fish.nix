@@ -40,7 +40,7 @@
           echo -n " ($git_branch)"
         end
 
-		if set -q DIRENV_DIR
+		  if set -q DIRENV_DIR
           set_color magenta
           echo -n " ❄️"
         end
@@ -54,6 +54,23 @@
         
         set_color normal
         echo -n " > "
+      end
+    '';
+    # Run for ALL shell invocations (including SSH non-interactive)
+    shellInit = ''
+      # Manually add paths to PATH (bypassing hm-session-vars.sh guard)
+      # This ensures PATH works in non-login SSH sessions
+      if not contains $HOME/.npm-global/bin $PATH
+        fish_add_path $HOME/.npm-global/bin
+      end
+      if not contains $HOME/env/gopath_main/bin $PATH
+        fish_add_path $HOME/env/gopath_main/bin
+      end
+      if not contains $HOME/.local/bin $PATH
+        fish_add_path $HOME/.local/bin
+      end
+      if not contains $HOME/.cargo/bin $PATH
+        fish_add_path $HOME/.cargo/bin
       end
     '';
   };
