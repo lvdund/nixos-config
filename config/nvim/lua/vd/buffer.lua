@@ -89,10 +89,21 @@ local function force_close_buffers()
   vim.notify('Force closed buffer', vim.log.levels.INFO)
 end
 
+local function smart_close_window_buffer()
+  vim.cmd 'wa'
+  if #vim.api.nvim_list_wins() > 1 then
+    vim.cmd 'close'
+  elseif #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
+    vim.cmd 'wa|bp|bd#'
+  else
+    vim.notify('this keymap cannot close the last buffer', vim.log.levels.WARN)
+  end
+end
+
 map('n', '<leader>tt', ':tabclose<CR>', { desc = 'close tab' }) -- close
 map('n', '<leader>qa', quit_all, { desc = '[Q]uit [A]ll' })
-map('n', '<leader>qq', ':wa|close<CR>', { desc = 'Close Window' }) -- close
-map('n', 'qq', ':wa|close<CR>', { desc = 'Close Window' }) -- close
+map('n', '<leader>qq', smart_close_window_buffer, { desc = 'Close Window' }) -- close
+map('n', 'qq', smart_close_window_buffer, { desc = 'Close Window' }) -- close
 map('n', '<leader><leader>', save_all, { desc = 'Save all' })
 map('n', '<leader>bo', close_all_other_buffers, { desc = 'Close all other buffers' })
 map('n', '<leader>bc', close_buffer_keep_split, { desc = 'Close but keep split window' })
