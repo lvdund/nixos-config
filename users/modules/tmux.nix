@@ -1,57 +1,134 @@
-{pkgs, ...}: {
+{
+  config,
+  pkgs,
+  ...
+}: {
+  home.packages = [pkgs.tmuxinator];
+  home.file = {
+    ".config/tmuxinator".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/i3";
+  };
+
   programs.tmux = {
     enable = true;
-    baseIndex = 1;
-    terminal = "tmux-256color";
-    prefix = "C-q";
-    mouse = true;
-    plugins = with pkgs; [
-      tmuxPlugins.vim-tmux-navigator
-      tmuxPlugins.catppuccin
-      tmuxPlugins.resurrect
-      tmuxPlugins.continuum
+    clock24 = true;
+    plugins = with pkgs.tmuxPlugins; [
+      sensible
+      yank
+      {
+        plugin = dracula;
+      }
     ];
+
     extraConfig = ''
-      set -g @catppuccin_flavor "mocha"
-      set -g @catppuccin_window_status_style "rounded"
+      # Rebind Prefix to CTRL-Q
+      set-option -g prefix C-q
+      unbind C-b
+      bind C-q send-prefix
 
-      set -g @continuum-restore 'on'
-      set -g status-right 'Continuum status: #{continuum_status}'
+      # Start all numbering at 1 instead of 0 for better key reachability
+      set-option -g base-index 1
+      set-option -g pane-base-index 1
 
-      set -g @resurrect-capture-pane-contents 'on'
-      resurrect_dir="$HOME/.tmux/resurrect"
+      # Allow to renumber windows with ß key (german keyboard)
+      bind ß move-window -r
 
-      set -g allow-passthrough on
-      set -ag terminal-overrides ",$TERM:RGB"
+      # Enable mouse support
+      set-option -g mouse on
 
-      bind h select-pane -L
-      bind j select-pane -D
-      bind k select-pane -U
-      bind l select-pane -R
+      # Increase history limit, as we want an "almost" unlimited buffer.
+      # May be set to something even higher, like 250k
+      set-option -g history-limit 100000
 
-      # Switch window with Alt
-      bind-key -n M-Left previous-window
-      bind-key -n M-Right next-window
-      bind-key -n M-h previous-window
-      bind-key -n M-l next-window
+      # Fix Terminal Title display, to not contain tmux specic information
+      set-option -g set-titles on
+      set-option -g set-titles-string "#{pane_title}"
 
-      #set -g base-index 1 # Start windows numbering at 1 instead of 0
-      #setw -g pane-base-index 1 # start pane numbering at 1
-
-      # set vi-mode
-      set-window-option -g mode-keys vi
-      # keybindings
-      bind-key -T copy-mode-vi v send-keys -X begin-selection
-      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-      bind-key -T copy-mode-vi 'Escape' send-keys -X clear-selection
-
-      # vi->search mode
-      bind / copy-mode \; send-keys /
-
-      # create panel
-      bind '"' split-window -v -c "#{pane_current_path}"
+      # Open new windows and panes in the current working directory of the active
+      # pane.
+      bind c new-window -c "#{pane_current_path}"
+      bind '"' split-window -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
+
+      # Enable extended support for some more sophisticated terminal emulator
+      # features. Disable them if they are causing problems!
+      set-option -s focus-events on
+      set-option -s extended-keys on
+
+      # Disable waiting time when pressing escape, for smoother Neovim usage. Disable
+      # if differentiation between function and meta keycombination is needed.
+      set-option -s escape-time 0
+
+      ##
+      # Styling
+      ##
+
+      # gruvbox material colorscheme (mostly)
+      RED="#ea6962"
+      GREEN="#a9b665"
+      YELLOW="#d8a657"
+      BLUE="#7daea3"
+      MAGENTA="#d3869b"
+      CYAN="#89b482"
+      BLACK="#1d2021"
+      DARK_GRAY="#32302F"
+      LIGHT_GRAY="#4F4946"
+      BG="#32302F"
+      FG="#d4be98"
+
+      # Nerdfont characters
+      HALF_ROUND_OPEN="#(printf '\uE0B6')"
+      HALF_ROUND_CLOSE="#(printf '\uE0B4')"
+      TRIANGLE_OPEN="#(printf '\uE0B2')"
+      TRIANGLE_CLOSE="#(printf '\uE0B0')"
+
+      # Uncomment to move statusbar to the top
+      # set-option -g status-position top
+
+      # Basic colors of the Statusbar
+      set-option -g status-style bg=''${BG},fg=''${FG}
+
+      # Show the window list centered between the left and the right section
+      set-option -g status-justify centre
+
+      # Style and set contents on the left section
+      set-option -g status-left "\
+      #[fg=''${LIGHT_GRAY},bg=default]''${HALF_ROUND_OPEN}\
+      #[bg=''${LIGHT_GRAY},fg=''${YELLOW}]#S \
+      #[fg=''${LIGHT_GRAY},bg=default]''${TRIANGLE_CLOSE}\
+      "
+
+      # Style and set contents on the right section
+      set-option -g status-right "\
+      #[fg=''${LIGHT_GRAY},bg=default]''${TRIANGLE_OPEN}\
+      #[bg=''${LIGHT_GRAY},fg=''${CYAN}] #h\
+      #[fg=''${LIGHT_GRAY},bg=default]''${HALF_ROUND_CLOSE}\
+      "
+
+      # Set max length of left and right section
+      set-option -g status-left-length 100
+      set-option -g status-right-length 100
+
+      # Style and set content for the inactive windows
+      set-option -g window-status-format "\
+       \
+      #I\
+      #[fg=''${MAGENTA}]:\
+      #[fg=default]#W\
+       \
+      "
+
+      # Style and set content for the active windows
+      set-option -g window-status-current-format "\
+      #[fg=''${LIGHT_GRAY},bg=default]''${HALF_ROUND_OPEN}\
+      #[bg=''${LIGHT_GRAY},fg=default]#I\
+      #[fg=''${RED}]:\
+      #[fg=default]#W\
+      #[fg=''${LIGHT_GRAY},bg=default]''${HALF_ROUND_CLOSE}\
+      "
+
+      # Remove the separator between window list items, as we already have spacing
+      # "around" inactive items
+      set-option -g window-status-separator ""
     '';
   };
 }

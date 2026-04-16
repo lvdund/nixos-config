@@ -1,0 +1,11 @@
+name: personal
+root: ~/
+
+name: Personal
+windows:
+  - Main:
+      - " tmux set-window-option -t0 automatic-rename on"
+      - "clear"
+  - Second:
+      - " tmux set-window-option -t1 automatic-rename on"
+      - " clear"

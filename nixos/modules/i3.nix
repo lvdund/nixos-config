@@ -45,7 +45,6 @@
     })
     acpi # For battery information
     psmisc # proc filesystem
-    lite-xl # file editor
   ];
 
   programs = {

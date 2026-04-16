@@ -9,6 +9,7 @@
     ./modules/fish.nix
     ./modules/input.nix
     ./modules/fonts.nix
+    ./modules/sysctl.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

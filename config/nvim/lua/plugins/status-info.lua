@@ -89,7 +89,7 @@ return {
         },
         cmdline = {
           enabled = true,
-          view = 'cmdline_popup', -- This puts the :command bar in the middle
+          view = 'cmdline',
         },
         messages = {
           enabled = true,
@@ -167,12 +167,12 @@ return {
             },
           },
           lualine_y = {
-            -- {
-            --   'diff',
-            --   symbols = { added = '+', modified = '~', removed = '-' },
-            --   source = nil,
-            -- },
-            -- 'diagnostics',
+            {
+              'diff',
+              symbols = { added = '+', modified = '~', removed = '-' },
+              source = nil,
+            },
+            'diagnostics',
             -- {
             --   'filetype',
             --   icon_only = true,
@@ -189,12 +189,12 @@ return {
           } },
           lualine_x = {},
           lualine_y = {
-            -- {
-            --   'diff',
-            --   symbols = { added = '+', modified = '~', removed = '-' },
-            --   source = nil,
-            -- },
-            -- 'diagnostics',
+            {
+              'diff',
+              symbols = { added = '+', modified = '~', removed = '-' },
+              source = nil,
+            },
+            'diagnostics',
             -- {
             --   'filetype',
             --   icon_only = true,
