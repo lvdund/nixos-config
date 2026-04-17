@@ -91,10 +91,19 @@ end
 
 local function smart_close_window_buffer()
   vim.cmd 'wa'
-  if #vim.api.nvim_list_wins() > 1 then
-    vim.cmd 'close'
-  elseif #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
-    vim.cmd 'wa|bp|bd#'
+
+  if pcall(vim.cmd, 'close') then
+    return
+  end
+
+  local current = vim.api.nvim_get_current_buf()
+  local listed = vim.tbl_filter(function(buf)
+    return buf.bufnr ~= current
+  end, vim.fn.getbufinfo { buflisted = 1 })
+
+  if #listed > 0 then
+    vim.api.nvim_set_current_buf(listed[1].bufnr)
+    vim.api.nvim_buf_delete(current, {})
   else
     vim.notify('this keymap cannot close the last buffer', vim.log.levels.WARN)
   end
