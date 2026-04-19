@@ -54,6 +54,7 @@
 
     # Desktop environment
     libnotify
+    ffmpeg
     feh
     maim
     kitty
