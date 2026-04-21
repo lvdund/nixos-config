@@ -4,7 +4,6 @@
   ...
 }: {
   imports = [
-    ./modules/network.nix
     ./modules/docker.nix
     ./modules/fish.nix
     ./modules/input.nix

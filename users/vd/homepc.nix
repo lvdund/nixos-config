@@ -31,6 +31,8 @@
     sshfs
     file-roller
     openssl
+
+    tor-browser
   ];
 
   # Link your custom configs

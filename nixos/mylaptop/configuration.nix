@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ../modules/gtp5g.nix
     ../modules/i3.nix
+    ../modules/network.nix
   ];
 
   networking.hostName = "mylaptop";

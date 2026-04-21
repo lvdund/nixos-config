@@ -10,6 +10,7 @@
     ../modules/gtp5g.nix
     ../modules/virtualbox.nix
     ../modules/i3.nix
+    ../modules/network_homepc.nix
   ];
 
   networking.hostName = "homepc";
