@@ -9,6 +9,7 @@
     ./modules/input.nix
     ./modules/fonts.nix
     ./modules/sysctl.nix
+    ./modules/tmpdir.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

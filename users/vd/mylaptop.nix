@@ -17,6 +17,8 @@
   home.homeDirectory = "/home/vd";
   home.stateVersion = "25.11";
 
+  systemd.user.sessionVariables = config.home.sessionVariables;
+
   # Packages for user
   home.packages = with pkgs; [
     pciutils
@@ -36,4 +38,3 @@
     home-manager.enable = true;
   };
 }
-
