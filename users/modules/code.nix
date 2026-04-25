@@ -36,6 +36,7 @@
       impl
       golangci-lint
       jq
+      jdt-language-server
 
       nodejs
       python312

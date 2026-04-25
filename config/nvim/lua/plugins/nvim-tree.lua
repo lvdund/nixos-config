@@ -1,194 +1,196 @@
-local function vsplit_preview()
-  local api = require 'nvim-tree.api'
-  local node = api.tree.get_node_under_cursor()
+return {}
 
-  if node.nodes ~= nil then
-    -- expand or collapse folder
-    api.node.open.edit()
-  else
-    -- open file as vsplit
-    api.node.open.vertical()
-  end
-
-  -- Finally refocus on tree if it was lost
-  -- api.tree.focus()
-
-  vim.cmd 'NvimTreeClose'
-end
-
-local function edit_or_open()
-  local api = require 'nvim-tree.api'
-  local node = api.tree.get_node_under_cursor()
-
-  if node.nodes ~= nil then
-    -- expand or collapse folder
-    api.node.open.edit()
-  else
-    -- open file
-    api.node.open.edit()
-    -- Close the tree if file was opened
-    api.tree.close()
-  end
-end
-
-local function on_attach(bufnr)
-  local api = require 'nvim-tree.api'
-
-  local function opts(desc)
-    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  vim.keymap.set('n', 'r', api.fs.rename, opts 'Rename')
-  vim.keymap.set('n', 'm', api.marks.toggle, opts 'Toggle Bookmark')
-  vim.keymap.set('n', ']e', api.node.navigate.diagnostics.next, opts 'Next Diagnostic')
-  vim.keymap.set('n', '[e', api.node.navigate.diagnostics.prev, opts 'Prev Diagnostic')
-  vim.keymap.set('n', 'd', api.fs.remove, opts 'Delete')
-  vim.keymap.set('n', 'D', api.fs.trash, opts 'Trash')
-  vim.keymap.set('n', 'y', api.fs.copy.node, opts 'Copy')
-  vim.keymap.set('n', 'z', api.tree.collapse_all, opts 'Collapse All')
-  vim.keymap.set('n', '<BS>', api.node.navigate.parent_close, opts 'Close Directory')
-  vim.keymap.set('n', '<CR>', api.node.open.edit, opts 'Open')
-  vim.keymap.set('n', 'S', api.tree.search_node, opts 'Search')
-  vim.keymap.set('n', 'a', api.fs.create, opts 'Create File Or Directory')
-  vim.keymap.set('n', '<Tab>', api.node.open.preview, opts 'Open Preview')
-  vim.keymap.set('n', 'p', api.fs.paste, opts 'Paste')
-  vim.keymap.set('n', 'P', api.node.navigate.parent, opts 'Parent Directory')
-  vim.keymap.set('n', 'g?', api.tree.toggle_help, opts 'Help')
-  vim.keymap.set('n', '<Esc>', api.tree.close, opts 'Help')
-  vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts 'Open')
-  vim.keymap.set('n', '<C-v>', vsplit_preview, opts 'Vsplit Preview')
-  vim.keymap.set('n', 'l', edit_or_open, opts 'Edit Or Open')
-end
-
-return {
-  'nvim-tree/nvim-tree.lua',
-  version = '*',
-  lazy = false,
-  dependencies = { 'nvim-tree/nvim-web-devicons' },
-  keys = {
-    { '\\', '<Cmd>NvimTreeFindFileToggle<CR>', desc = 'NvimTree toggle', silent = true },
-  },
-  config = function()
-    require('nvim-tree').setup {
-      on_attach = on_attach,
-      actions = {
-        open_file = {
-          window_picker = {
-            enable = true,
-          },
-        },
-      },
-      view = {
-        signcolumn = 'yes',
-        float = {
-          enable = true,
-          open_win_config = function()
-            local scr_w = vim.opt.columns:get()
-            local scr_h = vim.opt.lines:get()
-            local tree_w = 70
-            local tree_h = math.floor(scr_h * 0.8)
-            return {
-              style = 'minimal',
-              relative = 'editor',
-              border = 'rounded',
-              width = tree_w,
-              height = tree_h,
-              col = (scr_w - tree_w) / 2,
-              row = (scr_h - tree_h) / 2,
-            }
-          end,
-        },
-        cursorline = false,
-      },
-      -- filesystem_watchers = {
-      --   enable = true,
-      --   debounce_delay = 50,
-      --   max_events = 0,
-      --   ignore_dirs = {
-      --     '/.ccls-cache',
-      --     '/build',
-      --     '/node_modules',
-      --     '/target',
-      --     '/.zig-cache',
-      --   },
-      -- },
-      diagnostics = {
-        enable = true,
-        show_on_dirs = true,
-        show_on_open_dirs = true,
-        icons = {
-          error = '',
-          warning = '󱈸',
-          hint = '󰌶',
-          info = '',
-        },
-      },
-      modified = { enable = true },
-      ui = {
-        confirm = {
-          remove = true,
-          trash = true,
-        },
-      },
-      renderer = {
-        indent_width = 2,
-        root_folder_label = ':~:s?$?/..?',
-        indent_markers = {
-          enable = true,
-          inline_arrows = true,
-          icons = {
-            corner = '└',
-            edge = '│',
-            item = '│',
-            bottom = '─',
-            none = ' ',
-          },
-        },
-        icons = {
-          show = {
-            file = true,
-            folder = true,
-            folder_arrow = true,
-            git = true,
-            modified = true,
-            hidden = true,
-            diagnostics = true,
-            bookmarks = true,
-          },
-          git_placement = 'after',
-          diagnostics_placement = 'after',
-          symlink_arrow = ' -> ',
-          glyphs = {
-            default = '',
-            symlink = '',
-            bookmark = '',
-            modified = '󰲶 ',
-            hidden = '󰘓',
-            folder = {
-              arrow_closed = '',
-              arrow_open = '',
-              default = '',
-              open = '',
-              empty = '',
-              empty_open = '',
-              symlink = '',
-              symlink_open = '',
-            },
-            git = {
-              unstaged = '✗',
-              staged = '✓',
-              unmerged = '',
-              renamed = '󰁕',
-              untracked = '★',
-              deleted = '󰷩 ',
-              ignored = ' ',
-            },
-          },
-        },
-      },
-      filters = { git_ignored = false },
-      hijack_cursor = true,
-      sync_root_with_cwd = true,
-    }
-  end,
-}
+-- local function vsplit_preview()
+--   local api = require 'nvim-tree.api'
+--   local node = api.tree.get_node_under_cursor()
+--
+--   if node.nodes ~= nil then
+--     -- expand or collapse folder
+--     api.node.open.edit()
+--   else
+--     -- open file as vsplit
+--     api.node.open.vertical()
+--   end
+--
+--   -- Finally refocus on tree if it was lost
+--   -- api.tree.focus()
+--
+--   vim.cmd 'NvimTreeClose'
+-- end
+--
+-- local function edit_or_open()
+--   local api = require 'nvim-tree.api'
+--   local node = api.tree.get_node_under_cursor()
+--
+--   if node.nodes ~= nil then
+--     -- expand or collapse folder
+--     api.node.open.edit()
+--   else
+--     -- open file
+--     api.node.open.edit()
+--     -- Close the tree if file was opened
+--     api.tree.close()
+--   end
+-- end
+--
+-- local function on_attach(bufnr)
+--   local api = require 'nvim-tree.api'
+--
+--   local function opts(desc)
+--     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+--   end
+--
+--   vim.keymap.set('n', 'r', api.fs.rename, opts 'Rename')
+--   vim.keymap.set('n', 'm', api.marks.toggle, opts 'Toggle Bookmark')
+--   vim.keymap.set('n', ']e', api.node.navigate.diagnostics.next, opts 'Next Diagnostic')
+--   vim.keymap.set('n', '[e', api.node.navigate.diagnostics.prev, opts 'Prev Diagnostic')
+--   vim.keymap.set('n', 'd', api.fs.remove, opts 'Delete')
+--   vim.keymap.set('n', 'D', api.fs.trash, opts 'Trash')
+--   vim.keymap.set('n', 'y', api.fs.copy.node, opts 'Copy')
+--   vim.keymap.set('n', 'z', api.tree.collapse_all, opts 'Collapse All')
+--   vim.keymap.set('n', '<BS>', api.node.navigate.parent_close, opts 'Close Directory')
+--   vim.keymap.set('n', '<CR>', api.node.open.edit, opts 'Open')
+--   vim.keymap.set('n', 'S', api.tree.search_node, opts 'Search')
+--   vim.keymap.set('n', 'a', api.fs.create, opts 'Create File Or Directory')
+--   vim.keymap.set('n', '<Tab>', api.node.open.preview, opts 'Open Preview')
+--   vim.keymap.set('n', 'p', api.fs.paste, opts 'Paste')
+--   vim.keymap.set('n', 'P', api.node.navigate.parent, opts 'Parent Directory')
+--   vim.keymap.set('n', 'g?', api.tree.toggle_help, opts 'Help')
+--   vim.keymap.set('n', '<Esc>', api.tree.close, opts 'Help')
+--   vim.keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts 'Open')
+--   vim.keymap.set('n', '<C-v>', vsplit_preview, opts 'Vsplit Preview')
+--   vim.keymap.set('n', 'l', edit_or_open, opts 'Edit Or Open')
+-- end
+--
+-- return {
+--   'nvim-tree/nvim-tree.lua',
+--   version = '*',
+--   lazy = false,
+--   dependencies = { 'nvim-tree/nvim-web-devicons' },
+--   keys = {
+--     { '\\', '<Cmd>NvimTreeFindFileToggle<CR>', desc = 'NvimTree toggle', silent = true },
+--   },
+--   config = function()
+--     require('nvim-tree').setup {
+--       on_attach = on_attach,
+--       actions = {
+--         open_file = {
+--           window_picker = {
+--             enable = true,
+--           },
+--         },
+--       },
+--       view = {
+--         signcolumn = 'yes',
+--         float = {
+--           enable = true,
+--           open_win_config = function()
+--             local scr_w = vim.opt.columns:get()
+--             local scr_h = vim.opt.lines:get()
+--             local tree_w = 70
+--             local tree_h = math.floor(scr_h * 0.8)
+--             return {
+--               style = 'minimal',
+--               relative = 'editor',
+--               border = 'rounded',
+--               width = tree_w,
+--               height = tree_h,
+--               col = (scr_w - tree_w) / 2,
+--               row = (scr_h - tree_h) / 2,
+--             }
+--           end,
+--         },
+--         cursorline = false,
+--       },
+--       -- filesystem_watchers = {
+--       --   enable = true,
+--       --   debounce_delay = 50,
+--       --   max_events = 0,
+--       --   ignore_dirs = {
+--       --     '/.ccls-cache',
+--       --     '/build',
+--       --     '/node_modules',
+--       --     '/target',
+--       --     '/.zig-cache',
+--       --   },
+--       -- },
+--       diagnostics = {
+--         enable = true,
+--         show_on_dirs = true,
+--         show_on_open_dirs = true,
+--         icons = {
+--           error = '',
+--           warning = '󱈸',
+--           hint = '󰌶',
+--           info = '',
+--         },
+--       },
+--       modified = { enable = true },
+--       ui = {
+--         confirm = {
+--           remove = true,
+--           trash = true,
+--         },
+--       },
+--       renderer = {
+--         indent_width = 2,
+--         root_folder_label = ':~:s?$?/..?',
+--         indent_markers = {
+--           enable = true,
+--           inline_arrows = true,
+--           icons = {
+--             corner = '└',
+--             edge = '│',
+--             item = '│',
+--             bottom = '─',
+--             none = ' ',
+--           },
+--         },
+--         icons = {
+--           show = {
+--             file = true,
+--             folder = true,
+--             folder_arrow = true,
+--             git = true,
+--             modified = true,
+--             hidden = true,
+--             diagnostics = true,
+--             bookmarks = true,
+--           },
+--           git_placement = 'after',
+--           diagnostics_placement = 'after',
+--           symlink_arrow = ' -> ',
+--           glyphs = {
+--             default = '',
+--             symlink = '',
+--             bookmark = '',
+--             modified = '󰲶 ',
+--             hidden = '󰘓',
+--             folder = {
+--               arrow_closed = '',
+--               arrow_open = '',
+--               default = '',
+--               open = '',
+--               empty = '',
+--               empty_open = '',
+--               symlink = '',
+--               symlink_open = '',
+--             },
+--             git = {
+--               unstaged = '✗',
+--               staged = '✓',
+--               unmerged = '',
+--               renamed = '󰁕',
+--               untracked = '★',
+--               deleted = '󰷩 ',
+--               ignored = ' ',
+--             },
+--           },
+--         },
+--       },
+--       filters = { git_ignored = false },
+--       hijack_cursor = true,
+--       sync_root_with_cwd = true,
+--     }
+--   end,
+-- }

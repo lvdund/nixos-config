@@ -72,6 +72,7 @@ local lsp_servers = {
   'docker_language_server',
   'jsonls',
   'pyright',
+  'jdtls',
 }
 
 for _, lsp in ipairs(lsp_servers) do
