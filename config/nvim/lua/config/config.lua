@@ -22,6 +22,7 @@ vim.o.winborder = 'rounded'
 vim.opt.termguicolors = true
 vim.opt.signcolumn = 'auto'
 vim.opt.wrap = true
+vim.o.updatetime = 1000  -- Less aggressive CursorHold
 
 -- ignore: fuzz, grep
 vim.opt.wildignore:append '**/node_modules/*'

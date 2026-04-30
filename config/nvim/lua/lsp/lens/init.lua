@@ -10,38 +10,38 @@ local config = {
   enable = true,
   include_declaration = false,
   hide_zero_counts = true,
-  separator = " | ",
+  separator = ' | ',
   sections = {
     definition = function(count)
-      return "def: " .. count
+      return 'def: ' .. count
     end,
     references = function(count)
-      return "ref: " .. count
+      return 'ref: ' .. count
     end,
     implements = function(count)
-      return "impl: " .. count
+      return 'impl: ' .. count
     end,
     git_authors = function(latest_author, count)
-      return latest_author .. (count - 1 == 0 and "" or (" + " .. count - 1))
+      return latest_author .. (count - 1 == 0 and '' or (' + ' .. count - 1))
     end,
   },
   decorator = function(line)
     return line
   end,
-  ignore_filetype = { "prisma", "neo-tree" },
+  ignore_filetype = { 'prisma', 'neo-tree' },
   target_symbol_kinds = { SymbolKind.Function, SymbolKind.Method, SymbolKind.Interface },
   wrapper_symbol_kinds = { SymbolKind.Class, SymbolKind.Struct },
 }
 
-local ns_id = vim.api.nvim_create_namespace("lsp-lens")
+local ns_id = vim.api.nvim_create_namespace 'lsp-lens'
 local requesting_buffers = {}
 
 -- Get LSP clients (compatible with 0.9 and 0.10+)
 local function get_clients(bufnr)
   if vim.lsp.get_clients then
-    return vim.lsp.get_clients({ bufnr = bufnr })
+    return vim.lsp.get_clients { bufnr = bufnr }
   end
-  return vim.lsp.get_active_clients({ bufnr = bufnr })
+  return vim.lsp.get_active_clients { bufnr = bufnr }
 end
 
 -- Check if buffer is currently requesting
@@ -82,9 +82,9 @@ local function extract_from_symbols(symbols, functions)
         table.insert(functions, {
           name = symbol.name,
           range_start = symbol.range.start,
-          range_end = symbol.range["end"],
+          range_end = symbol.range['end'],
           selection_start = symbol.selectionRange.start,
-          selection_end = symbol.selectionRange["end"],
+          selection_end = symbol.selectionRange['end'],
         })
       end
     end
@@ -124,17 +124,17 @@ end
 
 -- Build display string from counting results
 local function build_display_string(counting)
-  local text = ""
+  local text = ''
 
   local function append_with(count, formatter)
     if formatter == nil or (config.hide_zero_counts and count == 0) then
       return
     end
     local formatted = formatter(count)
-    if formatted == nil or formatted == "" then
+    if formatted == nil or formatted == '' then
       return
     end
-    text = text == "" and formatted or text .. config.separator .. formatted
+    text = text == '' and formatted or text .. config.separator .. formatted
   end
 
   if counting.references then
@@ -153,19 +153,19 @@ local function build_display_string(counting)
     local ga = counting.git_authors
     if config.sections.git_authors and not (config.hide_zero_counts and ga.count == 0) then
       local formatted = config.sections.git_authors(ga.latest_author, ga.count)
-      if formatted and formatted ~= "" then
-        text = text == "" and formatted or text .. config.separator .. formatted
+      if formatted and formatted ~= '' then
+        text = text == '' and formatted or text .. config.separator .. formatted
       end
     end
   end
 
-  return text == "" and "" or config.decorator(text)
+  return text == '' and '' or config.decorator(text)
 end
 
 -- Get git authors for a line range using git blame
 local function get_git_authors(bufnr, start_row, end_row, callback)
-  local file_path = vim.fn.expand("#" .. bufnr .. ":p")
-  if file_path == "" then
+  local file_path = vim.fn.expand('#' .. bufnr .. ':p')
+  if file_path == '' then
     callback(nil, 0)
     return
   end
@@ -173,7 +173,7 @@ local function get_git_authors(bufnr, start_row, end_row, callback)
   local authors = {}
   local most_recent_author = nil
 
-  vim.system({ "git", "blame", "-L", start_row .. "," .. end_row, "--incremental", file_path }, {
+  vim.system({ 'git', 'blame', '-L', start_row .. ',' .. end_row, '--incremental', file_path }, {
     text = true,
   }, function(result)
     if result.code ~= 0 then
@@ -181,12 +181,12 @@ local function get_git_authors(bufnr, start_row, end_row, callback)
       return
     end
 
-    for line in result.stdout:gmatch("[^\r\n]+") do
-      local space_pos = line:find(" ")
+    for line in result.stdout:gmatch '[^\r\n]+' do
+      local space_pos = line:find ' '
       if space_pos then
         local key = line:sub(1, space_pos - 1)
         local val = line:sub(space_pos + 1)
-        if key == "author" then
+        if key == 'author' then
           authors[val] = true
           if most_recent_author == nil then
             most_recent_author = val
@@ -214,14 +214,14 @@ local function display_lens(bufnr, results)
 
   for _, item in pairs(results or {}) do
     local display_str = build_display_string(item.counting)
-    if display_str ~= "" then
+    if display_str ~= '' then
       -- local text = string.rep(" ", item.range_start.character) .. display_str
       local text = display_str
       local line = item.range_start.line
 
       if line >= 0 and line < vim.api.nvim_buf_line_count(bufnr) then
         vim.api.nvim_buf_set_extmark(bufnr, ns_id, line, 0, {
-          virt_lines = { { { text, "LspLens" } } },
+          virt_lines = { { { text, 'LspLens' } } },
           virt_lines_above = true,
         })
       end
@@ -258,7 +258,7 @@ local function procedure()
   end
 
   -- Check for LSP support
-  if not lsp_supports_method(bufnr, "textDocument/documentSymbol") then
+  if not lsp_supports_method(bufnr, 'textDocument/documentSymbol') then
     return
   end
 
@@ -266,7 +266,7 @@ local function procedure()
 
   local params = { textDocument = vim.lsp.util.make_text_document_params() }
 
-  vim.lsp.buf_request_all(bufnr, "textDocument/documentSymbol", params, function(doc_symbols)
+  vim.lsp.buf_request_all(bufnr, 'textDocument/documentSymbol', params, function(doc_symbols)
     local functions = get_functions(doc_symbols)
     local results = {}
     local finished = {}
@@ -294,10 +294,10 @@ local function procedure()
       }
 
       -- Request references
-      if config.sections.references and lsp_supports_method(bufnr, "textDocument/references") then
+      if config.sections.references and lsp_supports_method(bufnr, 'textDocument/references') then
         local ref_params = vim.deepcopy(query_params)
         ref_params.context = { includeDeclaration = config.include_declaration }
-        vim.lsp.buf_request_all(bufnr, "textDocument/references", ref_params, function(refs)
+        vim.lsp.buf_request_all(bufnr, 'textDocument/references', ref_params, function(refs)
           results[idx].counting.references = count_results(refs)
           finished[idx].references = true
         end)
@@ -306,8 +306,8 @@ local function procedure()
       end
 
       -- Request definitions
-      if config.sections.definition and lsp_supports_method(bufnr, "textDocument/definition") then
-        vim.lsp.buf_request_all(bufnr, "textDocument/definition", query_params, function(defs)
+      if config.sections.definition and lsp_supports_method(bufnr, 'textDocument/definition') then
+        vim.lsp.buf_request_all(bufnr, 'textDocument/definition', query_params, function(defs)
           results[idx].counting.definition = count_results(defs)
           finished[idx].definition = true
         end)
@@ -316,8 +316,8 @@ local function procedure()
       end
 
       -- Request implementations
-      if config.sections.implements and lsp_supports_method(bufnr, "textDocument/implementation") then
-        vim.lsp.buf_request_all(bufnr, "textDocument/implementation", query_params, function(imps)
+      if config.sections.implements and lsp_supports_method(bufnr, 'textDocument/implementation') then
+        vim.lsp.buf_request_all(bufnr, 'textDocument/implementation', query_params, function(imps)
           results[idx].counting.implementation = count_results(imps)
           finished[idx].implementation = true
         end)
@@ -338,14 +338,18 @@ local function procedure()
 
     -- Poll for completion
     local timer = vim.uv.new_timer()
-    timer:start(0, 100, vim.schedule_wrap(function()
-      if all_requests_done(finished) then
-        timer:stop()
-        timer:close()
-        display_lens(bufnr, results)
-        set_requesting(bufnr, false)
-      end
-    end))
+    timer:start(
+      0,
+      100,
+      vim.schedule_wrap(function()
+        if all_requests_done(finished) then
+          timer:stop()
+          timer:close()
+          display_lens(bufnr, results)
+          set_requesting(bufnr, false)
+        end
+      end)
+    )
   end)
 end
 
@@ -376,26 +380,51 @@ function M.setup(opts)
   -- Handle boolean section options (true means use default)
   if opts.sections then
     for k, v in pairs(opts.sections) do
-      if type(v) == "boolean" and v then
+      if type(v) == 'boolean' and v then
         opts.sections[k] = nil
       end
     end
   end
-  config = vim.tbl_deep_extend("force", config, opts)
+  config = vim.tbl_deep_extend('force', config, opts)
 
   -- Set up highlight group
-  vim.api.nvim_set_hl(0, "LspLens", { link = "Comment", default = true })
+  vim.api.nvim_set_hl(0, 'LspLens', { link = 'Comment', default = true })
 
   -- Commands
-  vim.api.nvim_create_user_command("LspLensOn", lens_on, {})
-  vim.api.nvim_create_user_command("LspLensOff", lens_off, {})
-  vim.api.nvim_create_user_command("LspLensToggle", lens_toggle, {})
+  vim.api.nvim_create_user_command('LspLensOn', lens_on, {})
+  vim.api.nvim_create_user_command('LspLensOff', lens_off, {})
+  vim.api.nvim_create_user_command('LspLensToggle', lens_toggle, {})
 
   -- Autocmds
-  local group = vim.api.nvim_create_augroup("lsp_lens", { clear = true })
-  vim.api.nvim_create_autocmd({ "LspAttach", "TextChanged", "BufEnter" }, {
+  local group = vim.api.nvim_create_augroup('lsp_lens', { clear = true })
+  vim.api.nvim_create_autocmd({ 'LspAttach' }, {
+    -- vim.api.nvim_create_autocmd({ "LspAttach", "TextChanged", "BufEnter" }, {
     group = group,
     callback = procedure,
+  })
+
+  local debounce_timer = nil
+  local function debounced_procedure()
+    if debounce_timer then
+      debounce_timer:stop()
+      debounce_timer:close()
+    end
+    debounce_timer = vim.uv.new_timer()
+    debounce_timer:start(
+      500,
+      0,
+      vim.schedule_wrap(function()
+        debounce_timer:stop()
+        debounce_timer:close()
+        debounce_timer = nil
+        procedure()
+      end)
+    )
+  end
+  -- Use debounced_procedure as the callback instead of procedure
+  vim.api.nvim_create_autocmd({ 'BufEnter', 'TextChanged' }, {
+    group = group,
+    callback = debounced_procedure,
   })
 end
 

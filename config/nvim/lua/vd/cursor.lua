@@ -10,7 +10,8 @@ vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
     end
   end,
 })
-vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+-- vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
   group = group,
   callback = function()
     vim.fn.clearmatches()

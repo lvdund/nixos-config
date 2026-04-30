@@ -3,16 +3,6 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = {
-        'go', 'gomod', 'gowork', 'gosum',
-        'lua', 'vim', 'vimdoc',
-        'bash', 'fish',
-        'python', 'rust', 'c', 'cpp',
-        'javascript', 'typescript', 'tsx', 'json',
-        'yaml', 'toml', 'markdown', 'markdown_inline',
-        'dockerfile', 'regex',
-      },
-      auto_install = true,
       highlight = { enable = true },
       indent = { enable = true },
       fold = { enable = true },

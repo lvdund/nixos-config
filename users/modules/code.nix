@@ -18,9 +18,14 @@
     "${config.home.homeDirectory}/.cargo/bin"
   ];
 
+  nixGL.vulkan.enable = true; # Zed requires hardware-accelerated Vulkan
+
   # Packages for user
   home.packages = with pkgs;
     [
+      zed-editor
+      ghostty
+
       nixd
       delta
       pyright

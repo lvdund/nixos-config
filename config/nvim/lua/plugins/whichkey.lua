@@ -15,7 +15,7 @@ return { -- Useful plugin to show you pending keybinds.
       { '<leader>d', group = '🐞[D]ebug' },
       { '<leader>e', group = '❗[E]rror' },
       { '<leader>g', group = '[G]it' },
-      { '<leader>q', group = '🚪[Q]uit' },
+      { '<leader>m', group = '[M]arkdown' },
       { '<leader>o', group = '🤖[O]penCode' },
       { '<leader>s', group = '🔎[S]earch' },
     },
