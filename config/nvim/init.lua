@@ -50,7 +50,7 @@ vim.diagnostic.config({
   severity_sort = true,
   update_in_insert = false,
   float = { source = "if_many" },
-  jump = { float = true },
+  jump = { on_jump = true },
 })
 
 
