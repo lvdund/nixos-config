@@ -24,7 +24,6 @@
   # Packages for user
   home.packages = with pkgs; [
     protonup-qt
-    vscode
     pciutils
     parted
     gdu

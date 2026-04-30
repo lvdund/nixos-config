@@ -1,46 +1,62 @@
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+vim.loader.enable()
 
--- Auto-load all Lua modules from a directory
-local function load_modules(dir, prefix)
-  local path = vim.fn.stdpath 'config' .. '/lua/' .. dir .. '/'
-  for _, file in ipairs(vim.fn.readdir(path)) do
-    if file:match '%.lua$' then
-      require(prefix .. '.' .. file:gsub('%.lua$', ''))
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+vim.api.nvim_create_autocmd("PackChanged", {
+  callback = function(ev)
+    local name, kind = ev.data.spec.name, ev.data.kind
+    if name == "nvim-treesitter" and kind == "update" then
+      if not ev.data.active then
+        vim.cmd.packadd("nvim-treesitter")
+      end
+      vim.cmd("TSUpdate")
     end
-  end
-end
-
-load_modules('config', 'config')
-load_modules('vd', 'vd')
-require 'lsp'
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight when yanking (copying) text',
-  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
   end,
 })
 
-local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
-  local out = vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
-  if vim.v.shell_error ~= 0 then
-    error('Error cloning lazy.nvim:\n' .. out)
-  end
-end
+vim.o.relativenumber = true
+vim.o.number = true
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.confirm = true
+vim.o.signcolumn = "yes"
+vim.o.ttimeoutlen = 1
 
----@type vim.Option
-local rtp = vim.opt.rtp
-rtp:prepend(lazypath)
+vim.schedule(function()
+  vim.o.clipboard = "unnamedplus"
+end)
 
-require('lazy').setup({
-  { import = 'plugins' },
-}, {
-  change_detection = {
-    enabled = false,
-    notify = false,
+require("configs.config")
+require("configs.indent")
+require("configs.keymaps")
+require("configs.scroll")
+require("configs.buffer")
+require("configs.rejump")
+require("configs.terminal")
+
+require("vim._core.ui2").enable({
+  enable = true,
+  msg = {
+    target = "cmd",
+    pager = { height = 1 },
+    msg = { height = 0.5, timeout = 4500 },
+    dialog = { height = 0.5 },
+    cmd = { height = 0.5 },
   },
+})
+
+vim.diagnostic.config({
+  severity_sort = true,
+  update_in_insert = false,
+  float = { source = "if_many" },
+  jump = { float = true },
+})
+
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("highlight-yank", { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })

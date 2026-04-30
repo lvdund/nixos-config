@@ -24,7 +24,6 @@
   home.packages = with pkgs;
     [
       zed-editor
-      ghostty
 
       nixd
       delta
