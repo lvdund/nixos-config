@@ -1,4 +1,4 @@
-vim.lsp.enable({ "gopls", "lua_ls", "clangd" })
+vim.lsp.enable({ "gopls", "lua_ls", "clangd", "pyright" })
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 

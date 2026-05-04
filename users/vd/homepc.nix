@@ -14,6 +14,7 @@
     ../modules/code.nix
     ../modules/office.nix
     ../modules/steam.nix
+    ../modules/tools.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

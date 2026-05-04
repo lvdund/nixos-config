@@ -25,6 +25,10 @@
       "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "markview.nvim": {
+      "rev": "8b82823bbe7b452c5920ab22947e186c6cb067b4",
+      "src": "https://github.com/OXY2DEV/markview.nvim"
+    },
     "moonfly": {
       "rev": "4ed07bc0c6083cdd547c63f5c245e02c068b0c45",
       "src": "https://github.com/bluz71/vim-moonfly-colors"
