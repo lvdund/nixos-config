@@ -22,6 +22,7 @@ vim.o.smartcase = true
 vim.o.confirm = true
 vim.o.signcolumn = "yes"
 vim.o.ttimeoutlen = 1
+vim.o.scrolloff = 3
 
 vim.schedule(function()
   vim.o.clipboard = "unnamedplus"
