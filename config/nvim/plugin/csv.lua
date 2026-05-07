@@ -5,3 +5,5 @@ vim.pack.add({
 require("csvview").setup({
   parser = { comments = { '#', '//' } },
 })
+
+vim.keymap.set("n", "gcs", ":CsvViewToggle", { desc = "Toggle CSV View" })
