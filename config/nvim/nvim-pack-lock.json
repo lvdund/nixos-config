@@ -10,15 +10,15 @@
       "src": "https://github.com/esmuellert/codediff.nvim"
     },
     "csvview.nvim": {
-      "rev": "7022e18a0fbae9aecf99a3ba02b2a541edc2b8a1",
+      "rev": "5c22774c3ecc7f8883af5d143b366e45b1f0875d",
       "src": "https://github.com/hat0uma/csvview.nvim"
     },
     "fzf-lua": {
-      "rev": "b437bafc981a180d609bb4092c56ce8999f7a2c4",
+      "rev": "33fe4b6f0c817c4d99a7baeea82c4d17e57efd64",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
-      "rev": "6d808f99bd63303646794406e270bd553ad7792e",
+      "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "lualine.nvim": {
@@ -26,32 +26,24 @@
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
     "markview.nvim": {
-      "rev": "8b82823bbe7b452c5920ab22947e186c6cb067b4",
+      "rev": "dbf74b6db11c1468d5128a38b26b6d99dc7316e9",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "48555f1615f08c6318150aacb52bf7d61a5af798",
+      "rev": "199b3344d4c0dab13e45483834ce11bb7744fa3a",
       "src": "https://github.com/nvim-mini/mini.nvim"
-    },
-    "minibuffer.nvim": {
-      "rev": "ecec4fa9c0c1cb767b5c83c5351e252725dd582a",
-      "src": "https://github.com/simifalaye/minibuffer.nvim"
     },
     "moonfly": {
       "rev": "4ed07bc0c6083cdd547c63f5c245e02c068b0c45",
       "src": "https://github.com/bluz71/vim-moonfly-colors"
     },
     "neo-tree.nvim": {
-      "rev": "19d20a99bf0061a5ecc4343d2f09fa713306c965",
+      "rev": "ff84e6e1608b24773f1b73cd4182e0bcf2b3d637",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
     },
     "nui.nvim": {
       "rev": "de740991c12411b663994b2860f1a4fd0937c130",
       "src": "https://github.com/MunifTanjim/nui.nvim"
-    },
-    "nvim-cokeline": {
-      "rev": "9fbed130683b7b6f73198c09e35ba4b33f547c08",
-      "src": "https://github.com/willothy/nvim-cokeline"
     },
     "nvim-lsp-file-operations": {
       "rev": "b9c795d3973e8eec22706af14959bc60c579e771",
