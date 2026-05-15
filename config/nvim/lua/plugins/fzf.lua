@@ -4,10 +4,11 @@ vim.pack.add({
 
 local actions = require("fzf-lua.actions")
 local fzf = require("fzf-lua")
+
 fzf.setup({
   lsp = {
     implementations = {
-      jump_to_single_result = true, -- Go directly if only 1 found
+      jump_to_single_result = true,
     },
     definitions = {
       jump_to_single_result = true,
@@ -74,7 +75,5 @@ vim.keymap.set("n", "gri", fzf.lsp_implementations, { desc = "Implementations" }
 vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "Code actions" })
 vim.keymap.set("n", "gd", fzf.lsp_definitions, { desc = "Code actions" })
 vim.keymap.set("n", "grt", fzf.lsp_typedefs, { desc = "Code actions" })
-
 vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "LSP rename" })
-
 vim.keymap.set("n", "gs", fzf.git_status, { desc = "Code actions" })

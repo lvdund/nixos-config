@@ -3,7 +3,7 @@ vim.pack.add({
 })
 
 require("which-key").setup({
-  preset = 'helix',
+  preset = "helix",
   delay = 0,
   icons = {
     mappings = true,

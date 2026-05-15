@@ -1,14 +1,14 @@
 vim.lsp.enable({ "gopls", "lua_ls", "clangd", "pyright" })
 
-vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gD", vim.lsp.buf.definition, { desc = "Go to definition" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("my.lsp", { clear = true }),
   callback = function(ev)
     local client = assert(vim.lsp.get_client_by_id(ev.data.client_id))
     if
-        not client:supports_method("textDocument/willSaveWaitUntil")
-        and client:supports_method("textDocument/formatting")
+      not client:supports_method("textDocument/willSaveWaitUntil")
+      and client:supports_method("textDocument/formatting")
     then
       vim.api.nvim_create_autocmd("BufWritePre", {
         group = vim.api.nvim_create_augroup("my.lsp.fmt", { clear = false }),

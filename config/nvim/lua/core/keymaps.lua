@@ -53,5 +53,3 @@ map("n", "<C-n>", ":cnext<CR>", { desc = "Next search list" })
 map("n", "<C-p>", ":cprevious<CR>", { desc = "Previous search list" })
 map("n", "sc", ":cclose<CR>", { desc = "[C]lose search list" })
 map("n", "so", ":copen<CR>", { desc = "[O]pen search list" })
-
--- map("n", "\\", ":Explore<CR>", { desc = "[O]pen search list" })

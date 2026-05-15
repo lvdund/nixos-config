@@ -77,9 +77,13 @@ Statusline = {}
 
 function Statusline.active()
   return table.concat({
-    git(), " ", filepath(),
+    git(),
+    " ",
+    filepath(),
     "%=",
-    diagnostics(), " ", "%y [%P %l:%c]",
+    diagnostics(),
+    " ",
+    "%y [%P %l:%c]",
   })
 end
 
