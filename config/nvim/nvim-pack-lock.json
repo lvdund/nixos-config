@@ -14,23 +14,19 @@
       "src": "https://github.com/hat0uma/csvview.nvim"
     },
     "fzf-lua": {
-      "rev": "33fe4b6f0c817c4d99a7baeea82c4d17e57efd64",
+      "rev": "311a630292310ea3bfe46dd616e17f283e975801",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "gitsigns.nvim": {
       "rev": "dd3f588bacbeb041be6facf1742e42097f62165d",
       "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
-    "lualine.nvim": {
-      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
-      "src": "https://github.com/nvim-lualine/lualine.nvim"
-    },
     "markview.nvim": {
       "rev": "dbf74b6db11c1468d5128a38b26b6d99dc7316e9",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
     "mini.nvim": {
-      "rev": "199b3344d4c0dab13e45483834ce11bb7744fa3a",
+      "rev": "17c448b0f3f29c0857a3436fc64e1d7cb9267ec3",
       "src": "https://github.com/nvim-mini/mini.nvim"
     },
     "moonfly": {
@@ -38,7 +34,7 @@
       "src": "https://github.com/bluz71/vim-moonfly-colors"
     },
     "neo-tree.nvim": {
-      "rev": "ff84e6e1608b24773f1b73cd4182e0bcf2b3d637",
+      "rev": "83e7a2982fd12b9c3d35bc39dd5877cd91a02a61",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
     },
     "nui.nvim": {
@@ -53,17 +49,17 @@
       "rev": "8701bece920b38ea289b457f902e2ad184131a5d",
       "src": "https://github.com/rcarriga/nvim-notify"
     },
-    "nvim-treesitter": {
-      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
-      "src": "https://github.com/nvim-treesitter/nvim-treesitter"
-    },
     "nvim-web-devicons": {
-      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
+      "rev": "2795c26c916bb3c57dde308b82be51971fa92747",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "tree-sitter-manager.nvim": {
+      "rev": "ae287204a4fe9174e82bad17c102e721e5aa8520",
+      "src": "https://github.com/romus204/tree-sitter-manager.nvim"
     },
     "which-key.nvim": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
