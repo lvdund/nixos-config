@@ -6,4 +6,4 @@ require("csvview").setup({
   parser = { comments = { '#', '//' } },
 })
 
-vim.keymap.set("n", "gcs", ":CsvViewToggle<CR>", { desc = "Toggle CSV View" })
+vim.keymap.set("n", "<leader>tc", ":CsvViewToggle<CR>", { desc = "Toggle CSV View" })

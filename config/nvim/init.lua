@@ -23,6 +23,8 @@ vim.o.confirm = true
 vim.o.signcolumn = "yes"
 vim.o.ttimeoutlen = 1
 vim.o.scrolloff = 3
+vim.opt.colorcolumn = '80'
+vim.opt.textwidth = 80
 
 vim.schedule(function()
   vim.o.clipboard = "unnamedplus"
@@ -35,13 +37,15 @@ require("configs.scroll")
 require("configs.buffer")
 require("configs.rejump")
 require("configs.terminal")
+require("configs.lualine")
+require("configs.format")
 
 require("vim._core.ui2").enable({
   enable = true,
   msg = {
     target = "cmd",
     pager = { height = 1 },
-    msg = { height = 0.5, timeout = 4500 },
+    msg = { height = 00001, width = 1, timeout = 2000 },
     dialog = { height = 0.5 },
     cmd = { height = 0.5 },
   },

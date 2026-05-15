@@ -1,0 +1,18 @@
+remove https://github.com/nvim-treesitter/nvim-treesitter.
+use neovim builtin treesitter function ( read this link https://neovim.io/doc/user/treesitter https://neovim.io/doc/user/filetype )
+
+
+Got it — I checked your Neovim config and found the nvim-treesitter integration in:
+- config/nvim/plugin/treesitter.lua
+- config/nvim/init.lua
+- config/nvim/nvim-pack-lock.json
+Here’s the implementation plan I’ll apply (no edits yet, since we’re in plan mode):
+- Remove plugin install line from config/nvim/plugin/treesitter.lua:2 (vim.pack.add for nvim-treesitter).
+- Keep Neovim built-in Tree-sitter startup using vim.treesitter.start() on FileType (already present in config/nvim/plugin/treesitter.lua:7).
+- Remove TSUpdate auto-hook from config/nvim/init.lua:6–config/nvim/init.lua:16 since that command belongs to nvim-treesitter.
+- Remove nvim-treesitter lock entry from config/nvim/nvim-pack-lock.json:56–config/nvim/nvim-pack-lock.json:59 for consistency.
+- Ensure filetype flow is explicit and docs-aligned (:filetype plugin indent on) so built-in filetype detection and ftplugins are clearly enabled.
+One important caveat: without nvim-treesitter, parser installation is no longer managed by :TSUpdate; built-in Tree-sitter only works when parsers already exist in your runtime.
+Recommended default:
+- I proceed with removal + keep vim.treesitter.start() + explicit filetype enable, and we rely on parsers already available on your system.
+If you want, after this I can also add a small fallback behavior (only enable Tree-sitter when parser exists, otherwise keep Vim syntax highlighting).

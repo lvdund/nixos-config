@@ -5,6 +5,14 @@ vim.pack.add({
 local actions = require("fzf-lua.actions")
 local fzf = require("fzf-lua")
 fzf.setup({
+  lsp = {
+    implementations = {
+      jump_to_single_result = true, -- Go directly if only 1 found
+    },
+    definitions = {
+      jump_to_single_result = true,
+    },
+  },
   keymap = {
     builtin = {
       ["<C-d>"] = "preview-page-down",
@@ -36,7 +44,8 @@ fzf.setup({
   },
   grep = {
     rg_glob = true,
-    rg_opts = "--sort-files --hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,.venv}/*'",
+    rg_opts =
+    "--sort-files --hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,.venv}/*'",
     glob_flag = "--iglob",
     glob_separator = "%s%-%-",
   },
@@ -66,7 +75,6 @@ vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "Code actions" })
 vim.keymap.set("n", "gd", fzf.lsp_definitions, { desc = "Code actions" })
 vim.keymap.set("n", "grt", fzf.lsp_typedefs, { desc = "Code actions" })
 
-vim.keymap.set('n', 'grn', vim.lsp.buf.rename, { desc = 'LSP rename' })
-vim.keymap.set('n', 'gf', function() vim.lsp.buf.format { async = true } end)
+vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "LSP rename" })
 
 vim.keymap.set("n", "gs", fzf.git_status, { desc = "Code actions" })
