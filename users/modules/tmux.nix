@@ -5,7 +5,7 @@
 }: {
   home.packages = [pkgs.tmuxinator];
   home.file = {
-    ".config/tmuxinator".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/i3";
+    ".config/tmuxinator".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/tmuxinator";
   };
 
   programs.tmux = {
