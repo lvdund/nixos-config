@@ -1,0 +1,242 @@
+-- -- Lightweight comment keyword highlighter (WARN, TODO, ERR, FIX, NOTE, HACK, PERF)
+-- -- Only highlights keywords inside comments. No navigation/search/signs.
+--
+-- local M = {}
+--
+-- local ns = vim.api.nvim_create_namespace("highlight_comment")
+--
+-- -- Keyword -> { color_hex, alts }
+-- local keywords = {
+--   WARN  = { hex = "#FBBF24", alts = { "WARNING", "XXX" } },
+--   TODO  = { hex = "#2563EB", alts = {} },
+--   ERR   = { hex = "#DC2626", alts = {} },
+--   FIX   = { hex = "#DC2626", alts = { "FIXME", "BUG", "FIXIT", "ISSUE" } },
+--   NOTE  = { hex = "#10B981", alts = { "INFO" } },
+--   HACK  = { hex = "#FBBF24", alts = {} },
+--   PERF  = { hex = "#A78BFA", alts = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+-- }
+--
+-- -- Build sorted list: longest first so FIXME matches before FIX
+-- local tag_list = (function()
+--   local tags = {}
+--   for kw, opts in pairs(keywords) do
+--     table.insert(tags, kw)
+--     for _, alt in ipairs(opts.alts) do
+--       table.insert(tags, alt)
+--     end
+--   end
+--   table.sort(tags, function(a, b) return #a > #b end)
+--   return tags
+-- end)()
+--
+-- -- Build alias map: alt -> canonical kw
+-- local alias_map = (function()
+--   local m = {}
+--   for kw, opts in pairs(keywords) do
+--     m[kw] = kw
+--     for _, alt in ipairs(opts.alts) do
+--       m[alt] = kw
+--     end
+--   end
+--   return m
+-- end)()
+--
+-- -- Pre-compile vim regex patterns for each tag
+-- -- Matches: <optional non-word>(TAG):<optional space>
+-- local patterns = {}
+-- for _, tag in ipairs(tag_list) do
+--   -- \v\C at start means very-magic, case-sensitive
+--   patterns[tag] = vim.regex([[\<\C]] .. tag .. [[\ze\s*:]])
+-- end
+--
+-- -- Also match @TAG and #TAG forms
+-- local alt_patterns = {}
+-- for _, tag in ipairs(tag_list) do
+--   alt_patterns[tag] = vim.regex([[\C[@#]\zs]] .. tag .. [[\ze\s*:]])
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- Highlight groups
+-- -------------------------------------------------------------------
+-- local function define_highlights()
+--   for kw, opts in pairs(keywords) do
+--     vim.api.nvim_set_hl(0, "HlComment" .. kw, {
+--       fg = opts.hex,
+--       bold = true,
+--       default = true,
+--     })
+--   end
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- Check if position is inside a comment
+-- -------------------------------------------------------------------
+-- local function is_comment(buf, row, col)
+--   if vim.treesitter.highlighter.active[buf] then
+--     local captures = vim.treesitter.get_captures_at_pos(buf, row, col)
+--     for _, c in ipairs(captures) do
+--       if c.capture == "comment" then
+--         return true
+--       end
+--     end
+--     return false
+--   end
+--   -- Fallback: syntax-based check
+--   local win = vim.fn.bufwinid(buf)
+--   if win == -1 then
+--     return true -- can't check, assume comment
+--   end
+--   return vim.api.nvim_win_call(win, function()
+--     for _, id in ipairs(vim.fn.synstack(row + 1, col)) do
+--       local trans = vim.fn.synIDtrans(id)
+--       if vim.fn.synIDattr(id, "name") == "Comment"
+--         or vim.fn.synIDattr(trans, "name") == "Comment"
+--       then
+--         return true
+--       end
+--     end
+--     return false
+--   end)
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- Highlight a range of lines in a buffer
+-- -------------------------------------------------------------------
+-- local function highlight_lines(buf, first, last)
+--   if not vim.api.nvim_buf_is_valid(buf) then return end
+--   vim.api.nvim_buf_clear_namespace(buf, ns, first, last + 1)
+--
+--   local lines = vim.api.nvim_buf_get_lines(buf, first, last + 1, false)
+--   for i, line in ipairs(lines) do
+--     if #line <= 1000 then -- skip very long lines
+--       local lnum = first + i - 1
+--       for _, tag in ipairs(tag_list) do
+--         -- Check main pattern
+--         local s = patterns[tag]:match_str(line)
+--         if s then
+--           local col = s
+--           local end_col = s + #tag
+--           if is_comment(buf, lnum, col) then
+--             local kw = alias_map[tag]
+--             vim.api.nvim_buf_set_extmark(buf, ns, lnum, col, {
+--               end_col = end_col,
+--               hl_group = "HlComment" .. kw,
+--               priority = 500,
+--             })
+--           end
+--         end
+--         -- Check @tag / #tag pattern
+--         local s2 = alt_patterns[tag]:match_str(line)
+--         if s2 then
+--           local col = s2
+--           local end_col = s2 + #tag
+--           if is_comment(buf, lnum, col) then
+--             local kw = alias_map[tag]
+--             vim.api.nvim_buf_set_extmark(buf, ns, lnum, col, {
+--               end_col = end_col,
+--               hl_group = "HlComment" .. kw,
+--               priority = 500,
+--             })
+--           end
+--         end
+--       end
+--     end
+--   end
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- Highlight all visible lines in a buffer
+-- -------------------------------------------------------------------
+-- local function highlight_buf(buf)
+--   if not vim.api.nvim_buf_is_valid(buf) then return end
+--   local count = vim.api.nvim_buf_line_count(buf)
+--   highlight_lines(buf, 0, count - 1)
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- State: which buffers are attached
+-- -------------------------------------------------------------------
+-- local attached_bufs = {} ---@type table<number, boolean>
+--
+-- local function attach_buf(buf)
+--   if attached_bufs[buf] then return end
+--   if not vim.api.nvim_buf_is_valid(buf) then return end
+--   local buftype = vim.bo[buf].buftype
+--   if buftype ~= "" then return end
+--
+--   attached_bufs[buf] = true
+--   vim.api.nvim_buf_attach(buf, false, {
+--     on_lines = function(_, b, _, first, _, last_new)
+--       if not vim.api.nvim_buf_is_valid(b) then return true end
+--       -- Re-highlight changed range + small context
+--       local ctx = 2
+--       local start = math.max(first - ctx, 0)
+--       local stop = math.min(last_new + ctx, vim.api.nvim_buf_line_count(b) - 1)
+--       highlight_lines(b, start, stop)
+--     end,
+--     on_reload = function(_, b)
+--       if vim.api.nvim_buf_is_valid(b) then
+--         highlight_buf(b)
+--       end
+--     end,
+--     on_detach = function(_, b)
+--       attached_bufs[b] = nil
+--     end,
+--   })
+--   highlight_buf(buf)
+-- end
+--
+-- local function attach_visible_wins()
+--   for _, win in ipairs(vim.api.nvim_list_wins()) do
+--     if vim.api.nvim_win_is_valid(win) then
+--       local buf = vim.api.nvim_win_get_buf(win)
+--       attach_buf(buf)
+--     end
+--   end
+-- end
+--
+-- -------------------------------------------------------------------
+-- -- Setup
+-- -------------------------------------------------------------------
+-- function M.setup()
+--   define_highlights()
+--
+--   local group = vim.api.nvim_create_augroup("HighlightComment", { clear = true })
+--
+--   -- Attach when entering a buffer in a window
+--   vim.api.nvim_create_autocmd({ "BufWinEnter", "WinNew" }, {
+--     group = group,
+--     callback = function()
+--       attach_visible_wins()
+--     end,
+--   })
+--
+--   -- Re-highlight on scroll (for lazy highlighting if needed later)
+--   vim.api.nvim_create_autocmd("WinScrolled", {
+--     group = group,
+--     callback = function()
+--       attach_visible_wins()
+--     end,
+--   })
+--
+--   -- Re-apply highlights on colorscheme change
+--   vim.api.nvim_create_autocmd("ColorScheme", {
+--     group = group,
+--     callback = function()
+--       define_highlights()
+--       -- Refresh all attached buffers
+--       for buf, _ in pairs(attached_bufs) do
+--         if vim.api.nvim_buf_is_valid(buf) then
+--           highlight_buf(buf)
+--         end
+--       end
+--     end,
+--   })
+--
+--   -- Attach to currently visible buffers
+--   attach_visible_wins()
+-- end
+--
+-- M.setup()
+--
+-- return M

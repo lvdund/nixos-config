@@ -30,6 +30,11 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # Force monitor to 120Hz on X11 startup
+  services.xserver.displayManager.sessionCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --rate 120
+  '';
+
   # Install CUDA toolkit for ollama - binaries from cache
   environment.systemPackages = with pkgs; [
     cudaPackages.cudatoolkit
