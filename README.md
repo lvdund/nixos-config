@@ -61,6 +61,12 @@ sudo nixos-rebuild switch --flake .#homepc
 nix flake update
 ```
 
+### Step 4: Clean
+```bash
+sudo nix-collect-garbage -d
+sudo nix-store --optimize
+```
+
 ## 3. Git Configuration
 
 Set up your global git identity:
@@ -68,6 +74,7 @@ Set up your global git identity:
 ```bash
 git config --global user.email "lvdund@gmail.com"
 git config --global user.name "lvdund"
+git config --global --add safe.directory /etc/nixos/nixos-config
 ```
 
 ## 3. Lang Setup
