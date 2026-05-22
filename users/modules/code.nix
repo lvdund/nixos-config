@@ -18,7 +18,8 @@
     "${config.home.homeDirectory}/.cargo/bin"
   ];
 
-  nixGL.vulkan.enable = true; # Zed requires hardware-accelerated Vulkan
+  # Zed requires hardware-accelerated Vulkan
+  targets.genericLinux.nixGL.vulkan.enable = true;
 
   # Packages for user
   home.packages = with pkgs;
@@ -29,14 +30,10 @@
       nixd
       delta
       pyright
-      go
       lazygit
       lazydocker
       delve
-      gofumpt
       gomodifytags
-      gotools
-      gopls
       shfmt
       impl
       golangci-lint
@@ -62,7 +59,13 @@
 
       obsidian
     ]
-    ++ [unstable.neovim];
+    ++ [
+      unstable.neovim 
+      unstable.go 
+      unstable.gofumpt 
+      unstable.gotools 
+      unstable.gopls
+    ];
 
   # directories exist
   home.activation.createDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''

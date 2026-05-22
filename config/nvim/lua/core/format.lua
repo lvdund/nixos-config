@@ -9,6 +9,9 @@ local function custom_format()
   elseif ft == "python" then
     vim.cmd("silent! write")
     vim.cmd("silent !black --quiet %")
+  elseif ft == "nix" then
+    vim.cmd("silent! write")
+    vim.cmd("silent !nixd --quiet %")
   elseif ft == "go" then
     vim.cmd("silent! write")
     vim.cmd("silent !goimports -w %")

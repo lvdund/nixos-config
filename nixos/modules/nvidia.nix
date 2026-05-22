@@ -1,15 +1,6 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
-  services.xserver.videoDrivers = ["nvidia"];
+{ config, pkgs, lib, ... }: {
 
-  # services.ollama = {
-  #   enable = true;
-  #   acceleration = "cuda";
-  # };
+  services.xserver.videoDrivers = ["nvidia"];
 
   boot.kernelParams = [
     "nvidia-drm.modeset=1"
@@ -30,37 +21,24 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  # 2. Use the native systemd service with pre-wrapped CUDA package
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cuda; 
+  };
+
   # Force monitor to 120Hz on X11 startup
   services.xserver.displayManager.sessionCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --rate 120
   '';
 
-  # Install CUDA toolkit for ollama - binaries from cache
-  environment.systemPackages = with pkgs; [
-    cudaPackages.cudatoolkit
-    cudaPackages.cudnn
-    cudaPackages.cuda_cudart
-    ollama
-  ];
-  environment.sessionVariables = {
-    CUDA_HOME = "${pkgs.cudaPackages.cudatoolkit}";
-    LD_LIBRARY_PATH = lib.makeLibraryPath [
-      "${pkgs.cudaPackages.cudatoolkit}"
-      "${pkgs.cudaPackages.cudatoolkit}/lib64"
-      pkgs.cudaPackages.cudnn
-      pkgs.cudaPackages.cuda_cudart
-      pkgs.stdenv.cc.cc.lib
-    ];
-    CUDA_MODULE_LOADING = "LAZY";
-  };
-
-  # CUDA binary cache - prevents local builds
+  # 3. Updated Official CUDA binary cache (Prevents local builds)
   nix.settings = {
     substituters = [
-      "https://cuda-maintainers.cachix.org"
+      "https://cache.nixos-cuda.org"
     ];
     trusted-public-keys = [
-      "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
+      "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
     ];
   };
 }
