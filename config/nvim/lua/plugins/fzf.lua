@@ -28,8 +28,8 @@ fzf.setup({
     height = 0.95,
     width = 0.90,
     preview = {
-      layout = "vertical",
-      vertical = "down:30%",
+      layout = "horizontal",
+      horizontal = "right:60%",
     },
   },
   actions = {
@@ -60,7 +60,7 @@ fzf.register_ui_select(function(_, items)
   elseif h > max_h then
     h = max_h
   end
-  return { winopts = { height = h, width = 0.60, row = 0.40 } }
+  return { winopts = { height = h, width = 0.60, row = 0.40, preview = { layout = "hidden" } } }
 end)
 
 vim.keymap.set("n", "sf", "<cmd>FzfLua files<cr>", { desc = "Find files" })
@@ -73,7 +73,7 @@ vim.keymap.set("n", "sD", fzf.diagnostics_workspace, { desc = "References" })
 vim.keymap.set("n", "grr", fzf.lsp_references, { desc = "References" })
 vim.keymap.set("n", "gri", fzf.lsp_implementations, { desc = "Implementations" })
 vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "Code actions" })
-vim.keymap.set("n", "gd", fzf.lsp_definitions, { desc = "Code actions" })
-vim.keymap.set("n", "grt", fzf.lsp_typedefs, { desc = "Code actions" })
+vim.keymap.set("n", "gd", fzf.lsp_definitions, { desc = "Definitions" })
+vim.keymap.set("n", "grt", fzf.lsp_typedefs, { desc = "Type definitions" })
 vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "LSP rename" })
-vim.keymap.set("n", "gs", fzf.git_status, { desc = "Code actions" })
+vim.keymap.set("n", "gs", fzf.git_status, { desc = "Git Status" })
