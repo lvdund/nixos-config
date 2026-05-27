@@ -19,6 +19,10 @@
 
       # Wayland-aware sudo for GUI apps
       sudo-wayland = "sudo -E WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR";
+
+      # Default tmux session save file: ~/.tmux-sessions
+      tmux_r = "bash ~/.config/tmux/tmux-save-restore.sh restore";
+      tmux_s = "bash ~/.config/tmux/tmux-save-restore.sh save";
     };
     interactiveShellInit = ''
         set fish_greeting # Disable greeting

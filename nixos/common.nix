@@ -47,6 +47,7 @@
     gcc14
     kmod
     btop
+    tmux
 
     # Compression tools
     zip
