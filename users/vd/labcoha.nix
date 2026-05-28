@@ -5,7 +5,6 @@
 }: {
   imports = [
     ../modules/browser.nix
-    ../modules/fish.nix
     ../modules/yazi.nix
     ../modules/tmux.nix
     ../modules/direnv.nix
