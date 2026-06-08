@@ -29,7 +29,7 @@
 
   # Force monitor to 120Hz on X11 startup
   services.xserver.displayManager.sessionCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --rate 120
+    ${pkgs.xrandr}/bin/xrandr --output DP-0 --mode 2560x1440 --rate 120
   '';
 
   # 3. Updated Official CUDA binary cache (Prevents local builds)

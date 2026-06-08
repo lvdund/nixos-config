@@ -1,6 +1,9 @@
 vim.lsp.enable({ "gopls", "lua_ls", "clangd", "pyright" })
 
 vim.keymap.set("n", "gD", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "K", function()
+  vim.lsp.buf.hover({ border = "rounded" })
+end, { desc = "Hover documentation" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("my.lsp", { clear = true }),

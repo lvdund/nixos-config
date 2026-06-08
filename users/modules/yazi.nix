@@ -5,6 +5,7 @@
 }: {
   programs.yazi = {
     enable = true;
+    shellWrapperName = "y";  # 26.05 default changed from "yy"
 
     plugins = {
       yatline = pkgs.yaziPlugins.yatline;

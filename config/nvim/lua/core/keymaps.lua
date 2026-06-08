@@ -53,3 +53,6 @@ map("n", "<C-n>", ":cnext<CR>", { desc = "Next search list" })
 map("n", "<C-p>", ":cprevious<CR>", { desc = "Previous search list" })
 map("n", "sc", ":cclose<CR>", { desc = "[C]lose search list" })
 map("n", "so", ":copen<CR>", { desc = "[O]pen search list" })
+
+map("n", "<leader>gt", require("core.run_test").run_new_buffer, { desc = "Run Go test (new split)" })
+map("n", "<leader>gT", require("core.run_test").run_current, { desc = "Run Go test (current window)" })

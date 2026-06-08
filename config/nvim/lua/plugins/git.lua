@@ -81,6 +81,6 @@ require("gitsigns").setup({
     map("n", "grb", gitsigns.reset_buffer, { desc = "[G]it [R]eset [B]uffer" })
     map("n", "grh", gitsigns.reset_hunk, { desc = "[G]it [R]eset [H]unk" })
     map("n", "gp", gitsigns.preview_hunk, { desc = "[G]it [P]review change" })
-    map("n", "<leader>gt", ":Gitsigns toggle_current_line_blame<CR>", { desc = "[G]it [T]oggle Line Blame" })
+    map("n", "gt", ":Gitsigns toggle_current_line_blame<CR>", { desc = "[G]it [T]oggle Line Blame" })
   end,
 })

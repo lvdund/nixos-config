@@ -2,7 +2,7 @@
   config,
   pkgs,
   lib,
-  unstable,
+  # unstable,
   ...
 }: {
   # Environment variables
@@ -58,14 +58,20 @@
       yamlfmt
 
       obsidian
-    ]
-    ++ [
-      unstable.neovim 
-      unstable.go 
-      unstable.gofumpt 
-      unstable.gotools 
-      unstable.gopls
+
+      neovim 
+      go 
+      gofumpt 
+      gotools 
+      gopls
     ];
+    # ++ [
+    #   unstable.neovim 
+    #   unstable.go 
+    #   unstable.gofumpt 
+    #   unstable.gotools 
+    #   unstable.gopls
+    # ];
 
   # directories exist
   home.activation.createDirs = lib.hm.dag.entryAfter ["writeBoundary"] ''
