@@ -28,8 +28,9 @@ map("n", "<C-up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 map("n", "<C-\\>", "<C-w><C-w>", { desc = "Circle focus to all windows" })
 
 map("n", "dw", "vb_d")
-map("n", "<leader>s", "gg<S-v>G", { desc = "Select All" })
-map("x", "p", [["_dP]], opts)
+map("n", "<leader>a", "gg<S-v>G", { desc = "Select All" })
+map("x", "p", "P", opts)
+map("x", "P", "p", opts)
 
 map("n", "<A-down>", ":m .+1<CR>==", { desc = "Move line down", noremap = true, silent = true })
 map("n", "<A-up>", ":m .-2<CR>==", { desc = "Move line up", noremap = true, silent = true })

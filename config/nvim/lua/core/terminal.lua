@@ -8,7 +8,7 @@ local state = {
 local function create_floating_window(opts)
   opts = opts or {}
   local width = opts.width or math.floor(vim.o.columns * 0.9)
-  local height = opts.height or math.floor(vim.o.lines * 0.8)
+  local height = opts.height or math.floor(vim.o.lines * 0.9)
   local col = math.floor((vim.o.columns - width) / 2)
   local row = math.floor((vim.o.lines - height) / 2)
 

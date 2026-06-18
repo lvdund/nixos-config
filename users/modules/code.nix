@@ -19,12 +19,12 @@
   ];
 
   # Zed requires hardware-accelerated Vulkan
-  targets.genericLinux.nixGL.vulkan.enable = true;
+  # targets.genericLinux.nixGL.vulkan.enable = true;
 
   # Packages for user
   home.packages = with pkgs;
     [
-      zed-editor
+      # zed-editor
       vscode
 
       nixd

@@ -1,7 +1,7 @@
 {pkgs, config, ...}: {
-  home.packages = with pkgs; [
-    google-chrome
-  ];
+  # home.packages = with pkgs; [
+  #   google-chrome
+  # ];
   programs.firefox = {
     enable = true;
     configPath = "${config.xdg.configHome}/mozilla/firefox";  # 26.05 XDG default
