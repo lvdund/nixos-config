@@ -68,8 +68,8 @@ vim.keymap.set("n", "sg", "<cmd>FzfLua live_grep<cr>", { desc = "Find live grep"
 vim.keymap.set("n", "ss", "<cmd>FzfLua resume<cr>", { desc = "Resume last picker" })
 vim.keymap.set("n", "sb", "<cmd>FzfLua buffers<cr>", { desc = "Buffers" })
 
-vim.keymap.set("n", "sd", fzf.diagnostics_document, { desc = "References" })
-vim.keymap.set("n", "sD", fzf.diagnostics_workspace, { desc = "References" })
+vim.keymap.set("n", "grd", fzf.diagnostics_document, { desc = "Diagnostics Document" })
+vim.keymap.set("n", "grD", fzf.diagnostics_workspace, { desc = "Diagnostics Workspace" })
 vim.keymap.set("n", "grr", fzf.lsp_references, { desc = "References" })
 vim.keymap.set("n", "gri", fzf.lsp_implementations, { desc = "Implementations" })
 vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "Code actions" })

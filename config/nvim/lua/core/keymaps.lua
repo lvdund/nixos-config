@@ -25,7 +25,7 @@ map("n", "<C-left>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 map("n", "<C-right>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 map("n", "<C-down>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 map("n", "<C-up>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
-map("n", "<C-\\>", "<C-w><C-w>", { desc = "Circle focus to all windows" })
+-- map("n", "<C-\\>", "<C-w><C-w>", { desc = "Circle focus to all windows" })
 
 map("n", "dw", "vb_d")
 map("n", "<leader>a", "gg<S-v>G", { desc = "Select All" })
