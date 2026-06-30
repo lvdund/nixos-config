@@ -27,10 +27,10 @@ fzf.setup({
   winopts = {
     height = 0.95,
     width = 0.90,
-    preview = {
-      layout = "horizontal",
-      horizontal = "right:60%",
-    },
+    -- preview = {
+    --   layout = "horizontal",
+    --   horizontal = "right:60%",
+    -- },
   },
   actions = {
     files = {

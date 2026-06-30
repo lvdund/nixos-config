@@ -95,4 +95,4 @@ vim.keymap.set("n", "\\", function()
   require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd(), position = "float" })
 end, { desc = "Explorer NeoTree (cwd)" })
 
-vim.keymap.set("n", "<C-\\>", "<cmd>Neotree toggle left<CR>", { desc = "Explorer NeoTree (cwd)" })
+vim.keymap.set("n", "<leader>\\", "<cmd>Neotree toggle left<CR>", { desc = "Explorer NeoTree (cwd)" })

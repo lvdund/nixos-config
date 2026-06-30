@@ -1,33 +1,55 @@
-{ config, lib, pkgs, modulesPath, ... }:
-
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  config,
+  lib,
+  pkgs,
+  modulesPath,
+  ...
+}: {
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/119e28cb-acad-4ef2-b723-0e521b9acc50";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/119e28cb-acad-4ef2-b723-0e521b9acc50";
+    fsType = "ext4";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/4F4B-A5D2";
-      fsType = "vfat";
-      options = [ "fmask=0077" "dmask=0077" ];
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/4F4B-A5D2";
+    fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
+  };
 
-  # Auto-mount sda1 (Data drive) to /mnt/mydata
+  # Auto-mount sda1 (Data drive) to /mnt/mydata (lazy/systemd automount)
   fileSystems."/mnt/mydata" = {
     device = "/dev/disk/by-uuid/5bee94e2-64a0-41ac-ab57-37d05615e939";
     fsType = "ext4";
-    options = [ 
+    options = [
       "defaults"
-      "nofail"      # Don't fail boot if drive is missing
+      "nofail" # Don't fail boot if drive is missing
+      "x-systemd.automount" # Mount on first access, not at boot
+      "x-systemd.idle-timeout=600" # Unmount after 10 min idle
+      "x-systemd.mount-timeout=10" # Give up mounting after 10 s (don't hang on dead disk)
+      "uid=1000,gid=100,fmask=022,dmask=022"
+    ];
+  };
+
+  # Auto-mount nvme1n1p1 to /mnt/nvme1 (lazy/systemd automount)
+  fileSystems."/mnt/nvme1" = {
+    device = "/dev/disk/by-uuid/b94e3aa2-8dd0-4847-8e7d-602bb1dde7f6";
+    fsType = "ext4";
+    options = [
+      "defaults"
+      "nofail" # Don't fail boot if drive is missing
+      "x-systemd.automount" # Mount on first access, not at boot
+      "x-systemd.idle-timeout=3000" # Unmount after 10 min idle
+      "x-systemd.mount-timeout=10" # Give up mounting after 10 s (don't hang on dead disk)
+      "uid=1000,gid=100,fmask=022,dmask=022"
     ];
   };
 
