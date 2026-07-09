@@ -35,7 +35,9 @@
       "x-systemd.automount" # Mount on first access, not at boot
       "x-systemd.idle-timeout=600" # Unmount after 10 min idle
       "x-systemd.mount-timeout=10" # Give up mounting after 10 s (don't hang on dead disk)
-      "uid=1000,gid=100,fmask=022,dmask=022"
+      # NOTE: ext4 does NOT support uid/gid/fmask/dmask (FAT/exFAT only) and
+      # refuses to mount with them; ownership is stored on the inodes and set by
+      # the setup-data-permissions.service below (chown -R vd:users).
     ];
   };
 
@@ -47,9 +49,11 @@
       "defaults"
       "nofail" # Don't fail boot if drive is missing
       "x-systemd.automount" # Mount on first access, not at boot
-      "x-systemd.idle-timeout=3000" # Unmount after 10 min idle
+      "x-systemd.idle-timeout=3000" # Unmount after 50 min idle
       "x-systemd.mount-timeout=10" # Give up mounting after 10 s (don't hang on dead disk)
-      "uid=1000,gid=100,fmask=022,dmask=022"
+      # NOTE: ext4 does NOT support uid/gid/fmask/dmask (FAT/exFAT only) and
+      # refuses to mount with them; set ownership on the inodes instead
+      # (e.g. chown -R vd:users /mnt/nvme1).
     ];
   };
 

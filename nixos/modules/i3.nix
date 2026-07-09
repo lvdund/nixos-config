@@ -32,6 +32,7 @@
   environment.systemPackages = with pkgs; [
     i3
     i3lock
+    dunst
     dmenu
     xclip
     rofi

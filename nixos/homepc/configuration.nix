@@ -49,6 +49,9 @@
     description = "Set full permissions on /mnt/mydata";
     after = ["mnt-mydata.mount"];
     wantedBy = ["multi-user.target"];
+    # Ensure the (lazy x-systemd.automount) filesystem is actually mounted before
+    # chown/chmod run, otherwise chown hits an unmounted autofs node and fails.
+    unitConfig.RequiresMountsFor = "/mnt/mydata";
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;
