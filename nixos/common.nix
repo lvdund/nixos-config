@@ -66,6 +66,7 @@
     zathura
     evince
     arandr
+    keepassxc
 
     # Audio/Video
     pavucontrol
