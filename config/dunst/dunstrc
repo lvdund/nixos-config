@@ -77,3 +77,10 @@
     timeout = 0
     default_icon = dialog-warning
 
+# Play a sound on every notification.
+# This rule has no filters, so it matches every notification.
+# always_run_script = true (set in [global]) makes the script fire even for
+# suppressed notifications, so the sound is guaranteed on every notify.
+[notify-sound]
+    script = ffplay -nodisp -autoexit -v error -nostats /etc/nixos/nixos-config/config/notify/notify.mp3
+
