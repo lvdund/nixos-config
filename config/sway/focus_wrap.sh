@@ -20,12 +20,11 @@ read -r FOCUSED_X LEFTMOST_X RIGHTMOST_X < <(swaymsg -t get_tree -r | jq -r --ar
     | tonumber?;
 
   first(.. | objects | select(.type? == "workspace" and (ws_num == $ws))) as $workspace
-  | [$workspace.nodes[]?, $workspace.floating_nodes[]?]
-  | map(select(.focused or .rect?)) as $nodes
+  | [$workspace | .. | objects | select(.app_id? or .pid? or .window?)] as $wins
   | [
-      ($nodes[] | select(.focused) | .rect.x),
-      ($nodes | map(.rect.x) | min),
-      ($nodes | map(.rect.x) | max)
+      ($wins[] | select(.focused) | .rect.x),
+      ($wins | map(.rect.x) | min),
+      ($wins | map(.rect.x) | max)
     ]
   | @tsv
 ')
