@@ -9,7 +9,7 @@
     ../modules/yazi.nix
     ../modules/tmux.nix
     ../modules/direnv.nix
-    ../modules/sway-homepc.nix
+    ../modules/i3.nix
     ../modules/code.nix
     ../modules/office.nix
     ../modules/steam.nix
