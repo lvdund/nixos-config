@@ -1,0 +1,47 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 32,
+  "spacing": 10,
+  "modules-left": ["sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["tray", "network", "pulseaudio", "cpu", "memory", "custom/power"],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+  "sway/mode": {
+    "format": "<span style='italic'>{}</span>"
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%a %d %b  %H:%M}",
+    "tooltip-format": "<big>{:%Y-%m-%d}</big>\n<tt>{calendar}</tt>"
+  },
+  "network": {
+    "format-wifi": "WiFi {signalStrength}%",
+    "format-ethernet": "Eth",
+    "format-disconnected": "Offline",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "pulseaudio": {
+    "format": "Vol {volume}%",
+    "format-muted": "Muted",
+    "on-click": "pavucontrol"
+  },
+  "cpu": {
+    "format": "CPU {usage}%"
+  },
+  "memory": {
+    "format": "RAM {}%"
+  },
+  "tray": {
+    "spacing": 8
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "bash ~/.config/rofi/powermenu/powermenu.sh"
+  }
+}

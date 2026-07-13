@@ -1,0 +1,45 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: FiraCode Nerd Font, sans-serif;
+    font-size: 15px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(20, 28, 33, 0.92);
+    color: #bfbaac;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    background: transparent;
+    color: #bfbaac;
+}
+
+#workspaces button.focused {
+    background: #d12f2c;
+    color: #141c21;
+}
+
+#workspaces button.urgent {
+    background: #b08500;
+    color: #141c21;
+}
+
+#clock,
+#network,
+#pulseaudio,
+#cpu,
+#memory,
+#tray,
+#custom-power,
+#mode {
+    padding: 0 10px;
+    margin: 0 0;
+}
+
+#custom-power {
+    color: #e4b5cb;
+    font-size: 16px;
+}

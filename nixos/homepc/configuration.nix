@@ -9,7 +9,7 @@
     ../modules/nvidia.nix
     ../modules/gtp5g.nix
     ../modules/virtualbox.nix
-    ../modules/i3.nix
+    ../modules/sway-homepc.nix
     ../modules/network_homepc.nix
   ];
 
