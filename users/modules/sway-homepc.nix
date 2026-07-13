@@ -26,5 +26,6 @@
     ".config/sway".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/sway";
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/waybar";
     ".config/wallpapers".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/wallpapers";
+    ".config/fish".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/fish-sway";
   };
 }

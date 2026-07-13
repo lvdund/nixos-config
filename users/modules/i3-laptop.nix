@@ -17,5 +17,6 @@
     ".config/dunst".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/dunst";
     ".config/rofi".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/rofi";
     ".config/wallpapers".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/wallpapers";
+    ".config/fish".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/fish";
   };
 }
