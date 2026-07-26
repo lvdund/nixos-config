@@ -25,6 +25,8 @@
     firewall.enable = true;
   };
 
+  services.cloudflare-warp.enable = true;
+
   # Let NetworkManager handle DNS with default settings
   # This is more reliable than strict DNSSEC + DoT which can fail
   # on some networks/ISPs that don't fully support them.

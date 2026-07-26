@@ -39,4 +39,6 @@
   #     DNSOverTLS=opportunistic
   #   '';
   # };
+
+  services.cloudflare-warp.enable = true;
 }

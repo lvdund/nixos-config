@@ -82,5 +82,8 @@
 # always_run_script = true (set in [global]) makes the script fire even for
 # suppressed notifications, so the sound is guaranteed on every notify.
 [notify-sound]
-    script = ffplay -nodisp -autoexit -v error -nostats /etc/nixos/nixos-config/config/notify/notify.mp3
+    # dunst's `script` is a single executable path (wordexp-expanded), NOT a
+    # shell command, so it cannot take inline args like `ffplay -nodisp ...`.
+    # Use a wrapper script instead. See notify-sound.sh for the explanation.
+    script = /etc/nixos/nixos-config/config/notify/notify-sound.sh
 

@@ -92,7 +92,7 @@ local function smart_close_window_buffer()
 
   if #listed > 0 then
     vim.api.nvim_set_current_buf(listed[1].bufnr)
-    vim.api.nvim_buf_delete(current, {})
+    -- vim.api.nvim_buf_delete(current, {})
   end
 end
 

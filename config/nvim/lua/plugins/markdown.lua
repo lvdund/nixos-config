@@ -1,9 +1,5 @@
 vim.pack.add({
-  "https://github.com/OXY2DEV/markview.nvim",
+	"https://github.com/MeanderingProgrammer/render-markdown.nvim",
+	"https://github.com/techwizrd/render-latex.nvim",
 })
-
-require("markview").setup({
-  preview = {
-    icon_provider = "internal",
-  },
-})
+require("render-markdown").setup({})

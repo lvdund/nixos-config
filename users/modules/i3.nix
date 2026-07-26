@@ -8,6 +8,7 @@
     # for popup calender
     yad
     xdotool
+    thunar
   ];
 
   # Link your custom configs
