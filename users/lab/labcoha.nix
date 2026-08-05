@@ -11,6 +11,7 @@
     ../modules/direnv.nix
     ../modules/i3.nix
     ../modules/code.nix
+    ../modules/office.nix
   ];
   home.username = "lab";
   home.homeDirectory = "/home/lab";
