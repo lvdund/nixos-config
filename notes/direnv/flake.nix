@@ -21,13 +21,13 @@
           python312Packages.virtualenv
           python312Packages.tkinter
 
-          stdenv.cc.cc.lib
-          zlib
+          # stdenv.cc.cc.lib
+          # zlib
         ];
 
         shellHook = ''
           # 0. Make Nix store libraries discoverable at runtime by pip-installed packages
-          export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.zlib pkgs.stdenv.cc.cc.lib]}:$LD_LIBRARY_PATH"
+          # export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.zlib pkgs.stdenv.cc.cc.lib]}:$LD_LIBRARY_PATH"
 
           # 1. Create venv if it doesn't exist
           if [ ! -d ".venv" ]; then

@@ -10,6 +10,7 @@
     # MOZ_ENABLE_WAYLAND = "1";
     GOPATH = "${config.home.homeDirectory}/env/gopath_main";
     JAVA_HOME = "${pkgs.jdk21}/lib/openjdk";
+    LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib\${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}";
   };
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-global/bin"
@@ -25,7 +26,7 @@
   home.packages = with pkgs;
     [
       # zed-editor
-      vscode
+      vscode.fhs
 
       nixd
       delta
