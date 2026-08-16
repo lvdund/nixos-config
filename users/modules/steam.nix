@@ -8,5 +8,5 @@
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "${config.home.homeDirectory}/.steam/root/compatibilitytools.d";
   };
-  home.packages = with pkgs; [steam bottles];
+  home.packages = with pkgs; [steam bottles transmission_4-gtk];
 }

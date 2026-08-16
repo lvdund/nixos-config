@@ -59,6 +59,7 @@
     libnotify
     ffmpeg
     feh
+    eog
     maim
     kitty
     nautilus
