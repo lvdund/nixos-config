@@ -42,8 +42,8 @@ bindsym $mod+Shift+e exec bash ~/.config/rofi/powermenu/i3-powermenu.sh
 bindsym $mod+t exec kitty --detach
 bindsym $mod+b exec --no-startup-id firefox
 bindsym $mod+Shift+b exec --no-startup-id firefox --private-window
-bindsym $mod+n exec nautilus
-bindsym $mod+Shift+n exec thunar
+bindsym $mod+n exec thunar
+bindsym $mod+Shift+n exec nautilus
 bindsym $mod+Shift+s exec pavucontrol
 
 # kill focused window
