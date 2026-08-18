@@ -78,6 +78,7 @@
     brightnessctl
     lxappearance
     appimage-run
+    lksctp-tools
   ];
 
   environment.sessionVariables.GTK_THEME = "Adwaita:dark";
