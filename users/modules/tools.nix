@@ -8,6 +8,7 @@
       wireshark
       tcpdump
       iproute2
+      iputils
       gawk
     ];
 }
