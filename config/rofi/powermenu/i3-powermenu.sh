@@ -62,7 +62,7 @@ run_cmd() {
 			systemctl suspend
 			;;
 		--logout)
-			i3-msg exit
+			niri msg action quit
 			;;
 		esac
 	else

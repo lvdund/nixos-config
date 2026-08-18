@@ -1,0 +1,29 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 8,
+  "modules-left": [],
+  "modules-center": ["clock"],
+  "modules-right": ["backlight", "pulseaudio", "battery", "tray"],
+  "clock": {
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%Y-%m-%d}</big>"
+  },
+  "backlight": {
+    "format": "☀ {percent}%"
+  },
+  "pulseaudio": {
+    "format": " {volume}%",
+    "format-muted": " muted",
+    "on-click": "pavucontrol"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "tray": {
+    "spacing": 8
+  }
+}

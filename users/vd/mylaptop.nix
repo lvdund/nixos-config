@@ -8,7 +8,7 @@
     ../modules/yazi.nix
     ../modules/tmux.nix
     ../modules/direnv.nix
-    ../modules/i3-laptop.nix
+    ../modules/niri-laptop.nix
     ../modules/code.nix
   ];
   home.username = "vd";

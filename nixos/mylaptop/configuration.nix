@@ -8,7 +8,7 @@
     ../common.nix
     ./hardware-configuration.nix
     ../modules/gtp5g.nix
-    ../modules/i3.nix
+    ../modules/niri-mylaptop.nix
     ../modules/network.nix
   ];
 

@@ -1,0 +1,20 @@
+* {
+  border: none;
+  border-radius: 0;
+  font-family: sans-serif;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: #111111;
+  color: #e6e6e6;
+}
+
+#clock,
+#backlight,
+#pulseaudio,
+#battery,
+#tray {
+  padding: 0 10px;
+}
