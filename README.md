@@ -100,3 +100,10 @@ npm config set prefix '~/.npm-global'
 npm install -g tree-sitter-cli
 
 ```
+
+## 4. Easy way to create usb boot:
+
+```bash
+# be careful that dd will destroy all data in sdb
+sudo dd bs=4M if=archlinux-2026.08.01-x86_64.iso of=/dev/sdb conv=fsync oflag=direct status=progress
+```

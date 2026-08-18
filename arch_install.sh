@@ -7,7 +7,7 @@
 # What it does (and nothing else):
 #   1. install packages (paru)
 #   2. fcitx5 config (IM env vars)
-#   3. code: golang GOPATH/GOROOT + PATH, nvim config symlink from repo
+#   3. dotfiles: niri, nvim, waybar symlinks from repo + golang env
 #   4. sysctl: socket buffer caps/defaults + SCTP memory tuning
 
 set -euo pipefail
@@ -29,7 +29,7 @@ PKGS=(
   swaylock swayidle grim slurp wl-clipboard
   xdg-desktop-portal-gnome xdg-desktop-portal-gtk polkit-gnome
   pipewire pipewire-pulse pipewire-alsa wireplumber rtkit pavucontrol
-  nautilus gvfs tumbler dconf gnome-themes-extra lxappearance fuse2 libarchive
+  thunar thunar-archive-plugin thunar-volman gvfs tumbler fuse2 libarchive
   # fonts
   ttf-firacode-nerd
   # ttf-nerd-fonts-symbols noto-fonts noto-fonts-cjk noto-fonts-emoji
@@ -62,18 +62,18 @@ setup_fcitx5() {
   #   spawn-at-startup "fcitx5"
 }
 
-# ================================================ 3. code: golang + nvim ===
-setup_code() {
+# ============================================ 3. dotfiles + golang ===
+setup_dotfiles() {
   local repo="${1:-$REPO_DIR_DEFAULT}"
-  log "3/4 code setup (golang GOPATH/GOROOT, nvim config)"
+  log "3/4 dotfiles (niri, nvim, waybar) + golang"
 
   if [[ ! -d $repo ]]; then
-    warn "repo not found at $repo — pass repo dir as arg 1; skipping nvim symlink"
+    warn "repo not found at $repo — pass repo dir as arg 1; skipping symlinks"
   fi
 
   runuser -u "$USERNAME" -- bash <<EOF
 set -e
-# golang env (was users/modules/code.nix)
+# golang env
 mkdir -p "\$HOME/env/gopath_main"/{bin,pkg,src}
 mkdir -p "\$HOME/.config/fish"
 
@@ -88,8 +88,10 @@ fish_add_path -g ~/env/gopath_main/bin
 FISH
 fi
 
-# nvim config from this repo
-[[ -d "$repo" ]] && ln -sfn "$repo/config/nvim" "\$HOME/.config/nvim"
+# symlinks from repo -> ~/.config/
+[[ -d "$repo/config/nvim" ]] && ln -sfn "$repo/config/nvim" "\$HOME/.config/nvim"
+[[ -f "$repo/config/niri-laptop/config.kdl" ]] && { mkdir -p "\$HOME/.config/niri"; ln -sfn "$repo/config/niri-laptop/config.kdl" "\$HOME/.config/niri/config.kdl"; }
+[[ -d "$repo/config/waybar-laptop" ]] && ln -sfn "$repo/config/waybar-laptop" "\$HOME/.config/waybar"
 EOF
 }
 
@@ -120,11 +122,11 @@ main() {
   command -v paru &>/dev/null || die "paru not found — run arch_pre_install.sh first"
   install_pkgs
   setup_fcitx5
-  setup_code "${1:-}"
+  setup_dotfiles "${1:-}"
   setup_sysctl
 
   log "done."
-  log "next: log in as $USERNAME (fish) — GOPATH/GOROOT set, nvim config linked."
+  log "next: log in as $USERNAME (fish) — niri, nvim, waybar configs linked."
   log "add 'spawn-at-startup \"fcitx5\"' to niri config.kdl for the input method."
 }
 

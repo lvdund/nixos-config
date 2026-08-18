@@ -38,16 +38,18 @@ if command -v paru &>/dev/null; then
   exit 0
 fi
 
-log "building paru-bin from AUR as $USERNAME"
-pacman -S --needed --noconfirm base-devel git
+log "building paru from official GitHub source"
+pacman -S --needed --noconfirm base-devel git rust
 su - "$USERNAME" -c '
   set -e
   cd /tmp
-  git clone https://aur.archlinux.org/paru-bin.git
-  cd paru-bin
-  makepkg --noconfirm
+  git clone https://github.com/Morganamilo/paru.git
+  cd paru
+  cargo build --release --locked
+  mkdir -p ~/.local/bin
+  cp target/release/paru ~/.local/bin/paru
 '
-pacman -U --noconfirm /tmp/paru-bin/paru-bin-*.pkg.tar.zst
-rm -rf /tmp/paru-bin
+ln -sf "/home/$USERNAME/.local/bin/paru" /usr/local/bin/paru
+rm -rf /tmp/paru
 
 log "done."
