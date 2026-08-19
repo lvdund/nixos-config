@@ -93,8 +93,8 @@ prefer-no-csd
 spawn-at-startup "fcitx5"
 spawn-at-startup "nm-applet" "--indicator"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
-spawn-sh-at-startup "waybar -c $NIRICONF/waybar/config -s $NIRICONF/waybar/style.css"
-spawn-sh-at-startup "dunst -conf $NIRICONF/dunst/dunstrc"
+spawn-sh-at-startup "waybar"
+spawn-sh-at-startup "dunst"
 
 screenshot-path "../wallpapers/black.jpg"
 

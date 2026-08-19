@@ -2,22 +2,17 @@
 # arch_install.sh — post-install setup for mylaptop (minimal Arch is already installed)
 #
 # Usage (as root, right after first boot into minimal Arch):
-#   sudo ./arch_install.sh [repo-dir]     # default repo: /home/vd/nixos-config
+#   sudo ./arch_install.sh
 #
 # What it does (and nothing else):
 #   1. install packages (paru)
-#   2. fcitx5 config (IM env vars)
-#   3. dotfiles: niri, nvim, waybar symlinks from repo + golang env
-#   4. sysctl: socket buffer caps/defaults + SCTP memory tuning
+#   2. greetd → tuigreet → niri-session
+#   3. sysctl: socket buffer caps/defaults + SCTP memory tuning
 
 set -euo pipefail
 
-USERNAME="vd"
-REPO_DIR_DEFAULT="/home/$USERNAME/nixos-config"
-
-log()  { printf '\033[1;32m==>\033[0m %s\n' "$*"; }
-warn() { printf '\033[1;33mWARN:\033[0m %s\n' "$*"; }
-die()  { printf '\033[1;31mERROR:\033[0m %s\n' "$*" >&2; exit 1; }
+log() { printf '\033[1;32m==>\033[0m %s\n' "$*"; }
+die() { printf '\033[1;31mERROR:\033[0m %s\n' "$*" >&2; exit 1; }
 
 # --------------------------------------------------------------- packages --
 PKGS=(
@@ -45,59 +40,30 @@ PKGS=(
 
 # ========================================================= 1. install pkgs ==
 install_pkgs() {
-  log "1/4 installing ${#PKGS[@]} packages (paru)"
+  log "1/3 installing ${#PKGS[@]} packages (paru)"
   paru -Syu --needed --noconfirm "${PKGS[@]}"
-  chsh -s /bin/fish "$USERNAME"
 }
 
-# ============================================================ 2. fcitx5 ====
-setup_fcitx5() {
-  log "2/4 fcitx5 env vars -> /etc/environment"
-  local f=/etc/environment
-  touch "$f"
-  for var in GTK_IM_MODULE=fcitx QT_IM_MODULE=fcitx 'XMODIFIERS=@im=fcitx'; do
-    grep -qxF "$var" "$f" || echo "$var" >>"$f"
-  done
-  # fcitx5 itself is started by the compositor: add to niri config.kdl:
-  #   spawn-at-startup "fcitx5"
+# ============================================ 2. greetd → niri ===
+setup_greetd() {
+  log "2/3 greetd: tuigreet -> niri-session"
+
+  mkdir -p /etc/greetd
+  cat >/etc/greetd/config.toml <<'TOML'
+[terminal]
+vt = 1
+
+[default_session]
+command = "tuigreet --time --cmd niri-session"
+user = "greeter"
+TOML
+
+  systemctl enable greetd.service
 }
 
-# ============================================ 3. dotfiles + golang ===
-setup_dotfiles() {
-  local repo="${1:-$REPO_DIR_DEFAULT}"
-  log "3/4 dotfiles (niri, nvim, waybar) + golang"
-
-  if [[ ! -d $repo ]]; then
-    warn "repo not found at $repo — pass repo dir as arg 1; skipping symlinks"
-  fi
-
-  runuser -u "$USERNAME" -- bash <<EOF
-set -e
-# golang env
-mkdir -p "\$HOME/env/gopath_main"/{bin,pkg,src}
-mkdir -p "\$HOME/.config/fish"
-
-cfg="\$HOME/.config/fish/config.fish"
-touch "\$cfg"
-if ! grep -q 'arch_install.sh' "\$cfg"; then
-  cat >>"\$cfg" <<'FISH'
-# --- arch_install.sh: golang ---
-set -gx GOPATH ~/env/gopath_main
-set -gx GOROOT /usr/lib/go
-fish_add_path -g ~/env/gopath_main/bin
-FISH
-fi
-
-# symlinks from repo -> ~/.config/
-[[ -d "$repo/config/nvim" ]] && ln -sfn "$repo/config/nvim" "\$HOME/.config/nvim"
-[[ -f "$repo/config/niri-laptop/config.kdl" ]] && { mkdir -p "\$HOME/.config/niri"; ln -sfn "$repo/config/niri-laptop/config.kdl" "\$HOME/.config/niri/config.kdl"; }
-[[ -d "$repo/config/waybar-laptop" ]] && ln -sfn "$repo/config/waybar-laptop" "\$HOME/.config/waybar"
-EOF
-}
-
-# ======================================================== 4. sysctl tuning ==
+# ======================================================== 3. sysctl tuning ==
 setup_sysctl() {
-  log "4/4 sysctl: socket buffers + SCTP memory -> /etc/sysctl.d/99-tuning.conf"
+  log "3/3 sysctl: socket buffers + SCTP memory -> /etc/sysctl.d/99-tuning.conf"
   cat >/etc/sysctl.d/99-tuning.conf <<'EOF'
 # Global socket buffer caps/defaults
 net.core.rmem_max = 8388608
@@ -118,16 +84,14 @@ EOF
 
 # ------------------------------------------------------------------ main ---
 main() {
-  [[ $EUID -eq 0 ]] || die "run as root: sudo $0 [repo-dir]"
+  [[ $EUID -eq 0 ]] || die "run as root: sudo $0"
   command -v paru &>/dev/null || die "paru not found — run arch_pre_install.sh first"
   install_pkgs
-  setup_fcitx5
-  setup_dotfiles "${1:-}"
+  setup_greetd
   setup_sysctl
 
   log "done."
-  log "next: log in as $USERNAME (fish) — niri, nvim, waybar configs linked."
-  log "add 'spawn-at-startup \"fcitx5\"' to niri config.kdl for the input method."
+  log "next: reboot — tuigreet will launch niri-session automatically."
 }
 
-main "$@"
+main
