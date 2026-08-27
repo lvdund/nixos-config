@@ -4,18 +4,13 @@
   ...
 }: {
   imports = [
-    ../modules/obs.nix
-    ../modules/browser.nix
-    ../modules/yazi.nix
-    ../modules/tmux.nix
+    ../modules/nvim.nix
+    ../modules/fish.nix
     ../modules/direnv.nix
-    ../modules/i3.nix
-    ../modules/code.nix
+    ../modules/niri.nix
+    ../modules/browser.nix
+    ../modules/game.nix
     ../modules/office.nix
-    ../modules/steam.nix
-    ../modules/tools.nix
-    ../modules/book.nix
-    ../modules/art.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -23,24 +18,16 @@
 
   systemd.user.sessionVariables = config.home.sessionVariables;
 
-  # Packages for user
+  # NVIDIA debugging
   home.packages = with pkgs; [
-    protonup-qt
     pciutils
-    parted
-    gdu
-    gparted
-    sshfs
-    file-roller
-    openssl
-
-    tor-browser
   ];
 
   # Link your custom configs
   home.file = {
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/kitty";
-    ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/zathura";
+    ".config/niri".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/niri";
+    ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/waybar";
   };
 
   programs = {

@@ -1,45 +1,75 @@
+@import "./theme.css";
+
 * {
-    border: none;
-    border-radius: 0;
-    font-family: FiraCode Nerd Font, sans-serif;
-    font-size: 15px;
-    min-height: 0;
+  color: @foreground;
+
+  font-family: FiraCode Nerd Font, sans-serif;
+  font-size: 14px;
+
+  border: none;
+  border-radius: 0;
+
+  min-height: 0;
 }
 
-window#waybar {
-    background: rgba(20, 28, 33, 0.92);
-    color: #bfbaac;
+.modules-left {
+  margin-left: 0;
+}
+
+.modules-right {
+  margin-right: 0;
 }
 
 #workspaces button {
-    padding: 0 8px;
-    background: transparent;
-    color: #bfbaac;
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 8px;
 }
 
-#workspaces button.focused {
-    background: #d12f2c;
-    color: #141c21;
+#workspaces button.empty {
+  opacity: 0.5;
 }
 
-#workspaces button.urgent {
-    background: #b08500;
-    color: #141c21;
-}
-
-#clock,
-#network,
-#pulseaudio,
-#cpu,
-#memory,
 #tray,
-#custom-power,
-#mode {
-    padding: 0 10px;
-    margin: 0 0;
+#cpu,
+#battery,
+#network,
+#bluetooth,
+#pulseaudio,
+#clock,
+#custom-menu,
+#custom-expand-icon {
+  min-width: 8px;
+  margin: 0 12px;
 }
 
-#custom-power {
-    color: #e4b5cb;
-    font-size: 16px;
+#cpu {
+  margin-right: 8px;
+}
+
+#pulseaudio {
+  margin-right: 4px;
+}
+
+#bluetooth {
+  margin-right: 4px;
+}
+
+#network {
+  margin-right: 8px;
+}
+
+#custom-expand-icon {
+  margin-left: 18px;
+  margin-right: 4px;
+}
+
+window#waybar {
+  background-color: rgba(0, 0, 0, 0.70);
+}
+
+tooltip * {
+  padding: 2px;
+  background-color: @tooltip;
 }

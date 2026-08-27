@@ -4,12 +4,12 @@
   ...
 }: {
   imports = [
-    ../modules/browser.nix
-    ../modules/yazi.nix
-    ../modules/tmux.nix
+    ../modules/nvim.nix
+    ../modules/fish.nix
     ../modules/direnv.nix
-    ../modules/niri-laptop.nix
-    ../modules/code.nix
+    ../modules/niri.nix
+    ../modules/browser.nix
+    ../modules/office.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
@@ -17,19 +17,17 @@
 
   systemd.user.sessionVariables = config.home.sessionVariables;
 
-  # Packages for user
+  # Spawned by niri config.kdl at startup
   home.packages = with pkgs; [
-    pciutils
-    gdu
-    sshfs
-    file-roller
-    openssl
+    networkmanagerapplet
+    cliphist
   ];
 
   # Link your custom configs
   home.file = {
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/kitty";
-    ".config/zathura".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/zathura";
+    ".config/niri".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/niri-laptop";
+    ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/waybar-laptop";
   };
 
   programs = {

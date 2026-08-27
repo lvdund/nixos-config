@@ -1,10 +1,10 @@
 {
-  config,
   pkgs,
   ...
 }: {
   imports = [
     ./modules/docker.nix
+    ./modules/code.nix
     ./modules/fish.nix
     ./modules/input.nix
     ./modules/fonts.nix
@@ -25,60 +25,32 @@
     sudo.wheelNeedsPassword = false;
   };
 
-  # services.upower.enable = true;
-
   programs.dconf.enable = true;
 
   environment.systemPackages = with pkgs; [
     # Core utilities
-    git
-    gh
-    fzf
-    fd
-    bat
-    ripgrep
-    lsd
     wget
     curl
-    net-tools
-    iptables
-    linuxHeaders # Kernel headers for development
+    btop
+    zip
+    unzip
     gnumake
     gcc14
     kmod
-    btop
-    tmux
-
-    # Compression tools
-    zip
-    unzip
-    rar
-    unrar
-
-    # Desktop environment
-    libnotify
+    linuxHeaders
+    iptables
     ffmpeg
-    feh
-    eog
-    maim
+
+    # Terminal / desktop
     kitty
-    nautilus
-    process-viewer
-    zathura
-    evince
-    arandr
-    keepassxc
+    thunar
 
-    # Audio/Video
-    pavucontrol
-    pulseaudio
-    vlc
-
-    # System tools
-    brightnessctl
-    lxappearance
-    appimage-run
-    lksctp-tools
+    # tools
+    wireshark
+    tcpdump
+    iproute2
+    iputils
+    gawk
   ];
 
   environment.sessionVariables.GTK_THEME = "Adwaita:dark";
