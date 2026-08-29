@@ -3,7 +3,6 @@
 // ----------------------------------------------------------------------------
 
 spawn-at-startup "mako"
-spawn-at-startup "waybar"
 
 // ----------------------------------------------------------------------------
 // Input devices (mouse, trackpad, keyboard, etc.)
@@ -148,6 +147,8 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+T hotkey-overlay-title="Open a Terminal: Kitty" { spawn "kitty"; }
+    Mod+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox"; }
+    Mod+Shift+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox --private-window"; }
     Mod+A hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 

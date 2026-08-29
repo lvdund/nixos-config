@@ -12,4 +12,9 @@
     pyright
     rust-analyzer
   ];
+
+  # Per-user GOPATH so every account gets its own under $HOME.
+  environment.shellInit = ''
+    export GOPATH="$HOME/env/gopath_main"
+  '';
 }
