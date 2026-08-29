@@ -76,6 +76,7 @@
     playerctl
     wl-clipboard
     grim
+    satty
     slurp
     brightnessctl
     pavucontrol
