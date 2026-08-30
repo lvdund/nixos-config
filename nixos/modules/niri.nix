@@ -81,6 +81,7 @@
     brightnessctl
     pavucontrol
     libnotify
+    lxqt.lximage-qt
 
     adwaita-icon-theme
   ];
