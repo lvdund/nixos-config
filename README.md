@@ -1,85 +1,156 @@
-# NixOS Configuration
+# NixOS & nix-darwin Configuration
+
+Multi-host flake managing four machines with shared user configuration:
+
+| Host | Platform | Flake output | Rebuild command |
+| --- | --- | --- | --- |
+| `homepc` | NixOS (x86_64-linux) | `nixosConfigurations.homepc` | `sudo nixos-rebuild switch --flake .#homepc` |
+| `mylaptop` | NixOS (x86_64-linux) | `nixosConfigurations.mylaptop` | `sudo nixos-rebuild switch --flake .#mylaptop` |
+| `myserver` | NixOS (x86_64-linux, headless) | `nixosConfigurations.myserver` | `sudo nixos-rebuild switch --flake .#myserver` |
+| `macbook` | macOS (aarch64-darwin) | `darwinConfigurations.macbook` | `sudo darwin-rebuild switch --flake .#macbook` |
 
 ## 1. Directory Structure
 
-This repository is structured to support multiple hosts with shared configuration:
+- **`flake.nix`**: Entry point — system configurations for all hosts
+    (`nixosConfigurations` for Linux, `darwinConfigurations` for macOS) and the
+    `repoRoot` path passed to user modules for dotfile symlinks
+    (`/etc/nixos/nixos-config` on Linux, `/Users/vd/nixos-config` on macOS).
+- **`nixos/`**: Linux system-level configuration.
+    - **`common.nix`**: Shared settings, packages, and users for all Linux hosts
+        (desktop-oriented — `myserver` skips it and imports only the headless
+        modules: docker, code, fish, sysctl, tmpdir).
+    - **`modules/`**: Shared Linux modules (code, docker, fonts, network, niri, nvidia…).
+    - **`homepc/`**, **`mylaptop/`**, **`myserver/`**: Per-host configurations (hardware, drivers, storage).
+- **`darwin/macbook/`**: macOS system-level configuration (nix-darwin).
+- **`users/vd/`**: Per-host Home Manager users (`homepc.nix`, `mylaptop.nix`,
+    `myserver.nix`, `macbook.nix`).
+- **`users/modules/`**: Shared cross-platform Home Manager modules
+    (browser, direnv, fish, game, git, niri, nvim, office).
+- **`config/`**: Actual dotfiles (nvim, fish, kitty, niri, waybar, mako…),
+    symlinked into place by Home Manager via `repoRoot`.
+- **`notes/`**: Setup notes and plans (e.g. `nix-darwin-setup-plan.md`).
 
-- **`flake.nix`**: Entry point defining system configurations (`homepc` and `mylaptop`).
-- **`nixos/`**: System-level configurations.
-    - **`common.nix`**: Shared settings, packages, and users applicable to all hosts.
-    - **`homepc/`**: Configuration specific to the desktop PC (Nvidia drivers, extra storage).
-    - **`mylaptop/`**: Configuration specific to the laptop.
-- **`users/vd/`**: User-specific configuration (Home Manager), including dotfiles (`config/`).
+## 2. Linux (NixOS) — Fresh Installation
 
-## 2. Fresh Installation Guide
-
-After installing NixOS and rebooting into your new system, follow these steps to apply this configuration.
+After installing NixOS and rebooting into your new system:
 
 ### Step 1: Get the Configuration
-
-Install Git (if not already available) and clone this repository:
 
 ```bash
 # Enter a temporary shell with git
 nix-shell -p git
 
-# Clone your repository (replace URL with your actual repo)
-git clone https://github.com/lvdund/nixos-config /etc/nixos/nixos-config
-cd /etc/nixos/nixos-config 
+# Clone your repository
+git clone git@github.com:lvdund/nixos-config.git /etc/nixos/nixos-config
+cd /etc/nixos/nixos-config
 ```
 
 ### Step 2: Hardware Configuration
 
-**Crucial:** You must generate the hardware configuration specific to your machine to ensure bootloaders and filesystems are correct.
+**Crucial:** Generate the hardware configuration specific to your machine so
+bootloaders and filesystems are correct:
 
-**For Laptop:**
 ```bash
+# For Laptop:
 nixos-generate-config --show-hardware-config > nixos/mylaptop/hardware-configuration.nix
-```
 
-**For Home PC:**
-```bash
+# For Home PC:
 nixos-generate-config --show-hardware-config > nixos/homepc/hardware-configuration.nix
+
+# For Server (replaces the checked-in placeholder):
+nixos-generate-config --show-hardware-config > nixos/myserver/hardware-configuration.nix
 ```
 
 ### Step 3: Apply Configuration
 
-Apply the flake configuration for your specific host:
-
-**For Laptop:**
 ```bash
-sudo nixos-rebuild switch --flake .#mylaptop
+sudo nixos-rebuild switch --flake .#mylaptop   # or .#homepc, or .#myserver
 ```
 
-**For Home PC:**
+## 3. macOS (nix-darwin) — Fresh Installation
+
+Run **on the Mac**. Requirements: Mac username must be `vd`, and the repo must
+be cloned to `~/nixos-config` (both are hardcoded via `repoRoot` / Home Manager).
+Apple Silicon is assumed (`aarch64-darwin`; use `"x86_64-darwin"` on Intel).
+
+### Step 1: Prerequisites
+
 ```bash
-sudo nixos-rebuild switch --flake .#homepc
+xcode-select --install
+
+# Determinate Nix installer (flakes pre-enabled, has an uninstaller)
+curl --detach -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-**Update:**
+### Step 2: Get the Configuration
+
 ```bash
+git clone git@github.com:lvdund/nixos-config.git ~/nixos-config
+cd ~/nixos-config
+```
+
+### Step 3: Bootstrap (installs nix-darwin itself)
+
+```bash
+sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake .#macbook
+```
+
+With the official nixos.org installer instead of Determinate, flakes are not
+enabled yet — prefix the command with
+`nix --extra-experimental-features 'nix-command flakes' run ...`
+(your config enables them permanently after the first switch).
+
+### Step 4: Daily Use
+
+After the first switch, `darwin-rebuild` is in `PATH`:
+
+```bash
+sudo darwin-rebuild switch --flake ~/nixos-config#macbook   # apply changes
+sudo darwin-rebuild build --flake ~/nixos-config#macbook    # preview only
+sudo darwin-rebuild --rollback                              # revert
+
+sudo nix run nix-darwin#darwin-uninstaller                  # remove nix-darwin
+```
+
+Notes:
+
+- The first switch "takes over" Nix management, sets fish as login shell,
+  enables Touch ID / Apple Watch sudo, and Home Manager renames any conflicting
+  pre-existing files to `*.backup` — review those afterwards.
+- `system.stateVersion = 7` is pinned for a fresh nix-darwin-26.05 install;
+  never bump it without reading `darwin-rebuild changelog`.
+
+## 4. Maintenance (all hosts)
+
+```bash
+# Update all inputs (affects every host — review carefully)
 nix flake update
-```
 
-### Step 4: Clean
-```bash
+# Linux: clean up old generations
 sudo nix-collect-garbage -d
 sudo nix-store --optimize
+
+# macOS: garbage-collect on a schedule via launchd (see darwin/macbook/configuration.nix)
 ```
 
-## 3. Git Configuration
+## 5. Git Configuration
 
-Set up your global git identity:
+Git identity is managed declaratively by Home Manager for all hosts in
+**`users/modules/git.nix`** (`lvdund <lvdund@gmail.com>`) — change it there,
+not with `git config --global`.
+
+Only needed once per machine so git trusts the repo checkout:
 
 ```bash
-git config --global user.email "lvdund@gmail.com"
-git config --global user.name "lvdund"
-git config --global --add safe.directory /etc/nixos/nixos-config
+git config --global --add safe.directory /etc/nixos/nixos-config   # Linux
+git config --global --add safe.directory ~/nixos-config            # macOS
 ```
 
-## 3. Lang Setup
+## 6. Manual Tooling Setup
 
-- Install essential Go tools and utilities:
+Not (yet) covered by Nix — run once per user:
+
+- Go tools:
 
 ```bash
 go install golang.org/x/tools/gopls@latest
@@ -92,16 +163,16 @@ go install github.com/jesseduffield/lazygit@latest
 go install github.com/jesseduffield/lazydocker@latest
 go install github.com/josharian/impl@latest
 ```
+
 - npm global installations:
 
 ```bash
 mkdir -p ~/.npm-global
 npm config set prefix '~/.npm-global'
 npm install -g tree-sitter-cli
-
 ```
 
-## 4. Easy way to create usb boot:
+## 7. Misc: Create a USB Boot Stick
 
 ```bash
 # be careful that dd will destroy all data in sdb

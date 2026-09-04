@@ -1,4 +1,5 @@
 {
+  repoRoot ? "/etc/nixos/nixos-config",
   config,
   pkgs,
   ...
@@ -9,6 +10,6 @@
 
   # Link your custom configs
   home.file = {
-    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/nixos-config/config/nvim";
+    ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/nvim";
   };
 }
