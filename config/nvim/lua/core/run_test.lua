@@ -1,15 +1,29 @@
 local M = {}
 
-local QUERY_TESTS = vim.treesitter.query.parse(
-	"go",
-	[[
+local QUERY_TESTS
+
+local function get_query()
+	if not QUERY_TESTS then
+		local ok, q = pcall(vim.treesitter.query.parse, "go", [[
 (function_declaration
   name: (identifier) @name
   (#match? @name "^Test"))
-]]
-)
+]])
+		if not ok then
+			return nil
+		end
+		QUERY_TESTS = q
+	end
+	return QUERY_TESTS
+end
 
 local function get_tests(bufnr)
+	local query = get_query()
+	if not query then
+		vim.notify("run_test: cannot parse go query (run :TSInstall go)", vim.log.levels.ERROR)
+		return {}
+	end
+
 	local ok, parser = pcall(vim.treesitter.get_parser, bufnr, "go")
 	if not ok or not parser then
 		vim.notify("run_test: no Treesitter parser for go (run :TSInstall go)", vim.log.levels.ERROR)
@@ -24,7 +38,7 @@ local function get_tests(bufnr)
 	local root = tree:root()
 	local out = {}
 
-	for _, node in QUERY_TESTS:iter_captures(root, bufnr, 0, -1) do
+	for _, node in query:iter_captures(root, bufnr, 0, -1) do
 		local name = vim.treesitter.get_node_text(node, bufnr)
 		local sr, _, er, _ = node:parent():range()
 		table.insert(out, { name = name, start_row = sr, end_row = er })
