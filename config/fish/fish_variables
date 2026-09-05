@@ -2,4 +2,4 @@
 # VERSION: 3.0
 SETUVAR --export TAVILY_API_KEY:tvly\x2ddev\x2dK2BDC\x2d6PCYmqcyrBMBmFLKncfFBkarrw1veznvlzfCXaIBJP
 SETUVAR __fish_initialized:4300
-SETUVAR fish_user_paths:/home/vd/\x2ecargo/bin\x1e/home/vd/\x2elocal/bin\x1e/home/vd/env/gopath_main/bin\x1e/home/vd/\x2enpm\x2dglobal/bin
+SETUVAR fish_user_paths:/Users/lvdund/\x2elocal/bin\x1e/Users/lvdund/\x2enpm\x2dglobal/bin\x1e/home/vd/\x2ecargo/bin\x1e/home/vd/\x2elocal/bin\x1e/home/vd/env/gopath_main/bin\x1e/home/vd/\x2enpm\x2dglobal/bin

@@ -24,20 +24,35 @@
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
 
-  # Make fish a proper login shell (registers it in /etc/shells)
+  # fish integration for the Nix environment (writes /etc/fish/config.fish)
   programs.fish.enable = true;
 
+  # nix-darwin manages /etc/shells ONLY via this option (programs.fish.enable
+  # does NOT register it, unlike NixOS). chsh validates against /etc/shells.
+  environment.shells = [ pkgs.fish ];
+
+  # NOTE: on darwin this does NOT change the login shell for an admin user —
+  # nix-darwin only runs `dscl ... UserShell` for users in users.knownUsers,
+  # which the primary user must not be in. Enforced declaratively below.
   users.users.lvdund = {
     name = "lvdund";
     home = "/Users/lvdund";
     shell = pkgs.fish;
   };
 
+  # Set the login shell on every rebuild (replaces the manual `chsh` step).
+  # Runs as root during activation; `dscl . -create` is idempotent
+  # (create-or-overwrite) — the same call nix-darwin uses internally.
+  # In 26.05 only the named scripts run, so use postActivation, not a custom name.
+  system.activationScripts.postActivation.text = ''
+    echo "setting lvdund login shell to fish..." >&2
+    dscl . -create /Users/lvdund UserShell /run/current-system/sw/bin/fish
+  '';
+
   # Dev toolchain — mirrors nixos/modules/code.nix;
   # git + VS Code are managed by Home Manager in users/lvdund/macvd.nix
   # (git via users/modules/git.nix; vscode.fhs from Linux is Linux-only)
   environment.systemPackages = with pkgs; [
-    vim
     fzf
     nodejs
     go
@@ -47,6 +62,8 @@
     nixd
     pyright
     rust-analyzer
+
+    lsd
   ];
 
   # Per-user GOPATH so every account gets its own under $HOME.

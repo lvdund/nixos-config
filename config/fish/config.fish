@@ -32,23 +32,50 @@ alias ssh-kitty='kitty +kitten ssh'
 alias ssh-vagrant-kitty='env TERM=xterm-256color vagrant ssh'
 alias sudo-wayland='sudo -E WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR'
 
+# --- Cached git branch for the prompt ---
+# Spawning git costs ~25ms on macOS, so fish_prompt NEVER runs git.
+# The cache refreshes after each real command (branch may have changed)
+# and whenever $PWD changes; a bare Enter re-renders with zero spawns.
+function __update_prompt_git_branch --description "Refresh cached git branch for the prompt"
+    set -g __prompt_git_branch (command git branch --show-current 2>/dev/null)
+    if test -z "$__prompt_git_branch"
+        # detached HEAD (or not a repo): fall back to short SHA; empty outside repos
+        set __prompt_git_branch (command git rev-parse --short HEAD 2>/dev/null)
+    end
+end
+
+function __refresh_git_branch_postexec --on-event fish_postexec
+    if set -q __prompt_git_skip_postexec # PWD hook already refreshed for this command
+        set -e __prompt_git_skip_postexec
+        return
+    end
+    __update_prompt_git_branch
+end
+
+function __refresh_git_branch_on_cd --on-variable PWD
+    set -g __prompt_git_skip_postexec 1
+    __update_prompt_git_branch
+end
+
 # Custom prompt with user@hostname, pwd (full path with ... when > 3 dirs), and git branch
 function fish_prompt
   set -l last_status $status
 
-  # User@hostname
+  # User@hostname ($hostname is a fish special variable — no process spawn)
   set_color cyan
-  echo -n "$USER@"(hostname)" "
+  echo -n "$USER@$hostname "
 
   # Get current directory (full path, truncate with ... when > 3 dirs)
   set_color blue
   echo -n (prompt_pwd --full-length-dirs 3)
 
-  # Git branch (if in a git repo)
-  if git rev-parse --git-dir > /dev/null 2>&1
-    set -l git_branch (git branch 2>/dev/null | sed -n '/\* /s///p')
+  # Git branch (cached — refreshed by the hooks above, not here)
+  if not set -q __prompt_git_branch
+    __update_prompt_git_branch # first prompt of the session
+  end
+  if test -n "$__prompt_git_branch"
     set_color yellow
-    echo -n " ($git_branch)"
+    echo -n " ($__prompt_git_branch)"
   end
 
   if set -q DIRENV_DIR
