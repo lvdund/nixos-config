@@ -39,16 +39,23 @@
   # --- Server networking: SSH in, firewall on ---
   services.openssh = {
     enable = true;
-    # Key-only login from day one. Put your key in ~/.ssh/authorized_keys
-    # via the console BEFORE the first switch to this config.
+    # Key-only login from day one (public keys are declared on
+    # users.users.vd.openssh.authorizedKeys.keys above).
     settings.PasswordAuthentication = false;
     settings.KbdInteractiveAuthentication = false;
     openFirewall = true;
   };
 
-  networking.firewall = {
-    enable = true;
+  networking = {
+    # NetworkManager provides nmcli/nmtui for managing connections
+    # over SSH/console (headless-friendly; nmtui is a TUI wizard).
+    networkmanager.enable = true;
+    firewall.enable = true;
   };
+
+  # Headless box: only FiraCode Nerd Font, not the full fonts.nix set
+  # (noto/cjk/corefonts are desktop-oriented).
+  fonts.packages = with pkgs; [ nerd-fonts.fira-code ];
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -65,6 +72,8 @@
     kmod
     linuxHeaders
     iptables
+    net-tools
+    ffmpeg
 
     # tools
     tcpdump

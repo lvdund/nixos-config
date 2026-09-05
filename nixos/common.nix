@@ -40,6 +40,7 @@
     linuxHeaders
     iptables
     ffmpeg
+    net-tools
 
     # Terminal / desktop
     kitty
