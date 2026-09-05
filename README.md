@@ -79,7 +79,7 @@ Apple Silicon is assumed (`aarch64-darwin`; use `"x86_64-darwin"` on Intel).
 xcode-select --install
 
 # Determinate Nix installer (flakes pre-enabled, has an uninstaller)
-curl --detach -L https://install.determinate.systems/nix | sh -s -- install
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
 ```
 
 ### Step 2: Get the Configuration
@@ -99,6 +99,10 @@ With the official nixos.org installer instead of Determinate, flakes are not
 enabled yet — prefix the command with
 `nix --extra-experimental-features 'nix-command flakes' run ...`
 (your config enables them permanently after the first switch).
+
+```bash
+sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild --extra-experimental-features "nix-command flakes" -- switch --flake .#macvd
+```
 
 ### Step 4: Daily Use
 
