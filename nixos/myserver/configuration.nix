@@ -11,6 +11,7 @@
     ../modules/fish.nix
     ../modules/sysctl.nix
     ../modules/tmpdir.nix
+    ../modules/gtp5g.nix
   ];
 
   networking.hostName = "myserver";
@@ -39,10 +40,9 @@
   # --- Server networking: SSH in, firewall on ---
   services.openssh = {
     enable = true;
-    # Key-only login from day one (public keys are declared on
-    # users.users.vd.openssh.authorizedKeys.keys above).
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
+    # Password login allowed (must also set a password: `passwd vd`)
+    settings.PasswordAuthentication = true;
+    settings.KbdInteractiveAuthentication = true;
     openFirewall = true;
   };
 
