@@ -14,7 +14,12 @@
   # REQUIRED by modern nix-darwin: options that used to apply to the user running
   # darwin-rebuild (system.defaults.*, security.pam.services.sudo_local.*, homebrew.*)
   # now need an explicit primary user.
-  system.primaryUser = "vd";
+  system.primaryUser = "lvdund";
+
+  # Explicit hostname (don't rely on the macOS default, which has spaces/uppercase)
+  networking.hostName = "macvd";
+  networking.computerName = "macvd";
+  networking.localHostName = "macvd";
 
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = ["nix-command" "flakes"];
@@ -22,14 +27,14 @@
   # Make fish a proper login shell (registers it in /etc/shells)
   programs.fish.enable = true;
 
-  users.users.vd = {
-    name = "vd";
-    home = "/Users/vd";
+  users.users.lvdund = {
+    name = "lvdund";
+    home = "/Users/lvdund";
     shell = pkgs.fish;
   };
 
   # Dev toolchain — mirrors nixos/modules/code.nix;
-  # git + VS Code are managed by Home Manager in users/vd/macbook.nix
+  # git + VS Code are managed by Home Manager in users/lvdund/macvd.nix
   # (git via users/modules/git.nix; vscode.fhs from Linux is Linux-only)
   environment.systemPackages = with pkgs; [
     vim

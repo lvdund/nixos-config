@@ -7,23 +7,23 @@ Multi-host flake managing four machines with shared user configuration:
 | `homepc` | NixOS (x86_64-linux) | `nixosConfigurations.homepc` | `sudo nixos-rebuild switch --flake .#homepc` |
 | `mylaptop` | NixOS (x86_64-linux) | `nixosConfigurations.mylaptop` | `sudo nixos-rebuild switch --flake .#mylaptop` |
 | `myserver` | NixOS (x86_64-linux, headless) | `nixosConfigurations.myserver` | `sudo nixos-rebuild switch --flake .#myserver` |
-| `macbook` | macOS (aarch64-darwin) | `darwinConfigurations.macbook` | `sudo darwin-rebuild switch --flake .#macbook` |
+| `macvd` | macOS (aarch64-darwin) | `darwinConfigurations.macvd` | `sudo darwin-rebuild switch --flake .#macvd` |
 
 ## 1. Directory Structure
 
 - **`flake.nix`**: Entry point — system configurations for all hosts
     (`nixosConfigurations` for Linux, `darwinConfigurations` for macOS) and the
     `repoRoot` path passed to user modules for dotfile symlinks
-    (`/etc/nixos/nixos-config` on Linux, `/Users/vd/nixos-config` on macOS).
+    (`/etc/nixos/nixos-config` on Linux, `/Users/lvdund/nixos-config` on macOS).
 - **`nixos/`**: Linux system-level configuration.
     - **`common.nix`**: Shared settings, packages, and users for all Linux hosts
         (desktop-oriented — `myserver` skips it and imports only the headless
         modules: docker, code, fish, sysctl, tmpdir).
     - **`modules/`**: Shared Linux modules (code, docker, fonts, network, niri, nvidia…).
     - **`homepc/`**, **`mylaptop/`**, **`myserver/`**: Per-host configurations (hardware, drivers, storage).
-- **`darwin/macbook/`**: macOS system-level configuration (nix-darwin).
+- **`darwin/macvd/`**: macOS system-level configuration (nix-darwin).
 - **`users/vd/`**: Per-host Home Manager users (`homepc.nix`, `mylaptop.nix`,
-    `myserver.nix`, `macbook.nix`).
+    `myserver.nix`, `macvd.nix`).
 - **`users/modules/`**: Shared cross-platform Home Manager modules
     (browser, direnv, fish, game, git, niri, nvim, office).
 - **`config/`**: Actual dotfiles (nvim, fish, kitty, niri, waybar, mako…),
@@ -92,7 +92,7 @@ cd ~/nixos-config
 ### Step 3: Bootstrap (installs nix-darwin itself)
 
 ```bash
-sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake .#macbook
+sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake .#macvd
 ```
 
 With the official nixos.org installer instead of Determinate, flakes are not
@@ -105,8 +105,8 @@ enabled yet — prefix the command with
 After the first switch, `darwin-rebuild` is in `PATH`:
 
 ```bash
-sudo darwin-rebuild switch --flake ~/nixos-config#macbook   # apply changes
-sudo darwin-rebuild build --flake ~/nixos-config#macbook    # preview only
+sudo darwin-rebuild switch --flake ~/nixos-config#macvd   # apply changes
+sudo darwin-rebuild build --flake ~/nixos-config#macvd    # preview only
 sudo darwin-rebuild --rollback                              # revert
 
 sudo nix run nix-darwin#darwin-uninstaller                  # remove nix-darwin
@@ -130,7 +130,7 @@ nix flake update
 sudo nix-collect-garbage -d
 sudo nix-store --optimize
 
-# macOS: garbage-collect on a schedule via launchd (see darwin/macbook/configuration.nix)
+# macOS: garbage-collect on a schedule via launchd (see darwin/macvd/configuration.nix)
 ```
 
 ## 5. Git Configuration

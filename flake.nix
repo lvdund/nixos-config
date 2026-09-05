@@ -77,20 +77,20 @@
     };
 
     # MacBook (macOS) — bootstrap on the Mac with:
-    #   sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake .#macbook
+    #   sudo nix run nix-darwin/nix-darwin-26.05#darwin-rebuild -- switch --flake .#macvd
     darwinConfigurations = {
-      macbook = nix-darwin.lib.darwinSystem {
+      macvd = nix-darwin.lib.darwinSystem {
         modules = [
-          ./darwin/macbook/configuration.nix
+          ./darwin/macvd/configuration.nix
           home-manager.darwinModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users.vd = import ./users/vd/macbook.nix;
+            home-manager.users.lvdund = import ./users/lvdund/macvd.nix;
             home-manager.backupFileExtension = "backup";
             # Where the repo is cloned on the Mac; user modules use it for
             # their mkOutOfStoreSymlink config links
-            home-manager.extraSpecialArgs.repoRoot = "/Users/vd/nixos-config";
+            home-manager.extraSpecialArgs.repoRoot = "/Users/lvdund/nixos-config";
           }
         ];
       };

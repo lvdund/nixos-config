@@ -1,5 +1,5 @@
 {
-  repoRoot ? "/Users/vd/nixos-config",
+  repoRoot ? "/Users/lvdund/nixos-config",
   config,
   pkgs,
   ...
@@ -13,8 +13,8 @@
     ../modules/fish.nix
   ];
 
-  home.username = "vd";
-  home.homeDirectory = "/Users/vd";
+  home.username = "lvdund";
+  home.homeDirectory = "/Users/lvdund";
   # Pin at first install, never bump afterwards
   home.stateVersion = "26.05";
 
