@@ -85,11 +85,15 @@
   ### Optional niceties — uncomment as desired ###
 
   # Homebrew: must be installed first at /opt/homebrew; this module only drives it
-  # homebrew = {
-  #   enable = true;
-  #   casks = ["raycast"];
-  #   # masApps = { "Xcode" = 497799835; };
-  # };
+  homebrew = {
+    enable = true;
+    brews = [
+      "colima"
+      "docker"
+      "docker-compose"
+      "docker-buildx"
+    ];
+  };
 
   # Keyboard remaps (e.g. Caps Lock -> Control)
   # system.keyboard = {
