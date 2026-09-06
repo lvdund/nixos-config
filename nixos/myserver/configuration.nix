@@ -25,9 +25,8 @@
     ];
   };
 
-  # Passworded sudo for wheel (the NixOS default — kept explicit because
-  # this box is reachable over SSH; no NOPASSWD/SETENV rules anywhere).
-  security.sudo.wheelNeedsPassword = true;
+  # Passwordless sudo for wheel (vd).
+  security.sudo.wheelNeedsPassword = false;
 
   boot = {
     loader = {
