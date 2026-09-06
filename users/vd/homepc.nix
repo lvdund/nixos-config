@@ -13,6 +13,7 @@
     ../modules/game.nix
     ../modules/office.nix
     ../modules/git.nix
+    ../modules/tmux.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";

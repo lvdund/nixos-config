@@ -45,6 +45,7 @@
     # Terminal / desktop
     kitty
     thunar
+    tmux
 
     # tools
     wireshark

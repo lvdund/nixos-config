@@ -64,6 +64,7 @@
     rust-analyzer
 
     lsd
+    tmux
   ];
 
   # Per-user GOPATH so every account gets its own under $HOME.

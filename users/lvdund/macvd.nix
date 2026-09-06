@@ -11,6 +11,7 @@
     ../modules/browser.nix
     ../modules/git.nix
     ../modules/fish.nix
+    ../modules/tmux.nix
   ];
 
   home.username = "lvdund";

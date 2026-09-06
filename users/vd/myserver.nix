@@ -10,6 +10,7 @@
     ../modules/fish_server.nix
     ../modules/direnv.nix
     ../modules/git.nix
+    ../modules/tmux.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
