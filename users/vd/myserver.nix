@@ -7,7 +7,7 @@
   imports = [
     # Headless user modules only — no niri/browser/office
     ../modules/nvim.nix
-    ../modules/fish.nix
+    ../modules/fish_server.nix
     ../modules/direnv.nix
     ../modules/git.nix
   ];

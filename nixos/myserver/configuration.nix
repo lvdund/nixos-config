@@ -35,6 +35,7 @@
       timeout = 5;
       efi.canTouchEfiVariables = true;
     };
+    kernelPackages = pkgs.linuxPackages_6_1;
   };
 
   # --- Server networking: SSH in, firewall on ---
@@ -74,6 +75,10 @@
     iptables
     net-tools
     ffmpeg
+    tmux
+    # Terminfo for the kitty terminal, so `tmux` works when SSHing in
+    # from a machine running kitty (TERM=xterm-kitty).
+    kitty.terminfo
 
     # tools
     tcpdump
