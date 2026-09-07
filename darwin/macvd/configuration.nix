@@ -62,6 +62,7 @@
     nixd
     pyright
     rust-analyzer
+    rar unrar
 
     lsd
     tmux
