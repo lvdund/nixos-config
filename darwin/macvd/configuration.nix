@@ -66,6 +66,7 @@
 
     lsd
     tmux
+    btop
   ];
 
   # Per-user GOPATH so every account gets its own under $HOME.
@@ -94,6 +95,11 @@
       "docker"
       "docker-compose"
       "docker-buildx"
+      "libusrsctp"
+    ];
+    casks = [
+      "virtualbox"
+      "vagrant"
     ];
   };
 
