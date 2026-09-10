@@ -29,7 +29,8 @@
   # home-manager.extraSpecialArgs)
   home.file = {
     ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/kitty";
-    ".config/niri".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/niri";
+    ".config/niri".source = config.lib.file.mkOutOfStoreSymlink
+      "${repoRoot}/config/niri-workpc";
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/waybar";
   };
 
