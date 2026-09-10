@@ -42,6 +42,22 @@
           }
         ];
       };
+      workpc = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [
+          ./nixos/workpc/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.vd = import ./users/vd/workpc.nix;
+            home-manager.backupFileExtension = "backup";
+            # Absolute path of this repo on the host; user modules use it for
+            # their mkOutOfStoreSymlink config links
+            home-manager.extraSpecialArgs.repoRoot = "/etc/nixos/nixos-config";
+          }
+        ];
+      };
       mylaptop = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [

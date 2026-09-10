@@ -1,0 +1,53 @@
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ../common.nix
+    ./hardware-configuration.nix
+    ../modules/gtp5g.nix
+    ../modules/niri.nix
+    ../modules/network_homepc.nix
+  ];
+
+  networking.hostName = "workpc";
+
+  users.users.vd = {
+    isNormalUser = true;
+    description = "vd";
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
+  };
+
+  boot = {
+    loader = {
+      # for systemd
+      systemd-boot.enable = true;
+      timeout = 90;
+      efi.canTouchEfiVariables = true;
+      # for grub
+      # grub = {
+      #   enable = true;
+      #   device = "/dev/sda";
+      #   useOSProber = true;
+      # };
+    };
+    kernelPackages = pkgs.linuxPackages_6_1;
+    kernel.sysctl = {
+      "net.ipv4.conf.eth0.forwarding" = 1; # enable port forwarding
+    };
+  };
+
+  environment.systemPackages = with pkgs; [
+    linuxPackages_6_1.kernel.dev
+  ];
+
+  environment.variables = {
+    KDIR = "${pkgs.linuxPackages_6_1.kernel.dev}/lib/modules/${pkgs.linuxPackages_6_1.kernel.modDirVersion}/build";
+  };
+}
