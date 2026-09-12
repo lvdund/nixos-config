@@ -63,6 +63,7 @@
     pyright
     rust-analyzer
     rar unrar
+    yazi
 
     lsd
     tmux
@@ -100,6 +101,7 @@
     casks = [
       "virtualbox"
       "vagrant"
+      "marta"
     ];
   };
 
