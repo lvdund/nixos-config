@@ -82,7 +82,9 @@
     pavucontrol
     libnotify
     lxqt.lximage-qt
+    evince
 
     adwaita-icon-theme
+    xwayland-satellite
   ];
 }

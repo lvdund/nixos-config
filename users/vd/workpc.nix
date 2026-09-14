@@ -6,7 +6,7 @@
 }: {
   imports = [
     ../modules/nvim.nix
-    ../modules/fish.nix
+    ../modules/fish_pc.nix
     ../modules/direnv.nix
     ../modules/niri.nix
     ../modules/browser.nix

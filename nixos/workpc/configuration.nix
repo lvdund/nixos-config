@@ -8,6 +8,7 @@
     ./hardware-configuration.nix
     ../modules/gtp5g.nix
     ../modules/niri.nix
+    ../modules/virtualbox.nix
     ../modules/network_homepc.nix
   ];
 

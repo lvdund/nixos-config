@@ -6,6 +6,13 @@
 }: {
   home.packages = with pkgs; [
     neovim
+    # formatters used by config/nvim/lua/core/format.lua ("gf")
+    stylua # lua
+    black # python
+    alejandra # nix
+    yamlfmt # yaml
+    gofumpt # go
+    gotools # provides goimports
   ];
 
   # Link your custom configs

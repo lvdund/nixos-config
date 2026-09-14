@@ -4,9 +4,9 @@
   lib,
   ...
 }: {
-  # home.packages = with pkgs; [
-  #   google-chrome
-  # ];
+  home.packages = with pkgs; [
+    google-chrome
+  ];
   programs.firefox = {
     enable = true;
     # The Linux hosts have home.stateVersion = 25.11, whose HM default is the
