@@ -22,6 +22,7 @@
       fcitx5.addons = with pkgs; [
         fcitx5-gtk
         kdePackages.fcitx5-unikey
+        fcitx5-hangul
       ];
     };
   };

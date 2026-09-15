@@ -88,6 +88,9 @@ layout {
     focus-ring {
         width 1
     }
+
+    // Every newly spawned window opens at one third of the screen width.
+    default-column-width { proportion 0.33; }
 }
 
 // ----------------------------------------------------------------------------
@@ -153,7 +156,7 @@ window-rule {
     match title=r#".*Extension.*Bitwarden.*"#
     match app-id="brave-keep"
     open-floating true
-    default-column-width { proportion 0.45; }
+    default-column-width { proportion 0.33; }
     default-window-height { proportion 0.45; }
 }
 
