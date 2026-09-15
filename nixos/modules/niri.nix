@@ -68,6 +68,7 @@
 
   environment.systemPackages = with pkgs; [
     tuigreet
+    xfconf
     fuzzel
     mako
     swaylock
