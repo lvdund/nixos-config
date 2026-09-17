@@ -65,6 +65,7 @@
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
+  environment.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   environment.systemPackages = with pkgs; [
     tuigreet
@@ -84,6 +85,13 @@
     libnotify
     lxqt.lximage-qt
     evince
+    blueman
+    kitty
+    thunar
+    tmux
+    ffmpeg
+    wireshark
+    gparted
 
     adwaita-icon-theme
     xwayland-satellite

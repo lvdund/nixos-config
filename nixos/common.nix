@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ./modules/docker.nix
     ./modules/code.nix
@@ -39,23 +36,14 @@
     kmod
     linuxHeaders
     iptables
-    ffmpeg
     net-tools
 
-    # Terminal / desktop
-    kitty
-    thunar
-    tmux
-
     # tools
-    wireshark
     tcpdump
     iproute2
     iputils
     gawk
   ];
-
-  environment.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";

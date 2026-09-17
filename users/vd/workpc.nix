@@ -23,6 +23,7 @@
   # NVIDIA debugging
   home.packages = with pkgs; [
     pciutils
+    bottles
   ];
 
   # Link your custom configs (repoRoot comes from the flake's
