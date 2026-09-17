@@ -10,6 +10,7 @@
     ../modules/niri.nix
     ../modules/virtualbox.nix
     ../modules/network_homepc.nix
+    ../modules/ollama_no_gpu.nix
   ];
 
   networking.hostName = "workpc";
