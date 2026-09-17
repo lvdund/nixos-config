@@ -22,6 +22,7 @@
       "wheel"
       "video"
       "audio"
+      "wireshark"
     ];
   };
 

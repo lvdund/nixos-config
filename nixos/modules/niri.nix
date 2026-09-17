@@ -14,6 +14,7 @@
       enable = true;
       binfmt = true;
     };
+    wireshark.enable = true;
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
@@ -68,6 +69,7 @@
   environment.sessionVariables.GTK_THEME = "Adwaita:dark";
 
   environment.systemPackages = with pkgs; [
+    wireshark
     tuigreet
     xfconf
     fuzzel
@@ -90,7 +92,6 @@
     thunar
     tmux
     ffmpeg
-    wireshark
     gparted
 
     adwaita-icon-theme
