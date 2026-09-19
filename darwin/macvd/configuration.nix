@@ -97,6 +97,7 @@
       "docker-compose"
       "docker-buildx"
       "libusrsctp"
+      "micromamba"
     ];
     casks = [
       "virtualbox"
@@ -120,7 +121,7 @@
 
   # Dock / Finder tweaks
   system.defaults = {
-    dock.autohide = true;
+    # dock.autohide = true;
     finder.AppleShowAllExtensions = true;
     NSGlobalDomain.KeyRepeat = 2;
   };
