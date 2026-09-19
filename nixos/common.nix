@@ -24,6 +24,8 @@
 
   programs.dconf.enable = true;
 
+  services.cron.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Core utilities
     wget
