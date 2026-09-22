@@ -6,5 +6,7 @@
     libreoffice-still
     hunspell
     hunspellDicts.en_US
+
+    pdfarranger
   ];
 }

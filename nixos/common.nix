@@ -25,6 +25,7 @@
   programs.dconf.enable = true;
 
   services.cron.enable = true;
+  services.printing.enable = true;
 
   environment.systemPackages = with pkgs; [
     # Core utilities
@@ -39,6 +40,7 @@
     linuxHeaders
     iptables
     net-tools
+    nftables
 
     # tools
     tcpdump
