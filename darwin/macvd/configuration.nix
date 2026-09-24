@@ -64,6 +64,7 @@
     rust-analyzer
     rar unrar
     yazi
+    cloudflared
 
     lsd
     tmux
