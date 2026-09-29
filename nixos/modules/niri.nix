@@ -20,6 +20,7 @@
       libraries = with pkgs; [
         stdenv.cc.cc.lib
         zlib
+        glib
         fuse3
         icu
         nss

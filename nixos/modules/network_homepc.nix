@@ -22,7 +22,7 @@
   # Or disable the firewall altogether.
   networking = {
     networkmanager.enable = true;
-    firewall.enable = true;
+    firewall.enable = false;
   };
 
   services.cloudflare-warp.enable = true;

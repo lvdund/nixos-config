@@ -93,3 +93,17 @@ function fish_prompt
   set_color normal
   echo -n " > "
 end
+
+# --- Micromamba ---
+# >>> mamba initialize >>>
+set -gx MAMBA_ROOT_PREFIX "$HOME/.micromamba"
+if type -q micromamba
+  micromamba shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+end
+# <<< mamba initialize <<<
+
+# Auto-activate environment if in a project directory
+if test -f .micromamba-env
+  micromamba activate (cat .micromamba-env)
+end
+

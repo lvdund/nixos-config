@@ -41,6 +41,10 @@
     iptables
     net-tools
     nftables
+    busybox
+    lksctp-tools
+    nmap
+    cmake
 
     # tools
     tcpdump

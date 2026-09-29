@@ -1,8 +1,7 @@
-{
-  pkgs,
-  ...
-}: {
-  time.timeZone = "Asia/Ho_Chi_Minh";
+{pkgs, ...}: {
+  # time.timeZone = "Asia/Ho_Chi_Minh";
+  services.timesyncd.enable = false;
+  services.chrony.enable = true;
   i18n = {
     defaultLocale = "en_US.UTF-8";
     extraLocaleSettings = {
