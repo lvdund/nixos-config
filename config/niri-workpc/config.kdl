@@ -91,6 +91,37 @@ layout {
 
     // Every newly spawned window opens at one third of the screen width.
     default-column-width { proportion 0.33; }
+
+    center-focused-column "on-overflow"
+    always-center-single-column
+
+}
+
+// Slow, gentle camera movements (lower stiffness = slower glide)
+animations {
+    workspace-switch {
+        spring damping-ratio=1.5 stiffness=100 epsilon=0.0001
+    }
+
+    horizontal-view-movement {
+        spring damping-ratio=1.5 stiffness=100 epsilon=0.0001
+    }
+
+    // Windows shifting aside when a new window spawns between them
+    window-movement {
+        spring damping-ratio=1.5 stiffness=50 epsilon=0.0001
+    }
+
+    window-open {
+        duration-ms 1000
+        curve "ease-out-expo"
+    }
+
+    // Smooth window closing
+    window-close {
+        duration-ms 1000
+        curve "ease-out-quad"
+    }
 }
 
 // ----------------------------------------------------------------------------

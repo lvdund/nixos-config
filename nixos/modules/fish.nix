@@ -6,5 +6,7 @@
   environment.systemPackages = with pkgs; [
     fish
     lsd
+    ripgrep
+    fzf
   ];
 }

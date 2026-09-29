@@ -2,7 +2,6 @@
   environment.systemPackages = with pkgs; [
     git
     vscode.fhs
-    fzf
     nodejs
     go
     clang-tools # clangd

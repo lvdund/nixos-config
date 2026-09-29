@@ -5,6 +5,19 @@ vim.keymap.set("n", "K", function()
   vim.lsp.buf.hover({ border = "rounded" })
 end, { desc = "Hover documentation" })
 
+vim.lsp.config("*", {
+	capabilities = {
+		workspace = {
+			didChangeWatchedFiles = {
+				-- Enable file watching for LSP
+				--
+				-- It's disabled because the default implementation is considered slow.
+				dynamicRegistration = true,
+			},
+		},
+	},
+})
+
 -- Format-on-save disabled.
 -- Manual formatting remains available via the `gf` mapping in core/format.lua.
 
