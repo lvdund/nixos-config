@@ -14,6 +14,7 @@
     ../modules/git.nix
     ../modules/tmux.nix
     ../modules/python.nix
+    ../modules/database.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
