@@ -76,7 +76,7 @@
     export GOPATH="$HOME/env/gopath_main"
   '';
 
-  # Fonts for kitty/nvim (same set as nixos/modules/fonts.nix)
+  # Fonts for ghostty/nvim (same set as nixos/modules/fonts.nix)
   fonts.packages = with pkgs; [
     nerd-fonts.fira-code
     nerd-fonts.symbols-only

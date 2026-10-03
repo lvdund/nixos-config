@@ -184,6 +184,7 @@ window-rule {
 
 window-rule {
     match app-id=r#"^dfr\.floating\.kitty$"#
+    match app-id=r#"^dfr\.floating\.ghostty$"#
     match app-id=r#"^dfr\.floating\.thunar$"#
 
     open-floating true
@@ -232,7 +233,7 @@ window-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    Mod+T hotkey-overlay-title="Open a Terminal: Kitty" { spawn "kitty"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: Ghostty" { spawn "ghostty"; }
     Mod+E hotkey-overlay-title="Open File Explorer: Thunar" { spawn "thunar"; }
     Mod+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox"; }
     Mod+Shift+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox" "--private-window"; }

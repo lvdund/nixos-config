@@ -26,7 +26,7 @@ Multi-host flake managing four machines with shared user configuration:
     `myserver.nix`, `macvd.nix`).
 - **`users/modules/`**: Shared cross-platform Home Manager modules
     (browser, direnv, fish, game, git, niri, nvim, office).
-- **`config/`**: Actual dotfiles (nvim, fish, kitty, niri, waybar, mako…),
+- **`config/`**: Actual dotfiles (nvim, fish, ghostty, niri, waybar, mako…),
     symlinked into place by Home Manager via `repoRoot`.
 - **`notes/`**: Setup notes and plans (e.g. `nix-darwin-setup-plan.md`).
 

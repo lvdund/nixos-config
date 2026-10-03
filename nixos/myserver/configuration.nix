@@ -5,7 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     # Headless-only shared modules (common.nix is NOT imported because it
-    # pulls in GUI bits: xdg portal, fonts, input, kitty/thunar, dconf)
+    # pulls in GUI bits: xdg portal, fonts, input, ghostty/thunar, dconf)
     ../modules/docker.nix
     ../modules/code.nix
     ../modules/fish.nix
@@ -75,9 +75,9 @@
     net-tools
     ffmpeg
     tmux
-    # Terminfo for the kitty terminal, so `tmux` works when SSHing in
-    # from a machine running kitty (TERM=xterm-kitty).
-    kitty.terminfo
+    # Terminfo for the ghostty terminal, so `tmux` works when SSHing in
+    # from a machine running ghostty (TERM=xterm-ghostty).
+    ghostty.terminfo
 
     # tools
     tcpdump

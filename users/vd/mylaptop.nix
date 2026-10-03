@@ -29,7 +29,7 @@
   # Link your custom configs (repoRoot comes from the flake's
   # home-manager.extraSpecialArgs)
   home.file = {
-    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/kitty";
+    ".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/ghostty";
     ".config/niri".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/niri-laptop";
     ".config/waybar".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/waybar-laptop";
   };

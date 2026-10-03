@@ -89,7 +89,7 @@
     lxqt.lximage-qt
     evince
     blueman
-    kitty
+    ghostty
     thunar
     tmux
     ffmpeg

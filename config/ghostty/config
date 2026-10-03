@@ -1,0 +1,72 @@
+# Ghostty config — translated from the old kitty.conf
+# (kitty's "last duplicate map wins" behavior is reflected here:
+# ctrl+shift+up/down ended up as font-size, not scroll)
+
+font-family = FiraCode Nerd Font
+font-size = 15
+
+# Cursor: beam, no blinking (kitty: cursor_shape beam / cursor_blink_interval 0)
+cursor-style = bar
+cursor-style-blink = false
+
+# Scrolling (kitty: wheel_scroll_multiplier 5.0)
+mouse-scroll-multiplier = 2
+
+# Shell integration like kitty's `shell_integration no-cursor`
+shell-integration = detect
+shell-integration-features = no-cursor,no-sudo,title,no-ssh-env,no-ssh-terminfo,path
+
+# Theme 2 from kitty.conf (Catppuccin Mocha accents on black)
+foreground = #CDD6F4
+background = #000000
+selection-foreground = #1E1E2E
+selection-background = #F5E0DC
+cursor-color = #b4befe
+cursor-text = #1E1E2E
+split-divider-color = #b4befe
+
+palette = 0=#000000
+palette = 8=#585B70
+palette = 1=#F38BA8
+palette = 9=#F38BA8
+palette = 2=#A6E3A1
+palette = 10=#A6E3A1
+palette = 3=#F9E2AF
+palette = 11=#F9E2AF
+palette = 4=#89B4FA
+palette = 12=#89B4FA
+palette = 5=#B4BEFE
+palette = 13=#B4BEFE
+palette = 6=#94E2D5
+palette = 14=#94E2D5
+palette = 7=#BAC2DE
+palette = 15=#A6ADC8
+
+# Scrolling
+keybind = ctrl+shift+page_up=scroll_page_up
+keybind = ctrl+shift+page_down=scroll_page_down
+keybind = ctrl+shift+home=scroll_to_top
+keybind = ctrl+shift+end=scroll_to_bottom
+
+# Windows / tabs (cwd is inherited by default: window-inherit-working-directory)
+keybind = ctrl+shift+n=new_window
+keybind = ctrl+shift+t=new_tab
+keybind = ctrl+shift+w=close_tab
+keybind = ctrl+shift+q=close_tab
+
+# Font size (kitty: ctrl+shift+up/down resized the font — duplicate map won)
+keybind = ctrl+shift+arrow_up=increase_font_size:1
+keybind = ctrl+shift+arrow_down=decrease_font_size:1
+keybind = ctrl+shift+backspace=reset_font_size
+
+# Send-text escapes (for nvim et al.)
+# keybind = ctrl+enter=text:\e[13;5u
+# keybind = shift+enter=text:\e\r
+
+# Native splits (kitty: enabled_layouts splits)
+# keybind = ctrl+shift+enter=new_split:right
+# keybind = ctrl+shift+alt+enter=new_split:down
+# keybind = alt+left=goto_split:left
+# keybind = alt+right=goto_split:right
+# keybind = alt+up=goto_split:up
+# keybind = alt+down=goto_split:down
