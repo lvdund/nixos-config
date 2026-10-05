@@ -28,6 +28,7 @@ alias gph='git push'
 alias gpl='git pull'
 alias gco='git checkout'
 alias cls="printf '\033[2J\033[3J\033[1;1H'"
+alias ssh-ghostty='ghostty +ssh --'
 alias ssh-kitty='kitty +kitten ssh'
 alias ssh-vagrant-kitty='env TERM=xterm-256color vagrant ssh'
 alias sudo-wayland='sudo -E WAYLAND_DISPLAY=$WAYLAND_DISPLAY XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR'

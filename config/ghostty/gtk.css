@@ -1,0 +1,60 @@
+/* Compact, kitty-like tab bar for Ghostty (GTK/Linux).
+ *
+ * Ghostty's tab bar is libadwaita's AdwTabBar. CSS node tree:
+ *
+ *   tabbar
+ *   ├── .box          <- the bar itself (holds scrolledwindow + actions)
+ *   │   └── tabbox    <- row of tabs
+ *   │       └── tabboxchild > tab
+ *
+ * Defaults being overridden (libadwaita _tab-view.scss):
+ *   .box    { padding: 1px; box-shadow: inset 0 -1px ...; }
+ *   tabbox  { min-height: 34px; padding-top: 6px; padding-bottom: 6px; }
+ *   tab     { min-height: 26px; padding: 4px; }
+ *
+ * Background matches `background = #000000` in the main config so the
+ * bar blends into the terminal like kitty's.
+ */
+
+tabbar .box {
+  padding: 0;
+  background-color: #000000;
+  box-shadow: none;
+}
+
+tabbar tabbox {
+  min-height: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+tabbar tab {
+  min-height: 20px;
+  padding: 1px 6px;
+  font-size: 12px;
+  color: #CDD6F4;                 /* Catppuccin text */
+  border-radius: 6px;
+}
+
+/* Hovered / active (mouse-down) tab */
+tabbar tab:hover {
+  background-color: #313244;      /* Catppuccin surface1 */
+}
+
+tabbar tab:active {
+  background-color: #45475a;      /* Catppuccin surface2 */
+}
+
+/* Currently selected tab */
+tabbar tab:selected {
+  background-color: #B4BEFE;      /* lavender accent (split-divider-color) */
+  color: #1E1E2E;                 /* dark text on the bright pill */
+}
+
+/* Close button inside each tab */
+tabbar tab button.image-button {
+  min-width: 18px;
+  min-height: 18px;
+  padding: 0;
+  margin: 0;
+}

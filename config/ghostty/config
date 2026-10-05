@@ -48,6 +48,12 @@ keybind = ctrl+shift+page_down=scroll_page_down
 keybind = ctrl+shift+home=scroll_to_top
 keybind = ctrl+shift+end=scroll_to_bottom
 
+# Tab bar: bottom + compact, kitty-style (GTK/Linux only; ignored on macOS)
+gtk-tabs-location = bottom
+gtk-wide-tabs = false
+gtk-toolbar-style = flat
+gtk-custom-css = ?~/.config/ghostty/gtk.css
+
 # Windows / tabs (cwd is inherited by default: window-inherit-working-directory)
 keybind = ctrl+shift+n=new_window
 keybind = ctrl+shift+t=new_tab
@@ -64,8 +70,8 @@ keybind = ctrl+shift+backspace=reset_font_size
 # keybind = shift+enter=text:\e\r
 
 # Native splits (kitty: enabled_layouts splits)
-# keybind = ctrl+shift+enter=new_split:right
-# keybind = ctrl+shift+alt+enter=new_split:down
+keybind = ctrl+shift+enter=new_split:right
+keybind = ctrl+shift+alt+enter=new_split:down
 # keybind = alt+left=goto_split:left
 # keybind = alt+right=goto_split:right
 # keybind = alt+up=goto_split:up

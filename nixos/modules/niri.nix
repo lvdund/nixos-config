@@ -88,7 +88,6 @@
     libnotify
     lxqt.lximage-qt
     evince
-    blueman
     ghostty
     thunar
     tmux
