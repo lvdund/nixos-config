@@ -20,7 +20,7 @@
   home.stateVersion = "26.05";
 
   home.packages = with pkgs; [
-    ghostty
+    kitty
     fzf
     ripgrep
   ];
@@ -28,7 +28,7 @@
   # Link your custom configs — repoRoot is passed by the flake
   # (home-manager.extraSpecialArgs); adjust it there if the repo moves
   home.file = {
-    ".config/ghostty".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/ghostty";
+    ".config/kitty".source = config.lib.file.mkOutOfStoreSymlink "${repoRoot}/config/kitty";
   };
 
   # VS Code — HM writes settings/keybindings/extensions to

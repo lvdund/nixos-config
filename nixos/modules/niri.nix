@@ -88,11 +88,12 @@
     libnotify
     lxqt.lximage-qt
     evince
-    ghostty
+    kitty
     thunar
     tmux
     ffmpeg
     gparted
+    nautilus
 
     adwaita-icon-theme
     xwayland-satellite
