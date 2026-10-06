@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+# compress-helper -- backend for the Nautilus "Scripts" compress wrappers.
+# Usage: compress-helper zip|tar.gz|tar.zst|7z
+#
+# Wrappers live in ~/.local/share/nautilus/scripts/ and call this with the
+# format. Nautilus exports the selection in env vars:
+#   NAUTILUS_SCRIPT_SELECTED_FILE_PATHS  (newline-separated absolute paths)
+# Prompts use zenity; pressing Cancel aborts silently.
+set -euo pipefail
+
+FMT="${1:-zip}"
+
+command -v zenity >/dev/null || exit 1
+
+die() {
+	zenity --error --width 520 --text "$1" 2>/dev/null || true
+	exit 1
+}
+
+SEL="${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS:-}"
+[ -n "$SEL" ] || exit 0
+
+# Names of selected items, relative to their common parent directory.
+srcdir=$(dirname "$(head -n1 <<<"$SEL")")
+names=()
+while IFS= read -r f; do
+	[ -n "$f" ] && names+=("${f#"$srcdir"/}")
+done <<<"$SEL"
+
+trim() { sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<<"$1"; }
+
+# --- ask for options (Cancel on either dialog aborts) ------------------------
+excl=$(zenity --entry --title "Compress ($FMT)" \
+	--text "Exclude patterns (comma-separated globs, empty = none)
+e.g.  *.log, node_modules, .git" 2>/dev/null) || exit 0
+incl=$(zenity --entry --title "Compress ($FMT)" \
+	--text "Include patterns (comma-separated globs, empty = whole selection)
+e.g.  *.txt, docs/*" 2>/dev/null) || exit 0
+
+# --- include filter (resolve globs with find against the selection) ----------
+if [ -n "$(trim "$incl")" ]; then
+	conds=()
+	IFS=',' read -ra pats <<<"$incl"
+	for p in "${pats[@]}"; do
+		p=$(trim "$p") || true
+		[ -n "$p" ] || continue
+		if [[ "$p" == */* ]]; then conds+=(-o -path "$p"); else conds+=(-o -name "$p"); fi
+	done
+	if [ ${#conds[@]} -gt 0 ]; then
+		conds=("${conds[@]:1}") # drop leading -o
+		mapfile -t names < <(cd "$srcdir" && find . -mindepth 1 \( "${conds[@]}" \) | sed 's|^\./||')
+		[ ${#names[@]} -gt 0 ] || die "Include patterns matched nothing."
+	fi
+fi
+
+# --- exclude patterns ---------------------------------------------------------
+xpats=()
+if [ -n "$(trim "$excl")" ]; then
+	IFS=',' read -ra raw <<<"$excl"
+	for p in "${raw[@]}"; do
+		p=$(trim "$p") || true
+		[ -n "$p" ] && xpats+=("$p")
+	done
+fi
+
+# --- output path ---------------------------------------------------------------
+stem=$(basename "${names[0]}")
+stem="${stem%.*}"
+[ -n "$stem" ] || stem=archive
+out="$srcdir/${stem}.$(date +%Y%m%d-%H%M%S).$FMT"
+
+run() (cd "$srcdir" && "$@")
+
+do_compress() {
+	case "$FMT" in
+	zip)
+		# NOTE: -x patterns must come AFTER the input file list
+		local args=(zip -r -q "$out" "${names[@]}")
+		local p
+		for p in "${xpats[@]}"; do
+			args+=(-x "$p" "*/$p" "$p/*" "*/$p/*")
+		done
+		run "${args[@]}"
+		;;
+	tar.gz | tar.zst)
+		local tex=() p
+		for p in "${xpats[@]}"; do
+			tex+=(--exclude="$p")
+		done
+		if [ "$FMT" = "tar.gz" ]; then
+			run tar -czf "$out" "${tex[@]}" "${names[@]}"
+		else
+			run tar --zstd -cf "$out" "${tex[@]}" "${names[@]}"
+		fi
+		;;
+	7z)
+		local args=(7z a "$out") p
+		for p in "${xpats[@]}"; do
+			args+=("-xr!$p") # r = recurse into dirs
+		done
+		args+=(-- "${names[@]}")
+		run "${args[@]}"
+		;;
+	*)
+		die "Unknown format: $FMT"
+		;;
+	esac
+}
+
+if ! log=$(do_compress 2>&1); then
+	die "Compression failed (${log: -3000})"
+fi
+
+command -v notify-send >/dev/null &&
+	notify-send "Compress ($FMT)" "Created: $out" 2>/dev/null || true

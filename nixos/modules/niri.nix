@@ -52,6 +52,7 @@
   services.pulseaudio.enable = false;
 
   services.gvfs.enable = true;
+  services.udisks2.enable = true;
   services.tumbler.enable = true;
 
   services.greetd = {
@@ -67,7 +68,7 @@
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.GTK_THEME = "Adwaita:dark";
+  # environment.sessionVariables.GTK_THEME = "Adwaita:dark"; # should set in home manager
 
   environment.systemPackages = with pkgs; [
     wireshark
@@ -94,6 +95,14 @@
     ffmpeg
     gparted
     nautilus
+
+    # archive CLIs (Nautilus scripts: Compress with exclude/include options)
+    zip
+    unzip
+    p7zip
+    zstd
+    zenity
+    libnotify
 
     adwaita-icon-theme
     xwayland-satellite

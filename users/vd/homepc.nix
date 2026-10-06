@@ -14,6 +14,7 @@
     ../modules/office.nix
     ../modules/git.nix
     ../modules/tmux.nix
+    ../modules/nautilus-scripts.nix
   ];
   home.username = "vd";
   home.homeDirectory = "/home/vd";
