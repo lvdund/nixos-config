@@ -28,6 +28,8 @@ require("nvim-treesitter").install({
   "c",
   "cpp",
   "regex",
+  "html",
+  "latex",
 })
 
 vim.api.nvim_create_autocmd("FileType", {

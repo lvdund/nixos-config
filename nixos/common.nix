@@ -45,6 +45,7 @@
     lksctp-tools
     nmap
     cmake
+    fswatch
 
     # tools
     tcpdump

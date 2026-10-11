@@ -95,6 +95,7 @@
     ffmpeg
     gparted
     nautilus
+    baobab
 
     # archive CLIs (Nautilus scripts: Compress with exclude/include options)
     zip
