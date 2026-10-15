@@ -10,6 +10,7 @@
     nixd
     pyright
     rust-analyzer
+    rustup
   ];
 
   # Per-user GOPATH so every account gets its own under $HOME.

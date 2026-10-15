@@ -9,8 +9,11 @@ end
 if not contains $HOME/.local/bin $PATH
   fish_add_path $HOME/.local/bin
 end
+set -gx RUSTUP_HOME $HOME/.rustup
+set -gx CARGO_HOME $HOME/.cargo
 if not contains $HOME/.cargo/bin $PATH
   fish_add_path $HOME/.cargo/bin
+  fish_add_path $RUSTUP_HOME/toolchains/$RUSTC_VERSION-x86_64-unknown-linux-gnu/bin
 end
 
 set fish_greeting # Disable greeting
