@@ -2,10 +2,10 @@ local function filepath()
 	local fpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.:h")
 
 	if fpath == "" or fpath == "." then
-		return ""
+		return "%<%t"
 	end
 
-	return string.format("%%<%s/", fpath)
+	return string.format("%%<%s/%%t", fpath)
 end
 
 local function git()
@@ -93,23 +93,14 @@ function Statusline.active()
 end
 
 function Statusline.inactive()
-	return " %t"
+	return filepath()
 end
 
-local group = vim.api.nvim_create_augroup("Statusline", { clear = true })
+function Statusline.eval()
+	if vim.g.statusline_winid == vim.api.nvim_get_current_win() then
+		return Statusline.active()
+	end
+	return Statusline.inactive()
+end
 
-vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
-	group = group,
-	desc = "Activate statusline on focus",
-	callback = function()
-		vim.opt_local.statusline = "%!v:lua.Statusline.active()"
-	end,
-})
-
-vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
-	group = group,
-	desc = "Deactivate statusline when unfocused",
-	callback = function()
-		vim.opt_local.statusline = "%!v:lua.Statusline.inactive()"
-	end,
-})
+vim.o.statusline = "%!v:lua.Statusline.eval()"
