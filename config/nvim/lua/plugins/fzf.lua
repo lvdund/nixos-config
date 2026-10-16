@@ -1,72 +1,67 @@
 vim.pack.add({
-  "https://github.com/ibhagwan/fzf-lua",
+	"https://github.com/ibhagwan/fzf-lua",
 })
 
 local actions = require("fzf-lua.actions")
 local fzf = require("fzf-lua")
 
 fzf.setup({
-  lsp = {
-    implementations = {
-      jump_to_single_result = true,
-    },
-    definitions = {
-      jump_to_single_result = true,
-    },
-  },
-  keymap = {
-    builtin = {
-      ["<C-d>"] = "preview-page-down",
-      ["<C-u>"] = "preview-page-up",
-    },
-    fzf = {
-      true,
-      ["ctrl-q"] = "select-all+accept",
-    },
-  },
-  winopts = {
-    height = 0.95,
-    width = 0.90,
-    -- preview = {
-    --   layout = "horizontal",
-    --   horizontal = "right:60%",
-    -- },
-  },
-  actions = {
-    files = {
-      ["default"] = actions.file_edit,
-      ["ctrl-s"] = actions.file_split,
-      ["ctrl-v"] = actions.file_vsplit,
-      ["alt-q"] = actions.file_sel_to_qf,
-    },
-  },
-  files = {
-    formatter = "path.filename_first",
-  },
-  grep = {
-    rg_glob = true,
-    rg_opts =
-    "--sort-files --hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,.venv}/*'",
-    glob_flag = "--iglob",
-    glob_separator = "%s%-%-",
-  },
+	lsp = {
+		jump1 = true,
+		ignore_current_line = true,
+	},
+	keymap = {
+		builtin = {
+			["<C-d>"] = "preview-page-down",
+			["<C-u>"] = "preview-page-up",
+		},
+		fzf = {
+			true,
+			["ctrl-q"] = "select-all+accept",
+		},
+	},
+	winopts = {
+		height = 0.95,
+		width = 0.90,
+		-- preview = {
+		--   layout = "horizontal",
+		--   horizontal = "right:60%",
+		-- },
+	},
+	actions = {
+		files = {
+			["default"] = actions.file_edit,
+			["ctrl-s"] = actions.file_split,
+			["ctrl-v"] = actions.file_vsplit,
+			["alt-q"] = actions.file_sel_to_qf,
+		},
+	},
+	files = {
+		formatter = "path.filename_first",
+	},
+	grep = {
+		rg_glob = true,
+		rg_opts = "--sort-files --hidden --column --line-number --no-heading --color=always --smart-case -g '!{.git,node_modules,.venv}/*'",
+		glob_flag = "--iglob",
+		glob_separator = "%s%-%-",
+	},
 })
 
 fzf.register_ui_select(function(_, items)
-  local min_h, max_h = 0.15, 0.70
-  local h = (#items + 4) / vim.o.lines
-  if h < min_h then
-    h = min_h
-  elseif h > max_h then
-    h = max_h
-  end
-  return { winopts = { height = h, width = 0.60, row = 0.40, preview = { layout = "hidden" } } }
+	local min_h, max_h = 0.15, 0.70
+	local h = (#items + 4) / vim.o.lines
+	if h < min_h then
+		h = min_h
+	elseif h > max_h then
+		h = max_h
+	end
+	return { winopts = { height = h, width = 0.60, row = 0.40, preview = { layout = "hidden" } } }
 end)
 
-vim.keymap.set("n", "sf", "<cmd>FzfLua files<cr>", { desc = "Find files" })
-vim.keymap.set("n", "sg", "<cmd>FzfLua live_grep<cr>", { desc = "Find live grep" })
-vim.keymap.set("n", "ss", "<cmd>FzfLua resume<cr>", { desc = "Resume last picker" })
-vim.keymap.set("n", "sb", "<cmd>FzfLua buffers<cr>", { desc = "Buffers" })
+vim.keymap.set("n", "sf", fzf.files, { desc = "Find files" })
+vim.keymap.set("n", "sg", fzf.live_grep, { desc = "Find live grep" })
+vim.keymap.set("n", "ss", fzf.resume, { desc = "Resume last picker" })
+vim.keymap.set("n", "sb", fzf.buffers, { desc = "Buffers" })
 
 vim.keymap.set("n", "grd", fzf.diagnostics_document, { desc = "Diagnostics Document" })
 vim.keymap.set("n", "grD", fzf.diagnostics_workspace, { desc = "Diagnostics Workspace" })
@@ -75,5 +70,7 @@ vim.keymap.set("n", "gri", fzf.lsp_implementations, { desc = "Implementations" }
 vim.keymap.set("n", "gra", fzf.lsp_code_actions, { desc = "Code actions" })
 vim.keymap.set("n", "gd", fzf.lsp_definitions, { desc = "Definitions" })
 vim.keymap.set("n", "grt", fzf.lsp_typedefs, { desc = "Type definitions" })
-vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "LSP rename" })
 vim.keymap.set("n", "gs", fzf.git_status, { desc = "Git Status" })
+vim.keymap.set("n", "go", fzf.lsp_document_symbols, { desc = "Git Status" })
+
+vim.keymap.set("n", "grn", vim.lsp.buf.rename, { desc = "LSP rename" })
