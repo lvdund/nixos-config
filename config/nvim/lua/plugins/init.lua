@@ -1,5 +1,4 @@
 require("plugins.colorscheme")
-require("plugins.whichkey")
 require("plugins.notify")
 require("plugins.cmp")
 require("plugins.treesitter")

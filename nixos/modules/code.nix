@@ -11,6 +11,7 @@
     pyright
     rust-analyzer
     rustup
+    bash-language-server
   ];
 
   # Per-user GOPATH so every account gets its own under $HOME.

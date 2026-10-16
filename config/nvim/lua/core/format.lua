@@ -4,6 +4,8 @@ local external_formatters = {
 	nix = { "alejandra %" },
 	yaml = { "yamlfmt %" },
 	go = { "goimports -w %", "gofumpt -w %" },
+	bashls = { "shfmt -w %" },
+	json = { "jq -w %" },
 }
 
 local function run_external(cmd)
